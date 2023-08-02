@@ -15,6 +15,9 @@ export default new Vuex.Store({
   getters: {
     getUserData: user =>{
       return state.user;
+    },
+    isEmpty: state => {
+      return Object.values(state.user).every(value => value === "");
     }
   },
   mutations: {
