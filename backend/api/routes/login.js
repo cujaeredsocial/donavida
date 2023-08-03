@@ -6,10 +6,12 @@ const userController = require("../controllers/user");
 
 const router = express.Router();
 
-// router.post('/login', userController.postUser);
+router.post("/createuser", userController.postCreateUser);
+//  router.post('/user', userController.postReedUser);
+router.post("/updateuser", userController.postUpdateUser);
+//  router.post('/allusers', userController.postAllUsers);
+router.post("/donorssusers", userController.postAllDonorsUsers);
+//  router.post('/managersuser', userController.postAllManagersUsers);
+router.post("/deleteuser", userController.postDeleteUser);
 
-// router.post('/login/:id',userController.postUpdate)
-
-// router.post('/login/register', userController.postAddUser);
-
-// module.exports = router;
+module.exports = router;
