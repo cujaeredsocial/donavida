@@ -16,6 +16,9 @@ class Chat {
     get nombreChat() {
         return this._nombreChat
     }
+    toString() {
+        console.log("{\nid:String=" + id + "\nnombreChat:String=" + nombreChat + "]");
+    }
 }
 
 module.exports = Chat;

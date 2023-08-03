@@ -11,6 +11,8 @@ function buscar(ctx, listaU) {
 }
 
 function avisoDeInscripcion(nuevoMiembro, listaU, bot, admin) {
+    console.log("\n\n\n\n\n\n");
+    listaU[0].toString
     for (var i = 0; i < listaU.length; i++) {
         if (listaU[i].chat.nombreChat !== nuevoMiembro) {
             if (listaU[i].admin) {
@@ -50,7 +52,6 @@ function enviarMensaje(ctx, listadoU, bot) {
 function cargar() {
     try {
         const data = fs.readFileSync('Usuarios.json', 'utf8');
-        console.log("Esto es lo que se descarga desde el json: "+JSON.parse(data));
         return JSON.parse(data);
     } catch (err) {
         if (err.code === 'ENOENT') {

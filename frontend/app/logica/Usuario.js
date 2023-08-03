@@ -1,4 +1,4 @@
-const Chat=require('./Chat.js');
+const Chat = require('./Chat.js');
 class Usuario {
     constructor(id, admin, nombreChat, carnet) {
         this._chat = new Chat(id, nombreChat);
@@ -6,7 +6,7 @@ class Usuario {
         this._bloqueado = false;
         this._donador = !admin;
         this._carnet = carnet;
-        this._tipoSanguineo=undefined;
+        this._tipoSanguineo = undefined;
     }
     //############setters###########
     set TipoSangre(tipoSanguineo) {
@@ -29,10 +29,10 @@ class Usuario {
         return _tipoSanguineo;
     }
     get admin() {
-        return admin ;
+        return admin;
     }
     get bloqueado() {
-        return _bloqueado ;
+        return _bloqueado;
     }
     get donador() {
         return _donador;
@@ -41,7 +41,9 @@ class Usuario {
         return _carnet;
     }
 
-    
+    toString() {
+        console.log("{\ntipoSanguineo:String=" + tipoSanguineo + "\nadmin:booleano=" + admin + "\n..." + "\nchat:Chat=" + "{\n" + this._chat.toString + "\n}");
+    }
 
 }
 module.exports = Usuario;
