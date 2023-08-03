@@ -1,4 +1,4 @@
-const Chat=require('./Chat');
+const Chat=require('./Chat.js');
 class Usuario {
     _chat;
     _tipoSanguineo;
