@@ -12,12 +12,12 @@ function buscar(ctx, listaU) {
 
 function avisoDeInscripcion(nuevoMiembro, listaU, bot, admin) {
     for (var i = 0; i < listaU.length; i++) {
-        if (listaU[i].nombreChat !== nuevoMiembro) {
+        if (listaU[i].chat.nombreChat !== nuevoMiembro) {
             if (listaU[i].admin) {
                 if (admin) {
-                    bot.telegram.sendMessage(listaU[i].id, "@" + nuevoMiembro + " se ha unido al bot como Administrador");
+                    bot.telegram.sendMessage(listaU[i].chat.id, "@" + nuevoMiembro + " se ha unido al bot como Administrador");
                 } else {
-                    bot.telegram.sendMessage(listaU[i].id, "@" + nuevoMiembro + " se ha unido al bot como Donador");
+                    bot.telegram.sendMessage(listaU[i].chat.id, "@" + nuevoMiembro + " se ha unido al bot como Donador");
                 }
             }
         }
@@ -26,9 +26,9 @@ function avisoDeInscripcion(nuevoMiembro, listaU, bot, admin) {
 
 function bloquear(nombre, listaU, bot) {
     for (var i = 0; i < listaU.length; i++) {
-        if (nombre === "@" + listaU[i].nombreChat) {
+        if (nombre === "@" + listaU[i].chat.nombreChat) {
             listaU[i].bloqueado = true;
-            bot.telegram.sendMessage(listaU[i].id, "Usted ha sido bloqueado. Contacte a alguno de los administradores para mas informacion");
+            bot.telegram.sendMessage(listaU[i].chat.id, "Usted ha sido bloqueado. Contacte a alguno de los administradores para mas informacion");
             return true;
         }
     }
@@ -39,9 +39,9 @@ function enviarMensaje(ctx, listadoU, bot) {
     var sms = ctx.update.message.text;
     sms = sms.slice(13, sms.length - 1);
     for (var i = 0; i < listadoU.length; i++) {
-        if (!listadoU[i].bloqueado && listadoU[i].id !== ctx.chat.id) {
+        if (!listadoU[i].bloqueado && listadoU[i].chat.id !== ctx.chat.id) {
             if (listadoU[i].donador) {
-                bot.telegram.sendMessage(listadoU[i].id, sms);
+                bot.telegram.sendMessage(listadoU[i].chat.id, sms);
             }
         }
     }
@@ -50,6 +50,7 @@ function enviarMensaje(ctx, listadoU, bot) {
 function cargar() {
     try {
         const data = fs.readFileSync('Usuarios.json', 'utf8');
+        console.log("Esto es lo que se descarga desde el json: "+JSON.parse(data));
         return JSON.parse(data);
     } catch (err) {
         if (err.code === 'ENOENT') {
@@ -66,7 +67,7 @@ function actualizar(listaUsuario) {
 }
 
 function validarCarnet(carnet) {
-    if(carnet===undefined||carnet===null){
+    if (carnet === undefined || carnet === null) {
         return false;
     }
     if (carnet.length !== 11) {
@@ -87,4 +88,4 @@ function validarCarnet(carnet) {
     }
     return true;
 }
-module.exports={buscar,avisoDeInscripcion,bloquear,enviarMensaje,cargar,actualizar,validarCarnet};
+module.exports = { buscar, avisoDeInscripcion, bloquear, enviarMensaje, cargar, actualizar, validarCarnet };
