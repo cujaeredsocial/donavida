@@ -1,15 +1,22 @@
+VERSION 1.1
+Cambios:
+1. Cambios en el endpoint
+2. Explicación de los endpoints nuevos
+3. Nuevo campo de manager en el modelo de usuario
+4. Se quito la pequeña pagina web que hice por ya no estar acorde a lo nuevo
+
+
 # ¿Qué es?
 Un proyecto en node.js que contiene el acceso a una base de datos en MongoDB de usuarios. Incluye los métodos CRUD (Create, Read, Update and Delete) de cada usuario, así como una pequeña página web para que prueben las funciones.
 
 # ¿Qué contiene?
 Un controlador: user.js donde se encuentran los métodos de acceso a la base de datos para cada tipo de función
-Un modelo: user.js, contiene el nombre, contraseña e email
+Un modelo: user.js, contiene el nombre, contraseña, email y si es manager o no (boolean, si es verdadero es gestor, si es falso es donante) 
 Un archivo de rutas: login.js, une cada URL con cada función respectivamente
-4 archivos de página web en views para la vista
 El index.js donde se inicia la App y el servidor con la base de datos que se llama donavidaDB
 
 # ¿Cómo abrirlo?
-Descomprimen el RAR, van al Visual Code, seleccionan File, Open Folder  y seleccionan la carpeta del proyecto.
+Actualizan el proyecto con el que esta en GitHub
 Requisitos previos
 En caso que no lo tenga, deben descargar e instalar:
 NODE.js  https://nodejs.org/es/download
@@ -60,12 +67,37 @@ exports.getUsers = (req, res, next) => {
     .catch(err => console.log(err));
 };
 # EndPoint
-•	getUsers: Devuelve todos los usuarios de la base de datos 
-•	postUser: Recibe un username y un password y devuelve el respectivo usuario, si no existe da error
-•	getUpdate: Recibe un id para buscar un usuario y lo pasa a la página web de edición
-•	postUpdate: Recibe el usuario del método anterior y le modifica cada parámetro para después guardarlo
-•	getRegister: Abre la página de registro de usuario
-•	postAddUser: recibe un username, password y un email, crea una nuevo usuario con ellos y lo guarda en la base de datos
-•	getUserAndDelete: recibe un id de usuario y elimina el id de ese usuario
-
-Si quisieran usar algún función es tan simple como cambiar la URL en la ruta (routes/login.js) y cambiar la URL que devuelve el método en el controlador (controller/user). De todas formas, si no saben cómo hacer algo específico, pregúntenle a ChatGPT, que para entender estas cosas es bastante útil.
+En los endpoints nuevos hay 7 que se explicaran a continuacion, 4 terminados y 3 en desarrollo:
+*Importante todo se devuelve en un archivo JSON
+Metodos POST:
+1. Crear un usuario:
+  - Nombre: postCreateUser
+  - URL: '/createuser'
+  - Recibe: username:String, email:String, password:String, manager:boolean
+  - Devuelve:
+    + Correcto: Mensaje de correcto mas la informacion del usuario recien creado
+    + Incorrecto: Mensaje de error con las caracteristicas de error
+  * Importante al crear un usuario el email es unico, se se repite no lo guarda y devuelve un error de duplicado
+2. Actualizar un usuario:
+  - Nombre: postUpdateUser
+  - URL: '/updateuser'
+  - Recibe: userId: String, username:String, email:String, password:String, manager:boolean
+  - Devuelve:
+    + Correcto: Mensaje de correcto mas la informacion del usuario recien actualizado
+    + Incorrecto: Mensaje de error con las caracteristicas de error
+  * Importante el id del usuario se genera automaticamente cuando se crea y para pedirselo es la variable de tipo_usuario._id.
+3. Buscar todos los donantes:
+  - Nombre: postAllDonorsUsers
+  - URL: '/donorssusers'
+  - Recibe: NADA
+  - Devuelve:
+    + Correcto: Mensaje de correcto mas la informacion de todos los usuarios donantes
+    + Incorrecto: Mensaje de error con las caracteristicas de error
+4. Eliminar un usuario:
+  - Nombre: postDeleteUser
+  - URL: '/deleteuser'
+  - Recibe: userId:String
+  - Devuelve:
+    + Correcto: Mensaje de correcto mas la informacion del recien eliminado
+    + Incorrecto: Mensaje de error con las caracteristicas de error
+  * Importante el id del usuario se genera automaticamente cuando se crea y para pedirselo es la variable de tipo_usuario._id.
