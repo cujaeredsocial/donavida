@@ -46,6 +46,7 @@ const DB_URI = "";
     });
 
     bot.command("registrarse", (ctx) => {
+        ctx.reply("");
         var info = ctx.update.message.text.split(" ")
         if(validarCarnet(info[2])){
         var admin = (info[1] === tokenAdmin) ? true : false;
