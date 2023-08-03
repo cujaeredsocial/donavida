@@ -1,10 +1,10 @@
-VERSION 1.1
+VERSION 1.2
 Cambios:
 1. Cambios en el endpoint
 2. Explicación de los endpoints nuevos
 3. Nuevo campo de manager en el modelo de usuario
 4. Se quito la pequeña pagina web que hice por ya no estar acorde a lo nuevo
-
+5. Agrego de problemas comunes
 
 # ¿Qué es?
 Un proyecto en node.js que contiene el acceso a una base de datos en MongoDB de usuarios. Incluye los métodos CRUD (Create, Read, Update and Delete) de cada usuario, así como una pequeña página web para que prueben las funciones.
@@ -66,6 +66,9 @@ exports.getUsers = (req, res, next) => {
     })
     .catch(err => console.log(err));
 };
+
+# Errores Comunes
+1. A la hora de escribir npm start deben estar en backend/api, o sea cual sea la direccion del package.json del archivo; esto es en la terminal integrada
 # EndPoint
 En los endpoints nuevos hay 7 que se explicaran a continuacion, 4 terminados y 3 en desarrollo:
 *Importante todo se devuelve en un archivo JSON
