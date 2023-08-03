@@ -1,26 +1,95 @@
 const User = require("../models/user");
 
+//Crear un usuario AFRO
+exports.postCreateUser = (req, res) => {
+  console.log(req.body.username);
+  const user = new User({
+    userName: req.body.username,
+    email: req.body.email,
+    password: req.body.password,
+    manager: req.body.manager,
+  });
+  user
+    .save()
+    .then(user => {
+      res.json("User Created" + user);
+    })
+    .catch(err => res.json("Error Creating User" + err));
+};
 
+//Leer un usuario por nombre y contrasenna FABIAN
+exports.postReedUser = (req, res) => {};
+//Actualizar un usuario AFRO
+exports.postUpdateUser = (req, res) => {
+  const id = req.body.userId;
+  let updateUser;
+  User.findById(id)
+    .then(user => {
+      if (user.email !== req.body.email) {
+        updateUser = User.findByIdAndUpdate(id, {
+          userName: req.body.username,
+          password: req.body.password,
+          email: req.body.email,
+          manager: req.body.manager,
+        });
+      } else {
+        updateUser = User.findByIdAndUpdate(id, {
+          userName: req.body.username,
+          password: req.body.password,
+          manager: req.body.manager,
+        });
+      }
+      return updateUser;
+    })
+    .then(user => {
+      res.json("User Update" + user);
+    })
+    .catch(err => {
+      res.json("Error updating user" + err);
+    });
+};
+//Buscar todos los usuarios FABIAN
+exports.postAllUsers = (req, res) => {};
+//Buscar todos los usuarios donantes AFRO
+exports.postAllDonorsUsers = (req, res) => {
+  User.find({ manager: false })
+    .then(users => {
+      res.json(users);
+    })
+    .catch(err => {
+      res.json("Error Finding Doners " + err);
+    });
+};
+//Buscar todos los usuarios gestores FABIAN
+exports.postAllManagersUsers = (req, res) => {};
+//Eliminar un usuario por id AFRO
+exports.postDeleteUser = (req, res) => {
+  const id = req.body.userId;
+  User.findByIdAndDelete(id)
+    .then(user => {
+      if (user) {
+        res.json("User Deleted" + user);
+      } else {
+        throw new Error("User not Found");
+      }
+    })
+    .catch(err => res.json("Can't delete the user" + err));
+};
 
-// exports.postUser = (req, res) => {
-//   const { username, password } = req.body;
-//   User.findOne({ userName: username, password: password })
-//     .then(user => {
-//       if (user) {
-//         res.render("welcome", {
-//           title: "welcome",
-//           user:user,
-//         });
-//       } else {
-//         res.json("User not found");
-//       }
+// exports.getUsers = (req, res, next) => {
+//   User.find()
+//     .then(users => {
+//       res.render("login", {
+//         title: "Login",
+//         users: users,
+//       });
 //     })
-//     .catch(error => {
-//       console.error("Error retrieving user", error);
-//     });
+//     .catch(err => console.log(err));
 // };
+
 // exports.getRegister = (req, res, next) => {
-//   res.render("register", {
+
+//   res.render('register', {
 //     title: "Register",
 //   });
 // };
@@ -40,7 +109,23 @@ const User = require("../models/user");
 //   });
 // };
 
-
+// exports.getUpdate = (req, res, next) => {
+//   const id = req.params.id;
+//   User.findById(id)
+//     .then(user => {
+//       if (user) {
+//         res.render("edit", {
+//           title: "Edit User",
+//           user: user,
+//         });
+//       } else {
+//         res.json("User not found");
+//       }
+//     })
+//     .catch(error => {
+//       console.error("Error retrieving user", error);
+//     });
+// };
 // exports.postUpdate = (req, res, next) => {
 //     User.findByIdAndUpdate(req.body.userId, {userName:req.body.username,email:req.body.email,password:req.body.password})
 //     .then(() => {
@@ -59,5 +144,3 @@ const User = require("../models/user");
 //       console.error('Error deleting user', error);
 //     });
 // };
-
-
