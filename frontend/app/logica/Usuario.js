@@ -1,24 +1,29 @@
+const Chat=require('./Chat');
 class Usuario {
-    tipoSanguineo;
-    id;
-    admin;
-    bloqueado;
-    nombreUsuario;
-    donador;
-    carnet;
-    constructor(id, admin, nombreUsuario, carnet) {
-        this.id = id;
-        this.admin = admin;
-        this.bloqueado = false;
-        this.nombreUsuario = nombreUsuario;
-        this.donador = !admin;
-        this.carnet = carnet;
-
+    _chat;
+    _tipoSanguineo;
+    _id;
+    _admin;
+    _bloqueado;
+    _donador;
+    _carnet;
+    constructor(id, admin, nombreChat, carnet) {
+        this._chat = new Chat(id, nombreChat);
+        this._admin = admin;
+        this._bloqueado = false;
+        this._donador = !admin;
+        this._carnet = carnet;
+        tipoSanguineo=null;
     }
-    setTipoSangre(tipoSanguineo) {
-        this.tipoSanguineo = tipoSanguineo;
+    /**
+     * @param {String} tipoSanguineo
+     */
+    set TipoSangre(tipoSanguineo) {
+        this._tipoSanguineo = tipoSanguineo;
     }
-
+    get TipoSangre() {
+        return _tipoSanguineo;
+    }
 
 }
-module.exports=Usuario;
+module.exports = Usuario;

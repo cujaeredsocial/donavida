@@ -10,6 +10,7 @@ const bot = new Telegraf(process.env.BOT_TOKEN);
 const mensajeAyuda = "comandos:\n/start: Iniciar chat.\n/registrarse: Crear una cuenta en el bot. Luego del comando tiene que poner el token y su carnet dearado por espacios. Ej: /registrarse token 02091212340.\n/listaUsuarios->Admins: Obtener la lista de usuarios inscritos al bot.\n/bloquear->Admins: Bloquear a un usuario.\n/detener: Eliminar tu cuenta de la lista de usuarios.\n/lanzarEvento->Admins: informar de una solicitud de donacion.\n/miFicha: Ver la informacion de tu ficha.\n/serDonador->Los admins: Los admins se no son donadores a menos que asi lo definan con este comando.\n/definirTipoSangre: Registra tu tipo de sangre.";
 var listaUsuarios = [];
 function inicializarBot(){
+  //mwhfwhdjipewhfwelofuiwhfuewfhwofhwebfgwbif
 
   //################ CODIGO ##############//
   if (listaUsuarios.length === 0) {
@@ -96,7 +97,7 @@ function inicializarBot(){
         ctx.reply("No puede usar la aplicacion. Esta bloqueado. Comuniquese con algun Administrador.");
       } else if (listaUsuarios[pos].admin) {
         for (var i = 0; i < listaUsuarios.length; i++) {
-          texto += "@" + listaUsuarios[i].nombreUsuario;
+          texto += "@" + listaUsuarios[i].nombreChat;
           if (listaUsuarios[i].bloqueado) {
             texto += "-bloqueado";
           }

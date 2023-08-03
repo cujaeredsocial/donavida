@@ -12,7 +12,7 @@ function buscar(ctx, listaU) {
 
 function avisoDeInscripcion(nuevoMiembro, listaU, bot, admin) {
     for (var i = 0; i < listaU.length; i++) {
-        if (listaU[i].nombreUsuario !== nuevoMiembro) {
+        if (listaU[i].nombreChat !== nuevoMiembro) {
             if (listaU[i].admin) {
                 if (admin) {
                     bot.telegram.sendMessage(listaU[i].id, "@" + nuevoMiembro + " se ha unido al bot como Administrador");
@@ -26,7 +26,7 @@ function avisoDeInscripcion(nuevoMiembro, listaU, bot, admin) {
 
 function bloquear(nombre, listaU, bot) {
     for (var i = 0; i < listaU.length; i++) {
-        if (nombre === "@" + listaU[i].nombreUsuario) {
+        if (nombre === "@" + listaU[i].nombreChat) {
             listaU[i].bloqueado = true;
             bot.telegram.sendMessage(listaU[i].id, "Usted ha sido bloqueado. Contacte a alguno de los administradores para mas informacion");
             return true;
