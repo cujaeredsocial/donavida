@@ -67,8 +67,7 @@ exports.getUsers = (req, res, next) => {
     .catch(err => console.log(err));
 };
 
-# Errores Comunes
-1. A la hora de escribir npm start deben estar en backend/api, o sea cual sea la direccion del package.json del archivo; esto es en la terminal integrada
+
 # EndPoint
 En los endpoints nuevos hay 7 que se explicaran a continuacion, 4 terminados y 3 en desarrollo:
 *Importante todo se devuelve en un archivo JSON
@@ -104,3 +103,7 @@ Metodos POST:
     + Correcto: Mensaje de correcto mas la informacion del recien eliminado
     + Incorrecto: Mensaje de error con las caracteristicas de error
   * Importante el id del usuario se genera automaticamente cuando se crea y para pedirselo es la variable de tipo_usuario._id.
+
+# Errores Comunes
+1. A la hora de escribir npm start deben estar en backend/api, o sea cual sea la direccion del package.json del archivo; esto es en la terminal integrada
+2. Tengan en cuenta que la URL y el nombre de la funcion son cosas distintas por ejemplo al metodo de crear usuarios postCreateUser, de hacerlo mediante la URL: http://localhost:2000/createuser
