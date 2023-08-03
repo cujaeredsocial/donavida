@@ -38,5 +38,5 @@ app.set("port", 2000);
 
 
 app.listen(2000, () => {
-  console.log("Server on port ");
+  console.log("Server on port 3000");
 });
