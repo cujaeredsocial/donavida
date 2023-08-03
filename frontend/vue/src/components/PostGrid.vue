@@ -5,11 +5,11 @@
                    cycle interval="8000" 
                    show-arrows
                    hide-delimiter-background
-                   
+                   class="elevation-10"
                    >
                       <v-carousel-item 
                       v-for="post in posts.slice()" 
-                      :key="post"
+                      :key="post.id"
                       >
                       <v-container class="fill-height">
                         <v-row> 

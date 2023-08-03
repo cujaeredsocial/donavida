@@ -3,7 +3,11 @@
         <v-container>
             <v-row>
               <v-col cols="12" sm="8">
-                <v-card>
+                <v-img
+                width="100"
+                aspect-ratio="" 
+                src="../assets/GotaSangre.png"></v-img>
+                <v-card class="elevation-10">
                  <v-card-title>
                     Bienvenido al proyecto DonaVida
                  </v-card-title>

@@ -4,7 +4,7 @@
      <v-row align="center" justify="center">
         <v-col cols="12" sm="6">
          <v-card class="elevation-10" color="primary" dark>
-            <v-card-title>Sign up in DonaVida project</v-card-title>
+           <v-card-title>Sign up in DonaVida project</v-card-title>
            <v-card-text>
            <v-form @submit.prevent="submit">
            <v-text-field

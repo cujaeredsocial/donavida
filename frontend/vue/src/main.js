@@ -7,7 +7,7 @@ import VueResource from "vue-resource";
 
 Vue.config.productionTip = false
 Vue.use(VueResource);
-Vue.http.options.root = "Se supone q va tu link afro";
+Vue.http.options.root = "localhost:2000";
 
 new Vue({
   router,
