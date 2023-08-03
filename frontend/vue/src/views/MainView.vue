@@ -4,10 +4,13 @@
             <v-row>
               <v-col cols="12" sm="8">
                 <v-img
-                width="100"
+                width="300"
                 aspect-ratio="" 
-                src="../assets/GotaSangre.png"></v-img>
-                <v-card class="elevation-10">
+                src="../assets/DonaVida-removebg.png"></v-img>
+                <v-card 
+                class="elevation-10"
+                color="rgb(255, 0, 0, 0.2)"
+                >
                  <v-card-title>
                     Bienvenido al proyecto DonaVida
                  </v-card-title>

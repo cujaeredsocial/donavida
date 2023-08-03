@@ -33,6 +33,7 @@
            block 
            class="mt-2" 
            color="button"
+           light
            >Submit</v-btn>
            </v-form>
            <p></p>

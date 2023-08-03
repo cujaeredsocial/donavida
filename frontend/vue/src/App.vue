@@ -6,11 +6,13 @@
       dark
     >
      <v-app-bar-nav-icon></v-app-bar-nav-icon>
-     <v-toolbar-title>
-      <router-link to="/" v-slot="{navigate,href}" style="cursor: pointer" custom>
-        <li v-on:click="navigate">
-          <a :href="href" style="color: white; text-decoration: none;">DonaVida</a>
-        </li>
+     <v-toolbar-title
+     >
+       <router-link to="/" class="logo-link" v-slot="{ navigate, href }" custom>
+        <div v-on:click="navigate">
+          <img class="logo" src="./assets/DonaVida-logo.png" alt="Logo">
+          <a :href="href" style="color:white; text-decoration:none;">DonaVida</a>
+        </div>
       </router-link>
     </v-toolbar-title>
     <v-spacer></v-spacer>
@@ -91,3 +93,13 @@ export default {
   };
 </script>
 
+<style>
+.logo-link {
+  margin-right: 10px;
+}
+
+.logo {
+  width: 50px;
+  height: 50px;
+}
+</style>

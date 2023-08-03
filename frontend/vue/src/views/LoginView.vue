@@ -15,6 +15,9 @@
            <v-text-field
            :rules="[campoNoVacioRule]"
            v-model="user.password"
+           :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+           :type="showPassword ? 'text' : 'password'"
+           @click:append="showPassword = !showPassword"
            label="Password"
           ></v-text-field>
           <v-btn 
@@ -50,6 +53,7 @@ export default {
       },
       errorMessage: "",
       campoNoVacioRule: v => !!v || 'Este campo es obligatorio',
+      showPassword: false,
     };
   },
   methods: {

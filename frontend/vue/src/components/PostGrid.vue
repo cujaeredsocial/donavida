@@ -1,15 +1,18 @@
 <template>
             <v-col cols="12" sm="4">
-                <v-card>
+                <v-card
+                color="rgb(255, 0, 0, 0.2)"
+                >
                    <v-carousel 
                    cycle interval="8000" 
-                   show-arrows
-                   hide-delimiter-background
-                   class="elevation-10"
+                   hide-delimiters
+                   class="elevation-10 "
                    >
+                   <h1>News</h1>
                       <v-carousel-item 
                       v-for="post in posts.slice()" 
                       :key="post.id"
+                      cover
                       >
                       <v-container class="fill-height">
                         <v-row> 
