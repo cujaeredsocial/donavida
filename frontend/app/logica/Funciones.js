@@ -11,8 +11,6 @@ function buscar(ctx, listaU) {
 }
 
 function avisoDeInscripcion(nuevoMiembro, listaU, bot, admin) {
-    console.log("\n\n\n\n\n\n");
-    listaU[0].toString
     for (var i = 0; i < listaU.length; i++) {
         if (listaU[i].chat.nombreChat !== nuevoMiembro) {
             if (listaU[i].admin) {

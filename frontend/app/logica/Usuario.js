@@ -9,6 +9,9 @@ class Usuario {
         this._tipoSanguineo = undefined;
     }
     //############setters###########
+    get chat() {
+        return this.chat;
+    }
     set TipoSangre(tipoSanguineo) {
         this._tipoSanguineo = tipoSanguineo;
     }
