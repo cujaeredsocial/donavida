@@ -4,15 +4,24 @@ const path = require("path");
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const cors = require('cors');
+
 
 //Init
 const app = express();
 app.set("view engine", "ejs");
 app.set("views", "views");
 
-//CSS
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
+
+//Permitir usar el la direccion de Kristian de 8081
+app.use(cors({
+  origin: 'http://localhost:8081',
+  optionsSuccessStatus: 200
+}));
+
 
 //Routes
 app.use(require("./routes/login"));
