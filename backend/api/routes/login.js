@@ -6,18 +6,18 @@ const userController = require('../controllers/user');
 
 const router = express.Router();
 
-router.get('/login',userController.getUsers);
+// router.get('/login',userController.getUsers);
 
-router.post('/login', userController.postUser);
+// router.post('/login', userController.postUser);
 
-router.get('/login/:id',userController.getUpdate)
+// router.get('/login/:id',userController.getUpdate)
 
-router.post('/login/:id',userController.postUpdate)
+// router.post('/login/:id',userController.postUpdate)
 
-router.get('/login/register',userController.getRegister);
+// router.get('/login/register',userController.getRegister);
 
-router.post('/login/register', userController.postAddUser);
+// router.post('/login/register', userController.postAddUser);
 
-router.get('/login/delete/:id',userController.getUserAndDelete);
+// router.get('/login/delete/:id',userController.getUserAndDelete);
 
-module.exports = router;
+// module.exports = router;
