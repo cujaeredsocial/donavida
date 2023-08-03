@@ -61,8 +61,8 @@ export default {
       this.$http.post("", this.user).then(
         (response) => {
           console.log(response);
-          this.$router.push({ name: "Supongo q pagina de inicio" });
-          this.$store.dispatch('setUser',user);
+          this.$router.push({ name: "main" });
+          this.$store.dispatch('setUser',this.user);
         },
         (error) => {
           console.log(error);

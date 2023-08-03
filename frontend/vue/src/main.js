@@ -7,7 +7,7 @@ import VueResource from "vue-resource";
 
 Vue.config.productionTip = false
 Vue.use(VueResource);
-Vue.http.options.root = "localhost:2000";
+Vue.http.options.root = "http://localhost:2000/createUser";
 
 new Vue({
   router,

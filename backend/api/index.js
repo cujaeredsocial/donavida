@@ -18,7 +18,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 //Permitir usar el la direccion de Kristian de 8081
 app.use(cors({
-  origin: 'http://localhost:8081',
+  origin: 'http://localhost:8080',
   optionsSuccessStatus: 200
 }));
 

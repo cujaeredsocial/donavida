@@ -7,11 +7,6 @@
            <v-card-title>Sign up in DonaVida project</v-card-title>
            <v-card-text>
            <v-form @submit.prevent="submit">
-           <v-text-field
-           :rules="[campoNoVacioRule]"
-            v-model="user.nameU"
-            label="Name"
-            ></v-text-field>
             <v-text-field
             :rules="[campoNoVacioRule]"
             v-model="user.username"
@@ -55,8 +50,7 @@ export default {
   data() {
     return {
       user: {
-        nameU: "",
-        username: "",
+        userName: "",
         password: "",
         email: "",
       },
@@ -69,7 +63,7 @@ export default {
       this.$http.post("", user).then(
         (response) => {
           console.log(response);
-          this.$router.push({ name: "login" });
+          this.$router.push({ name: "main" });
           this.$store.dispatch('setUser',this.user);
         },
         (error) => {
@@ -92,7 +86,7 @@ export default {
   },
   computed : {
     todosCamposLlenos() {
-      return this.user.nameU && this.user.username && this.user.email && this.user.password;
+      return this.user.username && this.user.email && this.user.password;
     },
   }
 };
