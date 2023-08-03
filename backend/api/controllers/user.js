@@ -1,15 +1,5 @@
 const User = require("../models/user");
 
-// exports.getUsers = (req, res, next) => {
-//   User.find()
-//     .then(users => {
-//       res.render("login", {
-//         title: "Login",
-//         users: users,
-//       });
-//     })
-//     .catch(err => console.log(err));
-// };
 
 
 // exports.postUser = (req, res) => {
@@ -50,23 +40,7 @@ const User = require("../models/user");
 //   });
 // };
 
-// exports.getUpdate = (req, res, next) => {
-//   const id = req.params.id;
-//   User.findById(id)
-//     .then(user => {
-//       if (user) {
-//         res.render("edit", {
-//           title: "Edit User",
-//           user: user,
-//         });
-//       } else {
-//         res.json("User not found");
-//       }
-//     })
-//     .catch(error => {
-//       console.error("Error retrieving user", error);
-//     });
-// };
+
 // exports.postUpdate = (req, res, next) => {
 //     User.findByIdAndUpdate(req.body.userId, {userName:req.body.username,email:req.body.email,password:req.body.password})
 //     .then(() => {
