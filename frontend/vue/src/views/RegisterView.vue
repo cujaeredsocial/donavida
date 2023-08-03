@@ -4,26 +4,31 @@
      <v-row align="center" justify="center">
         <v-col cols="12" sm="6">
          <v-card class="elevation-10" color="primary" dark>
-            <v-card-title>Sign up in DonaVida project</v-card-title>
+           <v-card-title>Sign up in DonaVida project</v-card-title>
            <v-card-text>
            <v-form @submit.prevent="submit">
            <v-text-field
+           :rules="[campoNoVacioRule]"
             v-model="user.nameU"
             label="Name"
             ></v-text-field>
             <v-text-field
+            :rules="[campoNoVacioRule]"
             v-model="user.username"
             label="Username"
             ></v-text-field>
             <v-text-field
+            :rules="[campoNoVacioRule]"
             v-model="user.email"
             label="Email"
             ></v-text-field>
             <v-text-field
+            :rules="[campoNoVacioRule]"
             v-model="user.password"
             label="Password"
            ></v-text-field>
-           <v-btn 
+           <v-btn
+           :disabled="!todosCamposLlenos" 
            type="submit" 
            block 
            class="mt-2" 
@@ -56,6 +61,7 @@ export default {
         email: "",
       },
       errorMessage: "",
+      campoNoVacioRule: v => !!v || 'Este campo es obligatorio',
     };
   },
   methods: {
@@ -84,6 +90,11 @@ export default {
       }
     },
   },
+  computed : {
+    todosCamposLlenos() {
+      return this.user.nameU && this.user.username && this.user.email && this.user.password;
+    },
+  }
 };
 </script>
 

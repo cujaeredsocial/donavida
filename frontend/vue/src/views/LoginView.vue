@@ -8,14 +8,20 @@
           <v-card-text>
           <v-form @submit.prevent="singIN">
           <v-text-field
+          :rules="[campoNoVacioRule]"
            v-model="user.username"
            label="Username"
            ></v-text-field>
            <v-text-field
+           :rules="[campoNoVacioRule]"
            v-model="user.password"
+           :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+           :type="showPassword ? 'text' : 'password'"
+           @click:append="showPassword = !showPassword"
            label="Password"
           ></v-text-field>
           <v-btn 
+          :disabled="!todosCamposLlenos" 
           type="submit" 
           block 
           class="mt-2" 
@@ -46,6 +52,8 @@ export default {
         password: ""
       },
       errorMessage: "",
+      campoNoVacioRule: v => !!v || 'Este campo es obligatorio',
+      showPassword: false,
     };
   },
   methods: {
@@ -63,5 +71,10 @@ export default {
       );
     },
   },
+  computed : {
+    todosCamposLlenos() {
+      return this.user.username && this.user.password;
+    },
+  }
 };
 </script>
