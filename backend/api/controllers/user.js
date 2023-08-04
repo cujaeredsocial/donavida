@@ -21,7 +21,7 @@ exports.postCreateUser = (req, res) => {
 exports.postReedUser = (req, res) => {
   User.find({name: req.body.name , pasword: req.body.password})
   .then(userReturn =>
-    res.json(userReturn))
+    userReturn === 1 ? res.json(userReturn):res.json("User not exist"))
   .catch(err => 
       res.json(err));
 };
@@ -58,7 +58,7 @@ exports.postUpdateUser = (req, res) => {
 exports.postAllUsers = (req, res) => {
  User.find()
   .then(
-    users => res.json(users)
+    users => user > 0 ? res.json(users):res.json("Not users yet")
   ).catch(err =>
     res.json(err)
   );
@@ -78,7 +78,7 @@ exports.postAllManagersUsers = (req, res) => {
   User.find({manager:true})
   .then(manager =>{ 
    manager.length > 0 ? res.json(manager)
-   :res.json("No manager")})
+   :res.json("No managers yet")})
    .catch(err => 
      res.json(err));
  };
