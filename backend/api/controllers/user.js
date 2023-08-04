@@ -21,7 +21,7 @@ exports.postCreateUser = (req, res) => {
 exports.postReedUser = (req, res) => {
   User.find({name: req.body.name , pasword: req.body.password})
   .then(userReturn =>
-    userReturn === 1 ? res.json(userReturn):res.json("User not exist"))
+    res.json(userReturn))
   .catch(err => 
       res.json(err));
 };
@@ -58,7 +58,7 @@ exports.postUpdateUser = (req, res) => {
 exports.postAllUsers = (req, res) => {
  User.find()
   .then(
-    users => user > 0 ? res.json(users):res.json("Not users yet")
+    users => res.json(users)
   ).catch(err =>
     res.json(err)
   );
@@ -67,7 +67,7 @@ exports.postAllUsers = (req, res) => {
 exports.postAllDonorsUsers = (req, res) => {
   User.find({ manager: false })
     .then(users => {
-      res.json(users);
+      users.length > 0 ? res.json(users) : res.json("Not doners yet");
     })
     .catch(err => {
       res.json("Error Finding Doners " + err);
@@ -78,7 +78,7 @@ exports.postAllManagersUsers = (req, res) => {
   User.find({manager:true})
   .then(manager =>{ 
    manager.length > 0 ? res.json(manager)
-   :res.json("No managers yet")})
+   :res.json("No manager")})
    .catch(err => 
      res.json(err));
  };

@@ -1,10 +1,11 @@
-VERSION 1.2
+VERSION 1.3
 Cambios:
 1. Cambios en el endpoint
 2. Explicación de los endpoints nuevos
 3. Nuevo campo de manager en el modelo de usuario
 4. Se quito la pequeña pagina web que hice por ya no estar acorde a lo nuevo
 5. Agrego de problemas comunes
+6. Agrego y explicacion de como importar la base de datos
 
 # ¿Qué es?
 Un proyecto en node.js que contiene el acceso a una base de datos en MongoDB de usuarios. Incluye los métodos CRUD (Create, Read, Update and Delete) de cada usuario, así como una pequeña página web para que prueben las funciones.
@@ -32,8 +33,8 @@ Una vez instalado, el node.js no necesita configuración, pero el mongoDB si, pa
 
 # ¿Cómo compilarlo?
 Una vez abierto deben ir al archivo index.js, después abren la terminal en View, Terminal.
-Ahí escriben el siguiente comando npm start, abren un navegador cualquiera y escriben localhost:2000.
-En caso que les diga que falta algún modulo aquí les dejo los módulos que deben instalar (para instalar módulos deben estar conectados a internet)
+Ahí escriben el siguiente comando npm start, abren un navegador cualquiera y escriben localhost:27000.
+En caso que les diga que falta algún modulo pueden dar `npm i` para que se instale todo en el package.json. Ademas pueden hacer instalar de forma manual (para instalar módulos deben estar conectados a internet)
 Módulos necesarios
 Una vez abierto deben ir al archivo index.js, después abren la terminal en View, Terminal.
 En la terminal, una vez abierta proceden a instalar los módulos necesarios con los siguientes comandos:
@@ -107,3 +108,28 @@ Metodos POST:
 # Errores Comunes
 1. A la hora de escribir npm start deben estar en backend/api, o sea cual sea la direccion del package.json del archivo; esto es en la terminal integrada
 2. Tengan en cuenta que la URL y el nombre de la funcion son cosas distintas por ejemplo al metodo de crear usuarios postCreateUser, de hacerlo mediante la URL: http://localhost:2000/createuser
+
+# Base de datos de prueba
+ En la siguiente ruta donavida/backend/api/dump_db hay dos archivo:
+ 1. El archivo donavidaDB.json NO es necesario importarlo si ya han usado la base de datos antes, ese archivo es simplemente la configuracion de la conexion, lo que vendria siendo lo mismo que conectarse a mongodb://localhost:27017 en MongoDBCompass o en la extension de MongoDB de Visual Code
+ 
+ 2. El archivo donavidaDB.users.json es el juego de datos para que prueben funciones, para añadirla los siguientes pasos:
+    * Si ya te ha conectado anteriormente 
+    1. Abrir el MongoDBCompass y presionar Connect
+    2. Seleccionar la base de datos donavidaDB.
+    3. Seleccionar la colección users.
+    4. Presionar ADD DATA
+    5. Presionar Import JSON or CSV file
+    6. Buscar el archivo donavidaDB.users.json
+    * Si no te has conectado anteriormente
+    1. Abrir el MongoDBCompass
+    2. Importar el archivo anterior o copiar en la URL "mongodb://localhost:27017".
+    3. Presionar Connect
+    4. Crear la base de datos tocando en el botón + al lado de Databases con el nombre: donavidaDB.
+    5. Seleccionar la base de datos donavidaDB.
+    6. Crear la coleccion tocando en el botón + al lado de donavidaDB con el nombre: users.
+    7. Seleccionar users
+    8. Presionar ADD DATA
+    9. Presionar Import JSON or CSV file
+    10. Buscar el archivo donavidaDB.users.json
+    

@@ -1,4 +1,5 @@
 //Imports
+const config = require('../../config');
 const path = require("path");
 
 const express = require("express");
@@ -9,16 +10,22 @@ const cors = require('cors');
 
 //Init
 const app = express();
-app.set("view engine", "ejs");
-app.set("views", "views");
+// app.set("view engine", "ejs");
+// app.set("views", "views");
 
 
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, "public")));
+//app.use(express.static(path.join(__dirname, "public")));
 
-//Permitir usar el la direccion de Kristian de 8081
+//Permitir usar el la direccion de interfaz de cliente
 app.use(cors({
-  origin: 'http://localhost:8080',
+  origin: config.URLCLIENT,
+  optionsSuccessStatus: 200
+}));
+
+//Permitir usar el la direccion de interfaz del dss
+app.use(cors({
+  origin: config.URLDSS,
   optionsSuccessStatus: 200
 }));
 
@@ -26,19 +33,24 @@ app.use(cors({
 //Routes
 app.use(require("./routes/login"));
 
+// raiz
+app.get('/', (req, res) => {
+  res.json("Api DonaVida");
+})
+
 mongoose
-  .connect("mongodb://127.0.0.1:27017/donavidaDB", {
+  .connect(config.MONGODB, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then(() => console.log("Database connected!!"))
+  .then(() => console.log(`Database connected in ${config.MONGODB}`))
   .catch(err => console.log(err));
 
 //setting of express
-app.set("port", 2000);
+app.set("port", config.PORT);
 
 //Middlewares
 
-app.listen(2000, () => {
-  console.log("Server on port 2000");
+app.listen(config.PORT, config.HOST, () => {
+  console.log(`Server mode ${config.NODE_ENV} in http://${config.HOST}:${config.PORT}`);
 });
