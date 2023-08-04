@@ -32,8 +32,8 @@ Una vez instalado, el node.js no necesita configuración, pero el mongoDB si, pa
 
 # ¿Cómo compilarlo?
 Una vez abierto deben ir al archivo index.js, después abren la terminal en View, Terminal.
-Ahí escriben el siguiente comando npm start, abren un navegador cualquiera y escriben localhost:2000.
-En caso que les diga que falta algún modulo aquí les dejo los módulos que deben instalar (para instalar módulos deben estar conectados a internet)
+Ahí escriben el siguiente comando npm start, abren un navegador cualquiera y escriben localhost:27000.
+En caso que les diga que falta algún modulo pueden dar `npm i` para que se instale todo en el package.json. Ademas pueden hacer instalar de forma manual (para instalar módulos deben estar conectados a internet)
 Módulos necesarios
 Una vez abierto deben ir al archivo index.js, después abren la terminal en View, Terminal.
 En la terminal, una vez abierta proceden a instalar los módulos necesarios con los siguientes comandos:
