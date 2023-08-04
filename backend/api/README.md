@@ -38,13 +38,13 @@ En caso que les diga que falta algún modulo pueden dar `npm i` para que se inst
 Módulos necesarios
 Una vez abierto deben ir al archivo index.js, después abren la terminal en View, Terminal.
 En la terminal, una vez abierta proceden a instalar los módulos necesarios con los siguientes comandos:
-npm install –save node
-npm install –save path
-npm install –save express
-npm install –save nodemon
-npm install –save body-parser
-npm install –save mongodb
-npm install –save mongoose
+npm install –-save node
+npm install –-save path
+npm install –-save express
+npm install -–save nodemon
+npm install –-save body-parser
+npm install –-save mongodb
+npm install –-save mongoose
 *Fíjense que antes de save son dos plecas.
 Una vez hecho todo esto debería funcionar, si no me escriben.
 Lo más importante: Como acceder a la base de datos:
@@ -104,9 +104,36 @@ Metodos POST:
     + Correcto: Mensaje de correcto mas la informacion del recien eliminado
     + Incorrecto: Mensaje de error con las caracteristicas de error
   * Importante el id del usuario se genera automaticamente cuando se crea y para pedirselo es la variable de tipo_usuario._id.
+  5. Leer un usuario por nombre y contrasenna:
+  - Nombre: postReedUser
+  - URL: '/user'
+  - Recibe: username:String, password:String
+  - Devuelve:
+    + Correcto: El usuario si existe o un User not exist si no lo hace
+    + Incorrecto: Mensaje de error con las caracteristicas de error
+  6. Buscar todos los usuarios:
+  - Nombre: postCreateUser
+  - URL: 'allusers'
+  - Recibe: nada
+  - Devuelve:
+    + Correcto: Un arreglo con todos los usuarios
+    + Incorrecto: Mensaje de error con las caracteristicas de error
+  7. Buscar todos los usuarios gestores:
+  - Nombre: postAllManagersUsers
+  - URL: '/managersuser'
+  - Recibe: NADA
+  - Devuelve:
+    + Correcto: Mensaje de correcto mas la informacion de todos los manager donantes
+    + Incorrecto: Mensaje de error con las caracteristicas de error
+# Errores Tratados
+  - 400 : error de inscripcion
+  - 401 : error de filtrado
+  - 402 : error de actualizacion
+  - 403 : error de busqueda
+  - 404 : error de eliminacion
 
 # Errores Comunes
-1. A la hora de escribir npm start deben estar en backend/api, o sea cual sea la direccion del package.json del archivo; esto es en la terminal integrada
+1. A la hora de escribir npm start deben estar en .backend/api, o sea cual sea la direccion del package.json del archivo; esto es en la terminal integrada
 2. Tengan en cuenta que la URL y el nombre de la funcion son cosas distintas por ejemplo al metodo de crear usuarios postCreateUser, de hacerlo mediante la URL: http://localhost:2000/createuser
 
 # Base de datos de prueba
