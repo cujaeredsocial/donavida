@@ -19,11 +19,11 @@ exports.postCreateUser = (req, res) => {
 
 //Leer un usuario por nombre y contrasenna FABIAN
 exports.postReedUser = (req, res) => {
-  User.find({name: req.body.name , pasword: req.body.password})
-  .then(userReturn =>
-    res.json(userReturn))
-  .catch(err => 
-      res.json(err));
+  User.find({ userName: req.body.username, password: req.body.password })
+    .then(userReturn => {
+      userReturn.length===1? res.json(userReturn) : res.json("User not exist");
+    })
+    .catch(err => res.json(err));
 };
 //Actualizar un usuario AFRO
 exports.postUpdateUser = (req, res) => {
@@ -56,18 +56,17 @@ exports.postUpdateUser = (req, res) => {
 };
 //Buscar todos los usuarios FABIAN
 exports.postAllUsers = (req, res) => {
- User.find()
-  .then(
-    users => res.json(users)
-  ).catch(err =>
-    res.json(err)
-  );
+  User.find()
+    .then(users => {
+      users.length > 0 ? res.json(users) : res.json("Not users yet");
+    })
+    .catch(err => res.json(err));
 };
 //Buscar todos los usuarios donantes AFRO
 exports.postAllDonorsUsers = (req, res) => {
   User.find({ manager: false })
     .then(users => {
-      res.json(users);
+      users.length > 0 ? res.json(users) : res.json("Not doners yet");
     })
     .catch(err => {
       res.json("Error Finding Doners " + err);
@@ -75,13 +74,12 @@ exports.postAllDonorsUsers = (req, res) => {
 };
 //Buscar todos los usuarios gestores FABIAN
 exports.postAllManagersUsers = (req, res) => {
-  User.find({manager:true})
-  .then(manager =>{ 
-   manager.length > 0 ? res.json(manager)
-   :res.json("No manager")})
-   .catch(err => 
-     res.json(err));
- };
+  User.find({ manager: true })
+    .then(manager => {
+      manager.length > 0 ? res.json(manager) : res.json("Not managers yet");
+    })
+    .catch(err => res.json(err));
+};
 //Eliminar un usuario por id AFRO
 exports.postDeleteUser = (req, res) => {
   const id = req.body.userId;
