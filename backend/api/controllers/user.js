@@ -20,8 +20,9 @@ exports.postCreateUser = (req, res) => {
 //Leer un usuario por nombre y contrasenna FABIAN
 exports.postReedUser = (req, res) => {
   User.find({name: req.body.name , pasword: req.body.password})
-  .then(userReturn =>
-    res.json(userReturn))
+  .then(userReturn =>{
+    userReturn === 1 ? 
+    res.json(userReturn): res.json('User not exist')})
   .catch(err => 
       res.json(err));
 };
