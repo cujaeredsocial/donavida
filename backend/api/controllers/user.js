@@ -78,7 +78,7 @@ exports.postAllManagersUsers = (req, res) => {
   User.find({manager:true})
   .then(manager =>{ 
    manager.length > 0 ? res.json(manager)
-   :res.json("No manager")})
+   :res.json("No managers yet")})
    .catch(err => 
      res.json(err));
  };
