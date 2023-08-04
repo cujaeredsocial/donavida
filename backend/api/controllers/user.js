@@ -57,8 +57,9 @@ exports.postUpdateUser = (req, res) => {
 //Buscar todos los usuarios FABIAN
 exports.postAllUsers = (req, res) => {
  User.find()
-  .then(
-    users => res.json(users)
+  .then(users =>{
+    users.length > 0 ? res.json(users)
+    :res.json("No users yet")}
   ).catch(err =>
     res.json(err)
   );
