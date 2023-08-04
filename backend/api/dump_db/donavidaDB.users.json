@@ -1,0 +1,260 @@
+[{
+  "_id": {
+    "$oid": "64cc47a59db80d93542ccebe"
+  },
+  "userName": "user1",
+  "email": "test1@gmail.com",
+  "manager": true,
+  "password": "0000",
+  "createdAt": {
+    "$date": "2023-08-04T00:34:45.193Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64cc47a59db80d93542ccebf"
+  },
+  "userName": "user2",
+  "email": "test2@gmail.com",
+  "manager": false,
+  "password": "1111",
+  "createdAt": {
+    "$date": "2023-08-04T00:34:45.197Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64cc47a59db80d93542ccec0"
+  },
+  "userName": "user3",
+  "email": "test3@gmail.com",
+  "manager": true,
+  "password": "2222",
+  "createdAt": {
+    "$date": "2023-08-04T00:34:45.198Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64cc47a59db80d93542ccec1"
+  },
+  "userName": "user4",
+  "email": "test4@gmail.com",
+  "manager": false,
+  "password": "3333",
+  "createdAt": {
+    "$date": "2023-08-04T00:34:45.199Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64cc47a59db80d93542ccec2"
+  },
+  "userName": "user5",
+  "email": "test5@gmail.com",
+  "manager": true,
+  "password": "4444",
+  "createdAt": {
+    "$date": "2023-08-04T00:34:45.199Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64cc47a59db80d93542ccec3"
+  },
+  "userName": "user6",
+  "email": "test6@gmail.com",
+  "manager": false,
+  "password": "5555",
+  "createdAt": {
+    "$date": "2023-08-04T00:34:45.200Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64cc47a59db80d93542ccec4"
+  },
+  "userName": "user7",
+  "email": "test7@gmail.com",
+  "manager": true,
+  "password": "6666",
+  "createdAt": {
+    "$date": "2023-08-04T00:34:45.204Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64cc47a59db80d93542ccec5"
+  },
+  "userName": "user8",
+  "email": "test8@gmail.com",
+  "manager": false,
+  "password": "7777",
+  "createdAt": {
+    "$date": "2023-08-04T00:34:45.204Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64cc47a59db80d93542ccec6"
+  },
+  "userName": "user9",
+  "email": "test9@gmail.com",
+  "manager": true,
+  "password": "8888",
+  "createdAt": {
+    "$date": "2023-08-04T00:34:45.205Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64cc47a59db80d93542ccec7"
+  },
+  "userName": "user10",
+  "email": "test10@gmail.com",
+  "manager": false,
+  "password": "9999",
+  "createdAt": {
+    "$date": "2023-08-04T00:34:45.206Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64cc47a59db80d93542ccec8"
+  },
+  "userName": "user11",
+  "email": "test11@gmail.com",
+  "manager": true,
+  "password": "1010",
+  "createdAt": {
+    "$date": "2023-08-04T00:34:45.206Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64cc47a59db80d93542ccec9"
+  },
+  "userName": "user12",
+  "email": "test12@gmail.com",
+  "manager": false,
+  "password": "1111",
+  "createdAt": {
+    "$date": "2023-08-04T00:34:45.207Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64cc47a59db80d93542cceca"
+  },
+  "userName": "user13",
+  "email": "test13@gmail.com",
+  "manager": true,
+  "password": "1212",
+  "createdAt": {
+    "$date": "2023-08-04T00:34:45.207Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64cc47a59db80d93542ccecb"
+  },
+  "userName": "user14",
+  "email": "test14@gmail.com",
+  "manager": false,
+  "password": "1313",
+  "createdAt": {
+    "$date": "2023-08-04T00:34:45.208Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64cc47a59db80d93542ccecc"
+  },
+  "userName": "user15",
+  "email": "test15@gmail.com",
+  "manager": true,
+  "password": "1414",
+  "createdAt": {
+    "$date": "2023-08-04T00:34:45.208Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64cc47a59db80d93542ccecd"
+  },
+  "userName": "user16",
+  "email": "test16@gmail.com",
+  "manager": false,
+  "password": "1515",
+  "createdAt": {
+    "$date": "2023-08-04T00:34:45.208Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64cc47a59db80d93542ccece"
+  },
+  "userName": "user17",
+  "email": "test17@gmail.com",
+  "manager": true,
+  "password": "1616",
+  "createdAt": {
+    "$date": "2023-08-04T00:34:45.208Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64cc47a59db80d93542ccecf"
+  },
+  "userName": "user18",
+  "email": "test18@gmail.com",
+  "manager": false,
+  "password": "1717",
+  "createdAt": {
+    "$date": "2023-08-04T00:34:45.209Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64cc47a59db80d93542cced0"
+  },
+  "userName": "user19",
+  "email": "test19@gmail.com",
+  "manager": true,
+  "password": "1818",
+  "createdAt": {
+    "$date": "2023-08-04T00:34:45.209Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64cc47a59db80d93542cced1"
+  },
+  "userName": "user20",
+  "email": "test20@gmail.com",
+  "manager": false,
+  "password": "1919",
+  "createdAt": {
+    "$date": "2023-08-04T00:34:45.209Z"
+  },
+  "__v": 0
+}]
