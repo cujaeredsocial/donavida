@@ -8,7 +8,6 @@
                    hide-delimiters
                    class="elevation-10 "
                    >
-                   <h1>News</h1>
                       <v-carousel-item 
                       v-for="post in posts.slice()" 
                       :key="post.id"

@@ -1,8 +1,12 @@
 <template>
   <v-app>
-   <v-container fill-height>
+   <v-container>
     <v-row align="center" justify="center">
        <v-col cols="12" sm="6">
+        <v-img
+                width="300"
+                aspect-ratio="3" 
+                src="../assets/DonaVida-removebg.png"></v-img>
         <v-card class="elevation-10" color="primary" dark>
           <v-card-title>Welcome to DonaVida Project</v-card-title>
           <v-card-text>

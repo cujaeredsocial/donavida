@@ -16,6 +16,17 @@ exports.postCreateUser = (req, res) => {
     })
     .catch(err => res.status(400).json("Error Creating User" + err));
 };
+// exports.postCreateUser = (req, res) => {
+//   console.log(req.body);
+//   const { userName, email, password } = req.body;
+//   if (!userName || !email || !password) {
+//     // return an error if some fields are missing
+//     return res.status(400).send('userName, email and password are required.');
+//   }
+//   const user = new User({ userName, email, password });
+//   console.log(user);
+//   // ...
+// };
 
 //Leer un usuario por nombre y contrasenna FABIAN
 exports.postReedUser = (req, res) => {

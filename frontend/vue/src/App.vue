@@ -1,12 +1,34 @@
 <template>
-  <v-app>
+  <v-app >
+
+    <!-- Side NavBar -->
+    <v-navigation-drawer app temporary fixed v-model="sideNav">
+       <v-app-bar color="red" dark >
+        <v-app-bar-nav-icon @click="sideNav=!sideNav"></v-app-bar-nav-icon>
+        <v-toolbar-title @click="gotoMain" style="cursor: pointer;">DonaVida</v-toolbar-title>
+       </v-app-bar>
+       <v-divider></v-divider>
+
+       <!-- Side NavBar Links -->
+          <v-list>
+            <v-list-item ripple v-for="item in sideNavItems" :key="item.title" :to="item.link">
+                <v-icon>{{item.icon}}</v-icon>
+                {{ item.title }}
+            </v-list-item>
+          </v-list>
+
+    </v-navigation-drawer>
+
+    <!-- Horizontal NavBar -->
     <v-app-bar
+      :elevation="10"
       app
       color="primary"
       dark
     >
-     <v-app-bar-nav-icon></v-app-bar-nav-icon>
+     <v-app-bar-nav-icon @click="sideNav=!sideNav"></v-app-bar-nav-icon>
      <v-toolbar-title
+     class="hidden-xs-only"
      >
        <router-link to="/" class="logo-link" v-slot="{ navigate, href }" custom>
         <div v-on:click="navigate">
@@ -16,45 +38,24 @@
       </router-link>
     </v-toolbar-title>
     <v-spacer></v-spacer>
-    <v-btn 
-    prepend-icon
-    class="primary"
-    v-if="$route.name==='home'" 
-    @click="goToLogin">
-    <v-icon>mdi-pencil</v-icon>
-      Sign in
-    </v-btn>
-    <v-btn 
-    prepend-icon
-    class="primary" 
-    v-else-if="$route.name==='about'" 
-    @click="goToRegister">
-    <v-icon>mdi-lock</v-icon>
-      Sign up
-      </v-btn>
-      <v-btn 
-      prepend-icon
-      class="primary" 
-      
-      v-else-if="$store.getters.isEmpty" 
-      @click="goToLogin">
-      <v-icon>mdi-pencil</v-icon>
-        Sign in
-        </v-btn>
-        <div v-else-if="!$store.getters.isEmpty">
-        <v-btn icon>
-          <v-icon>mdi-account</v-icon>
-        </v-btn>
-        <v-btn icon>
-          <v-icon>mdi-dots-vertical</v-icon>
-        </v-btn>
-        <v-btn icon>
-          <v-icon>mdi-magnify</v-icon>
-        </v-btn>
-        </div>    
+
+    <!-- Horizontal navBar items -->
+     <v-toolbar-items class="hidden-xs-only">
+       <v-btn 
+       color="primary" 
+       v-for="item in horizontalNavItems" :key="item.title" :to="item.link">
+          <v-icon class="hidden-sm-only" left>{{item.icon}}</v-icon>
+            {{item.title}}
+       </v-btn>
+     </v-toolbar-items>
     </v-app-bar>
+    <!-- Current View -->
     <v-main>
-      <router-view/>
+      <v-container class="mt-4">
+        <transition name="fade">
+          <router-view/>
+        </transition>
+      </v-container>
     </v-main>
   </v-app>
 </template>
@@ -64,9 +65,11 @@
 export default {
   name: 'App',
 
-  data: () => ({
-    
-  }),
+  data(){
+    return{
+      sideNav :false
+    };
+  },
   methods: {
     goToRegister() {
       if (this.$route.name !== 'home') {
@@ -76,6 +79,11 @@ export default {
     goToLogin() {
       if (this.$route.name !== 'about') {
         this.$router.push({ name: 'about' });
+      }
+    },
+    gotoMain() {
+      if (this.$route.name !== 'main') {
+        this.$router.push({ name: 'main' });
       }
     },
     getUser(){
@@ -89,6 +97,38 @@ export default {
         return false;
       }
     }
+  },
+  computed :{
+     horizontalNavItems(){
+        if(this.$store.getters.isEmpty){
+      return [
+        {icon:'mdi-lock',title:'Sign In',link:'/about'},
+        {icon:'mdi-pencil',title:'Sign Up',link:'/home'}
+      ]
+        }else{
+          return [
+        {icon:'mdi-account',title:'User',link:''},
+        {icon:'mdi-share-variant',title:'Share',link:''},
+        {icon:'mdi-dots-vertical',title:'More',link:''}
+      ]
+        }
+
+     },
+     sideNavItems(){
+        if(this.$store.getters.isEmpty){
+      return [
+        {icon:'mdi-lock',title:'Sign In',link:'/about'},
+        {icon:'mdi-pencil',title:'Sign Up',link:'/home'}
+      ]
+        }else{
+          return [
+        {icon:'mdi-account',title:'User',link:''},
+        {icon:'mdi-share-variant',title:'Share',link:''},
+        {icon:'mdi-dots-vertical',title:'More',link:''}
+      ]
+        }
+
+     }
   }
   };
 </script>
@@ -101,5 +141,21 @@ export default {
 .logo {
   width: 50px;
   height: 50px;
+}
+
+.fade-enter-active,
+.fade-leave-active{
+      transition-property: all;
+      transition-duration: 0.25s;
+}
+
+.fade-enter-active{
+  transition-delay: 0.25s;
+}
+
+.fade-enter,
+.fade-leave-active{
+  opacity: 0;
+  transform: translateX(-25px);
 }
 </style>
