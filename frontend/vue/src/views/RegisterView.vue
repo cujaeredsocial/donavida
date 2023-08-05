@@ -112,10 +112,4 @@ export default {
 };
 </script>
 
-<style>
-.back {
-  background-image: url('../assets/back.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-}
-</style>
+

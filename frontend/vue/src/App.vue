@@ -105,7 +105,7 @@ export default {
           return [
         {icon:'mdi-account',title:'User',link:'/profile'},
         {icon:'mdi-share-variant',title:'Share',link:''},
-        {icon:'mdi-dots-vertical',title:'More',link:''}
+        {icon:'mdi-folder',title:'Info',link:'/info'}
       ]
         }
 
@@ -123,7 +123,7 @@ export default {
         {icon:'mdi-home',title:'Home',link:'/main'},
         {icon:'mdi-account',title:'User',link:'/profile'},
         {icon:'mdi-share-variant',title:'Share',link:''},
-        {icon:'mdi-dots-vertical',title:'More',link:''},
+        {icon:'mdi-folder',title:'Info',link:'/info'},
       ]
         }
 

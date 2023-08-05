@@ -1,6 +1,6 @@
 <template>
     <v-app>
-        <v-container class="background-container">
+        <v-container class="background-container" >
             <v-row>
               <v-col cols="12" sm="8">
                 <v-img
@@ -9,19 +9,37 @@
                 src="../assets/DonaVida-removebg.png"></v-img>
                 <v-card 
                 class="elevation-10"
-                color="rgb(255, 0, 0, 0.3)"
+                style="background-color:rgb(255, 0, 0, 0.3); color:white"
                 >
                  <v-card-title>
-                    Bienvenido al proyecto DonaVida
+                   <h2> Bienvenido al proyecto DonaVida</h2>
                  </v-card-title>
-                 <v-card-text>
-                    Some information about DonaVida Project
+                 <v-card-text class="white--text">
+                 <h2> <br> •	El objetivo del proyecto es ayudar a quien lo necesita para que pueda seguir viviendo. Esto implica hacer todo lo que esté en nuestras manos para ofrecer apoyo a través de la red, sin prestar atención a políticas o campañas que puedan legitimar la voluntad de ayudarnos entre humanos. Debemos asegurarnos de que la ayuda sea genuina y no esté motivada por intereses políticos o económicos, sino por el deseo de ayudar a quienes lo necesitan.
+                 </h2>
+                 <br>
+                 <v-btn color="bar" dark>
+                  Comienza a donar
+                 </v-btn>
+                 <br>
+                 <br>
+                 <h2>El proyecto DonaVida cuenta con un chat interno para facilitar la comunicación entre los usuarios.</h2>
+                 <br>
+                 <v-btn color="bar" dark>
+                  Comienza a chatear
+                 </v-btn>
                  </v-card-text>
                 </v-card>
               </v-col>
          <PostGrid :posts="posts" />
         </v-row>
         </v-container>
+        <!-- <v-card
+        width="1200"
+        height="800"
+        class="elevation-10"
+        style="background-color:rgb(255, 0, 0, 0.3); color:white"
+        ></v-card> -->
     </v-app>
   </template>
   
@@ -35,16 +53,8 @@
     data() {
       return {
         posts: [
-          { id: 1, title: 'Post 1', content: 'Contenido del Post 1' ,info:'HOLA 1'},
-          { id: 2, title: 'Post 2', content: 'Contenido del Post 2',info:'HOLA 2' },
-          { id: 3, title: 'Post 3', content: 'Contenido del Post 3',info:'HOLA 3' },
-          { id: 4, title: 'Post 4', content: 'Contenido del Post 4',info:'HOLA 4' },
-          { id: 5, title: 'Post 5', content: 'Contenido del Post 5',info:'HOLA 5' },
-          { id: 6, title: 'Post 6', content: 'Contenido del Post 6',info:'HOLA 6' },
-          { id: 7, title: 'Post 7', content: 'Contenido del Post 7' ,info:'HOLA 7'},
-          { id: 8, title: 'Post 8', content: 'Contenido del Post 8' ,info:'HOLA 8'},
-          { id: 9, title: 'Post 9', content: 'Contenido del Post 9' ,info:'HOLA 9'},
-          { id: 10, title: 'Post 10', content: 'Contenido del Post 10',info:'HOLA 10' },
+          { id: 1, title: 'Post 1', image:'' ,info:'HOLA 1'},
+          { id: 2, title: 'Post 2',  image:'',info:'HOLA 2' },
         ]
       }
     }
@@ -53,9 +63,10 @@
   
   <style>
   .background-container {
-    background-image: url('../assets/back.jpg');
+    background-image: url('../assets/fondo3.jpg');
     background-size: cover;
     background-repeat: no-repeat;
+    background-position: center center;
   }
   
 </style>
