@@ -2,13 +2,14 @@
    <v-app>
     <v-container >
      <v-row align="center" justify="center">
-        <v-col cols="12" sm="6">
-          <v-img
-                width="300"
-                aspect-ratio="3" 
-                src="../assets/DonaVida-removebg.png"></v-img>
-         <v-card class="elevation-10" color="primary" dark>
-           <v-card-title>Sign up in DonaVida project</v-card-title>
+         <v-card class="mx-auto my-12" width="400" height="450">
+          <v-col class="mx-auto" cols="12" md="10">
+            <v-img
+          :src="require('../assets/DonaVida-removebg.png')"
+          class="my-3"
+          contain
+          height="90"
+        />
            <v-card-text>
            <v-form @submit.prevent="submit">
             <v-text-field
@@ -17,7 +18,7 @@
             label="Username"
             ></v-text-field>
             <v-text-field
-            :rules="[campoNoVacioRule]"
+            :rules="[emailRules,campoNoVacioRule]"
             v-model="email"
             label="Email"
             ></v-text-field>
@@ -31,19 +32,17 @@
            type="submit" 
            block 
            class="mt-2" 
-           color="button"
-           light
+           color="red"
+           dark
            >Submit</v-btn>
            </v-form>
-           <p></p>
-           {{ errorMessage }}
-           <p></p>
+           <span>¿Ya tienes una cuenta? </span>
+           <router-link to="/about"  style="cursor: pointer">
+             Inicia sesión
+           </router-link>
           </v-card-text>
-         </v-card>
-         <router-link to="/about"  style="cursor: pointer">
-           Si ya te has registrado presiona aquí para iniciar sesión
-          </router-link>
         </v-col>
+         </v-card>
       </v-row>
     </v-container>
    </v-app>
@@ -58,6 +57,10 @@ export default {
         email: '',
       errorMessage: "",
       campoNoVacioRule: v => !!v || 'Este campo es obligatorio',
+      emailRules: [
+          v => !!v || 'No se ha llenado este campo',
+          v => /.+@.+\..+/.test(v) || 'Correo no válido',
+        ],
     };
   },
   methods: {
@@ -80,6 +83,7 @@ export default {
           // Mostrar mensaje de error si la respuesta no es exitosa
           console.log(response.statusText); // Puedes mostrar o utilizar el mensaje de error
           this.errorMessage = "Hubo un problema en el registro";
+          confirm(this.errorMessage);
         }
       })
       .catch(error => {

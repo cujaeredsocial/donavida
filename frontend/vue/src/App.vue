@@ -4,7 +4,7 @@
     <!-- Side NavBar -->
     <v-navigation-drawer app temporary fixed v-model="sideNav">
        <v-app-bar color="red" dark >
-        <v-app-bar-nav-icon @click="sideNav=!sideNav"></v-app-bar-nav-icon>
+        <v-app-bar-nav-icon @click="sideNav=!sideNav" ></v-app-bar-nav-icon>
         <v-toolbar-title @click="gotoMain" style="cursor: pointer;">DonaVida</v-toolbar-title>
        </v-app-bar>
        <v-divider></v-divider>
@@ -21,28 +21,32 @@
 
     <!-- Horizontal NavBar -->
     <v-app-bar
-      :elevation="10"
+      :elevation="5"
       app
-      color="primary"
+      color="bar"
       dark
     >
      <v-app-bar-nav-icon @click="sideNav=!sideNav"></v-app-bar-nav-icon>
      <v-toolbar-title
      class="hidden-xs-only"
      >
-       <router-link to="/" class="logo-link" v-slot="{ navigate, href }" custom>
+       <router-link v-if="this.$store.getters.isEmpty" to="/" v-slot="{ navigate, href }" custom>
         <div v-on:click="navigate">
-          <img class="logo" src="./assets/DonaVida-logo.png" alt="Logo">
-          <a :href="href" style="color:white; text-decoration:none;">DonaVida</a>
+          <a :href="href" style="color:white; text-decoration:none;"><h2>DonaVida</h2></a>
+        </div>
+      </router-link>
+      <router-link v-else to="/main" v-slot="{ navigate, href }" custom>
+        <div v-on:click="navigate">
+          <a :href="href" style="color:white; text-decoration:none;"><h2>DonaVida</h2></a>
         </div>
       </router-link>
     </v-toolbar-title>
     <v-spacer></v-spacer>
 
     <!-- Horizontal navBar items -->
-     <v-toolbar-items class="hidden-xs-only">
+     <v-toolbar-items class="hidden-xs-only" v-if="!(this.$route.name==='welcome')" >
        <v-btn 
-       color="primary" 
+       color="bar"  
        v-for="item in horizontalNavItems" :key="item.title" :to="item.link">
           <v-icon class="hidden-sm-only" left>{{item.icon}}</v-icon>
             {{item.title}}
@@ -89,25 +93,17 @@ export default {
     getUser(){
       return this.$store.getters.getUserData;
     },
-    isEmpty(){
-      const user = this.$store.getters.getUserData;
-      if(user.username==""){
-        return true;
-      }else{
-        return false;
-      }
-    }
   },
   computed :{
      horizontalNavItems(){
         if(this.$store.getters.isEmpty){
       return [
-        {icon:'mdi-lock',title:'Sign In',link:'/about'},
-        {icon:'mdi-pencil',title:'Sign Up',link:'/home'}
+        {icon:'mdi-login-variant',title:'Iniciar sesion',link:'/about'},
+        {icon:'mdi-account-plus-outline',title:'Registrarse',link:'/home'}
       ]
         }else{
           return [
-        {icon:'mdi-account',title:'User',link:''},
+        {icon:'mdi-account',title:'User',link:'/profile'},
         {icon:'mdi-share-variant',title:'Share',link:''},
         {icon:'mdi-dots-vertical',title:'More',link:''}
       ]
@@ -117,14 +113,17 @@ export default {
      sideNavItems(){
         if(this.$store.getters.isEmpty){
       return [
-        {icon:'mdi-lock',title:'Sign In',link:'/about'},
-        {icon:'mdi-pencil',title:'Sign Up',link:'/home'}
+        {icon:'mdi-home',title:'Home',link:'/'},
+        {icon:'mdi-login-variant',title:'Iniciar Sesion',link:'/about'},
+        {icon:'mdi-account-plus-outline',title:'Registrarse',link:'/home'},
+        
       ]
         }else{
           return [
-        {icon:'mdi-account',title:'User',link:''},
+        {icon:'mdi-home',title:'Home',link:'/main'},
+        {icon:'mdi-account',title:'User',link:'/profile'},
         {icon:'mdi-share-variant',title:'Share',link:''},
-        {icon:'mdi-dots-vertical',title:'More',link:''}
+        {icon:'mdi-dots-vertical',title:'More',link:''},
       ]
         }
 

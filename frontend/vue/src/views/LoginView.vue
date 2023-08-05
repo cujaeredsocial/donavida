@@ -2,18 +2,19 @@
   <v-app>
    <v-container>
     <v-row align="center" justify="center">
-       <v-col cols="12" sm="6">
-        <v-img
-                width="300"
-                aspect-ratio="3" 
-                src="../assets/DonaVida-removebg.png"></v-img>
-        <v-card class="elevation-10" color="primary" dark>
-          <v-card-title>Welcome to DonaVida Project</v-card-title>
+        <v-card class="mx-auto my-16" width="400" height="420">
+          <v-col class="mx-auto" cols="12" md="10">
+              <v-img
+          :src="require('../assets/DonaVida-removebg.png')"
+          class="my-3"
+          contain
+          height="90"
+            />
           <v-card-text>
           <v-form @submit.prevent="singIN">
           <v-text-field
           :rules="[campoNoVacioRule]"
-           v-model="user.username"
+           v-model="user.email"
            label="Username"
            ></v-text-field>
            <v-text-field
@@ -29,19 +30,17 @@
           type="submit" 
           block 
           class="mt-2" 
-          color="button"
-          light
+          color="red"
+          dark
           >Submit</v-btn>
           </v-form>
-          <p></p>
-          {{ errorMessage }}
-          <p></p>
+          <span>¿Aun no tienes cuenta?</span>
+          <router-link to="/home"  style="cursor: pointer">
+            Registrate
+          </router-link>
          </v-card-text>
+        </v-col>
         </v-card>
-        <router-link to="/home"  style="cursor: pointer">
-          Si aun no te has registrado presiona aquí
-         </router-link>
-       </v-col>
      </v-row>
    </v-container>
   </v-app>
@@ -52,7 +51,7 @@ export default {
   data() {
     return {
       user: {
-        username: "",
+        email: "",
         password: ""
       },
       errorMessage: "",
@@ -62,7 +61,7 @@ export default {
   },
   methods: {
     singIN() {
-      this.$http.post("", this.user).then(
+      this.$http.post("http://127.0.0.1:27000/login", this.user).then(
         (response) => {
           console.log(response);
           this.$router.push({ name: "main" });
@@ -70,14 +69,15 @@ export default {
         },
         (error) => {
           console.log(error);
-          this.errorMessage = "Hubo un problema";
+          this.errorMessage = "Hubo un problema iniciando sesion revise q los datos sean correctos";
+          confirm(this.errorMessage);
         }
       );
     },
   },
   computed : {
     todosCamposLlenos() {
-      return this.user.username && this.user.password;
+      return this.user.email && this.user.password;
     },
   }
 };
