@@ -45,7 +45,6 @@ function inicializarBot() {
       }
     }
   });
-
   bot.command("registrarse", (ctx) => {
     var info = ctx.update.message.text.split(" ")
     if (info.length < 3) {
@@ -59,10 +58,10 @@ function inicializarBot() {
           ctx.reply("Los tokens son invalidos.");
         } else {
           if (listaUsuarios.length === 0) {
-            listaUsuarios[0] = new Usuario(ctx.chat.id, admin, ctx.message.from.username, info[2]);
+            listaUsuarios[0] = new Usuario(ctx.from.id, admin, ctx.message.from.username, info[2]);
             fun.actualizar(listaUsuarios);
             var resp = admin ? "Administrador" : "Usuarios";
-            ctx.reply("@" + ctx.chat.username + " Usted se ha autenticado como " + resp);
+            ctx.reply("@" + ctx.form.username + " Usted se ha autenticado como " + resp);
             fun.avisoDeInscripcion(ctx.message.from.username, listaUsuarios, bot, admin);
           } else {
             const pos = fun.buscar(ctx, listaUsuarios);
@@ -71,10 +70,10 @@ function inicializarBot() {
                 ctx.reply("No puede usar la aplicacion. Esta bloqueado. Comuniquese con algun Administrador.");
               }
             } else {
-              listaUsuarios.push(new Usuario(ctx.chat.id, admin, ctx.message.from.username, info[2]));
+              listaUsuarios.push(new Usuario(ctx.from.id, admin, ctx.message.from.username, info[2]));
               fun.actualizar(listaUsuarios);
               var resp = admin ? "Administrador" : "Usuarios";
-              ctx.reply("@" + ctx.chat.username + " Usted se ha autenticado como " + resp);
+              ctx.reply("@" + ctx.from.username + " Usted se ha autenticado como " + resp);
               fun.avisoDeInscripcion(ctx.message.from.username, listaUsuarios, bot, admin);
             }
 
@@ -96,7 +95,7 @@ function inicializarBot() {
         ctx.reply("No puede usar la aplicacion. Esta bloqueado. Comuniquese con algun Administrador.");
       } else if (listaUsuarios[pos].admin) {
         for (var i = 0; i < listaUsuarios.length; i++) {
-          texto += "@" + listaUsuarios[i].chat.nombreChat;
+          texto += "@" + listaUsuarios[i].nombreUsuario;
           if (listaUsuarios[i].bloqueado) {
             texto += "-bloqueado";
           }
@@ -118,7 +117,7 @@ function inicializarBot() {
         ctx.reply("No puede usar la aplicacion. Esta bloqueado. Comuniquese con algun Administrador.");
       } else if (listaUsuarios[pos].admin) {
         if (fun.bloquear(ctx.update.message.text.split(" ")[1], listaUsuarios, bot)) {
-          actualizar(listaUsuarios);
+          fun.actualizar(listaUsuarios);
           ctx.reply("Bloqueo exitoso")
         } else {
           ctx.reply("Algo fallo. El usuario no fue encontrado")
@@ -170,7 +169,7 @@ function inicializarBot() {
   bot.command("miFicha", (ctx) => {
     const pos = fun.buscar(ctx, listaUsuarios);
     if (pos !== -1) {
-      ctx.reply(listaUsuarios[pos]);
+      ctx.reply(listaUsuarios[pos].toString());
     } else {
       tx.reply("Por favor introduzca un token antes de interactuar.")
 
@@ -204,9 +203,9 @@ function inicializarBot() {
           listaUsuarios[pos].donador = true;
         }
         const sms = ctx.update.message.text;
-        listaUsuarios[pos].setTipoSangre(sms.slice(14, sms.length));
-        ctx.reply("Tipo de sangre: " + listaUsuarios[pos].tipoSanguineo + "<<guardado>>");
-        actualizar(listaUsuarios);
+        listaUsuarios[pos].setTipoSangre(sms.slice(19, sms.length));
+        ctx.reply("Tipo de sangre: " + listaUsuarios[pos].tipoSanguineo + "\n<<guardado>>");
+        fun.actualizar(listaUsuarios);
       }
 
     } else {
