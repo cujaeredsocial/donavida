@@ -1,7 +1,27 @@
+//import VuexPersist from 'vuex-persist';
 import Vue from 'vue'
 import Vuex from 'vuex'
 
 Vue.use(Vuex)
+
+// const vuexPersist = new VuexPersist({
+//   key: 'my-app',
+//   storage: localStorage,
+//   reducer: (state) => {
+//     // Filtra el estado basado en tu condición
+//     if (state.user.isLoggedIn) {
+//       return {
+//         user: state.user,
+//       };
+//     }
+//     // Restablece el estado a un valor predeterminado si la condición no se cumple
+//     return {
+//       user: {
+//         isLoggedIn: false,
+//       },
+//     };
+//   },
+// });
 
 export default new Vuex.Store({
   state: {

@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuetify from 'vuetify/lib/framework';
-
+import { VMenu } from 'vuetify/lib';
 Vue.use(Vuetify);
 
 
@@ -8,6 +8,7 @@ export default new Vuetify({
     theme: {
         themes: {
           light: {
+            bar:'#fe3b3b',
             primary: '#660000',
             button: '#FF8A80',
             secondary: '#b0bec5',
@@ -16,4 +17,7 @@ export default new Vuetify({
           },
         },
       },
+      components:{
+        VMenu
+      }
 });

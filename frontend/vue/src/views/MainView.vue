@@ -1,9 +1,16 @@
 <template>
     <v-app>
-        <v-container>
+        <v-container class="background-container">
             <v-row>
               <v-col cols="12" sm="8">
-                <v-card>
+                <v-img
+                width="250"
+                aspect-ratio="3" 
+                src="../assets/DonaVida-removebg.png"></v-img>
+                <v-card 
+                class="elevation-10"
+                color="rgb(255, 0, 0, 0.3)"
+                >
                  <v-card-title>
                     Bienvenido al proyecto DonaVida
                  </v-card-title>
@@ -44,3 +51,11 @@
   }
   </script>
   
+  <style>
+  .background-container {
+    background-image: url('../assets/back.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  
+</style>

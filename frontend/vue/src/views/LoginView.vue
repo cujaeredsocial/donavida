@@ -1,21 +1,31 @@
 <template>
   <v-app>
-   <v-container fill-height>
+   <v-container>
     <v-row align="center" justify="center">
        <v-col cols="12" sm="6">
+        <v-img
+                width="300"
+                aspect-ratio="3" 
+                src="../assets/DonaVida-removebg.png"></v-img>
         <v-card class="elevation-10" color="primary" dark>
           <v-card-title>Welcome to DonaVida Project</v-card-title>
           <v-card-text>
           <v-form @submit.prevent="singIN">
           <v-text-field
+          :rules="[campoNoVacioRule]"
            v-model="user.username"
            label="Username"
            ></v-text-field>
            <v-text-field
+           :rules="[campoNoVacioRule]"
            v-model="user.password"
+           :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+           :type="showPassword ? 'text' : 'password'"
+           @click:append="showPassword = !showPassword"
            label="Password"
           ></v-text-field>
           <v-btn 
+          :disabled="!todosCamposLlenos" 
           type="submit" 
           block 
           class="mt-2" 
@@ -46,6 +56,8 @@ export default {
         password: ""
       },
       errorMessage: "",
+      campoNoVacioRule: v => !!v || 'Este campo es obligatorio',
+      showPassword: false,
     };
   },
   methods: {
@@ -53,8 +65,8 @@ export default {
       this.$http.post("", this.user).then(
         (response) => {
           console.log(response);
-          this.$router.push({ name: "Supongo q pagina de inicio" });
-          this.$store.dispatch('setUser',user);
+          this.$router.push({ name: "main" });
+          this.$store.dispatch('setUser',this.user);
         },
         (error) => {
           console.log(error);
@@ -63,5 +75,10 @@ export default {
       );
     },
   },
+  computed : {
+    todosCamposLlenos() {
+      return this.user.username && this.user.password;
+    },
+  }
 };
 </script>

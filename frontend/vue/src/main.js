@@ -5,9 +5,10 @@ import store from './store'
 import vuetify from './plugins/vuetify'
 import VueResource from "vue-resource";
 
+
 Vue.config.productionTip = false
 Vue.use(VueResource);
-Vue.http.options.root = "Se supone q va tu link afro";
+Vue.http.options.root = "http://127.0.0.1:27000/createuser";
 
 new Vue({
   router,
