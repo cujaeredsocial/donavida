@@ -7,8 +7,7 @@ require("dotenv").config();
 exports.postCreateUser = (req, res) => {  
   //Verificar que ningun campo esta vacio
   const { userName, email, password } = req.body;
-  let hash;
-  if (!userName || !email || !password) {
+   if (!userName || !email || !password) {
     throw new Error("need to complete all fields");
   }
   //Verificar que el email no se repita
