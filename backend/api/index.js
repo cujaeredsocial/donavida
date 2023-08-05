@@ -1,14 +1,14 @@
 //Imports
-const config = require('../../config');
-const path = require("path");
-
+const config = require('./config');
+const cookieParser = require('cookie-parser');
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const cors = require('cors');
+require("dotenv").config();
 
 
-//Init
+//Init5
 const app = express();
 // app.set("view engine", "ejs");
 // app.set("views", "views");
@@ -16,6 +16,9 @@ const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 //app.use(express.static(path.join(__dirname, "public")));
+
+app.use(express.json());
+app.use(cookieParser());
 
 //Permitir usar el la direccion de interfaz de cliente
 app.use(cors({
