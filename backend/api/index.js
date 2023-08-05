@@ -34,7 +34,7 @@ app.use(cors({
 
 
 //Routes
-app.use(require("./routes/login"));
+app.use(require("./routes/users"));
 
 // raiz
 app.get('/', (req, res) => {
