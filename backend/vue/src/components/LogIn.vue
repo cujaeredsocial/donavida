@@ -9,6 +9,11 @@
           contain
           height="90"
         />
+        <v-form
+           ref="form"
+           v-model="valid"
+           lazy-validation
+          >
         <!--Usuario---->
         <v-text-field
           v-model="user.username"
@@ -27,15 +32,19 @@
           placeholder="Introduzca su contraseña"
           @click:append="show = !show"
           required
-        ></v-text-field>
+        ></v-text-field>  
+        </v-form>
       </v-col>
       <v-col class="mx-auto" cols="12" md="10">
-        <v-btn class="ma-2 white--text" color="red">
-          <!--Boton Inicio-->
+        <!--Boton Registro-->
+        <v-btn 
+        class="ma-2 white--text" 
+        color="red"
+        @click="validar">
           <v-icon>mdi mdi-login-variant</v-icon>
           <span>Inicia Sesion</span>
         </v-btn>
-      </v-col>
+     </v-col>
       <v-col class="mx-auto" cols="12" md="10">
         <span>¿No tienes una cuenta? </span>
         <router-link to="/register" style="cursor: pointer">
@@ -60,5 +69,11 @@ export default {
       },
     };
   },
+  methods:{
+    //Aqui en lugar del metodo para validar, junto a el deberia ir el metodo para loguearse
+    validar () {
+        this.$refs.form.validate()
+      },
+  }
 };
 </script>

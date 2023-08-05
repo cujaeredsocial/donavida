@@ -1,7 +1,7 @@
-<!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <hello-world />
 </template>
+// eslint-disable-next-line prettier/prettier
 
 <script>
 import HelloWorld from "../components/HelloWorld";
