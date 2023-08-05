@@ -1,8 +1,9 @@
 
 const fs = require('fs');
+const Usuario = require('./Usuario.js');
 function buscar(ctx, listaU) {
     for (var i = 0; i < listaU.length; i++) {
-        if (ctx.chat.id === listaU[i].id) {
+        if (ctx.from.id === listaU[i].id) {
             return i;
         }
     }
@@ -39,7 +40,7 @@ function enviarMensaje(ctx, listadoU, bot) {
     var sms = ctx.update.message.text;
     sms = sms.slice(13, sms.length - 1);
     for (var i = 0; i < listadoU.length; i++) {
-        if (!listadoU[i].bloqueado && listadoU[i].id !== ctx.chat.id) {
+        if (!listadoU[i].bloqueado && listadoU[i].id !== ctx.from.id) {
             if (listadoU[i].donador) {
                 bot.telegram.sendMessage(listadoU[i].id, sms);
             }
@@ -50,7 +51,13 @@ function enviarMensaje(ctx, listadoU, bot) {
 function cargar() {
     try {
         const data = fs.readFileSync('Usuarios.json', 'utf8');
-        return JSON.parse(data);
+        const usuariosData = JSON.parse(data);
+        const usuarios = usuariosData.map(usuarioData => {
+            const usuario = new Usuario();
+            Object.assign(usuario, usuarioData);
+            return usuario;
+        });
+        return usuarios;
     } catch (err) {
         if (err.code === 'ENOENT') {
             return [];
@@ -59,7 +66,6 @@ function cargar() {
         }
     }
 }
-
 function actualizar(listaUsuario) {
     const data = JSON.stringify(listaUsuario);
     fs.writeFileSync('Usuarios.json', data);

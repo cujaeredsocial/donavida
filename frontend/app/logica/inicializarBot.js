@@ -9,7 +9,7 @@ const axios = require('axios');
 const bot = new Telegraf(process.env.BOT_TOKEN);
 const mensajeAyuda = "comandos:\n/start: Iniciar chat.\n/registrarse: Crear una cuenta en el bot. Luego del comando tiene que poner el token y su carnet dearado por espacios. Ej: /registrarse token 02091212340.\n/listaUsuarios->Admins: Obtener la lista de usuarios inscritos al bot.\n/bloquear->Admins: Bloquear a un usuario.\n/detener: Eliminar tu cuenta de la lista de usuarios.\n/lanzarEvento->Admins: informar de una solicitud de donacion.\n/miFicha: Ver la informacion de tu ficha.\n/serDonador->Los admins: Los admins se no son donadores a menos que asi lo definan con este comando.\n/definirTipoSangre: Registra tu tipo de sangre.";
 var listaUsuarios = [];
-function inicializarBot(){
+function inicializarBot() {
 
   //################ CODIGO ##############//
   if (listaUsuarios.length === 0) {
@@ -45,7 +45,6 @@ function inicializarBot(){
       }
     }
   });
-
   bot.command("registrarse", (ctx) => {
     var info = ctx.update.message.text.split(" ")
     if (info.length < 3) {
@@ -59,10 +58,10 @@ function inicializarBot(){
           ctx.reply("Los tokens son invalidos.");
         } else {
           if (listaUsuarios.length === 0) {
-            listaUsuarios[0] = new Usuario(ctx.chat.id, admin, ctx.message.from.username, info[2]);
+            listaUsuarios[0] = new Usuario(ctx.from.id, admin, ctx.message.from.username, info[2]);
             fun.actualizar(listaUsuarios);
             var resp = admin ? "Administrador" : "Usuarios";
-            ctx.reply("@" + ctx.chat.username + " Usted se ha autenticado como " + resp);
+            ctx.reply("@" + ctx.form.username + " Usted se ha autenticado como " + resp);
             fun.avisoDeInscripcion(ctx.message.from.username, listaUsuarios, bot, admin);
           } else {
             const pos = fun.buscar(ctx, listaUsuarios);
@@ -71,10 +70,10 @@ function inicializarBot(){
                 ctx.reply("No puede usar la aplicacion. Esta bloqueado. Comuniquese con algun Administrador.");
               }
             } else {
-              listaUsuarios.push(new Usuario(ctx.chat.id, admin, ctx.message.from.username, info[2]));
+              listaUsuarios.push(new Usuario(ctx.from.id, admin, ctx.message.from.username, info[2]));
               fun.actualizar(listaUsuarios);
               var resp = admin ? "Administrador" : "Usuarios";
-              ctx.reply("@" + ctx.chat.username + " Usted se ha autenticado como " + resp);
+              ctx.reply("@" + ctx.from.username + " Usted se ha autenticado como " + resp);
               fun.avisoDeInscripcion(ctx.message.from.username, listaUsuarios, bot, admin);
             }
 
@@ -118,7 +117,7 @@ function inicializarBot(){
         ctx.reply("No puede usar la aplicacion. Esta bloqueado. Comuniquese con algun Administrador.");
       } else if (listaUsuarios[pos].admin) {
         if (fun.bloquear(ctx.update.message.text.split(" ")[1], listaUsuarios, bot)) {
-          actualizar(listaUsuarios);
+          fun.actualizar(listaUsuarios);
           ctx.reply("Bloqueo exitoso")
         } else {
           ctx.reply("Algo fallo. El usuario no fue encontrado")
@@ -170,7 +169,7 @@ function inicializarBot(){
   bot.command("miFicha", (ctx) => {
     const pos = fun.buscar(ctx, listaUsuarios);
     if (pos !== -1) {
-      ctx.reply(listaUsuarios[pos]);
+      ctx.reply(listaUsuarios[pos].toString());
     } else {
       tx.reply("Por favor introduzca un token antes de interactuar.")
 
@@ -204,9 +203,9 @@ function inicializarBot(){
           listaUsuarios[pos].donador = true;
         }
         const sms = ctx.update.message.text;
-        listaUsuarios[pos].setTipoSangre(sms.slice(14, sms.length));
-        ctx.reply("Tipo de sangre: " + listaUsuarios[pos].tipoSanguineo + "<<guardado>>");
-        actualizar(listaUsuarios);
+        listaUsuarios[pos].setTipoSangre(sms.slice(19, sms.length));
+        ctx.reply("Tipo de sangre: " + listaUsuarios[pos].tipoSanguineo + "\n<<guardado>>");
+        fun.actualizar(listaUsuarios);
       }
 
     } else {
@@ -216,4 +215,4 @@ function inicializarBot(){
 
   bot.launch();
 }
-module.exports={inicializarBot};
+module.exports = { inicializarBot };
