@@ -1,9 +1,20 @@
 
 const fs = require('fs');
 const Usuario = require('./Usuario.js');
+
 function buscar(ctx, listaU) {
     for (var i = 0; i < listaU.length; i++) {
         if (ctx.from.id === listaU[i].id) {
+            return i;
+        }
+    }
+
+    return -1;
+}
+function buscarUsuario(listaUsuarios, usuarioNombre) {
+    console.log(usuarioNombre);
+    for (var i = 0; i < listaUsuarios.length; i++) {
+        if (usuarioNombre === "@" + listaUsuarios[i].nombreUsuario) {
             return i;
         }
     }
@@ -72,7 +83,7 @@ function actualizar(listaUsuario) {
 }
 
 function validarCarnet(carnet) {
-    if(carnet===undefined||carnet===null){
+    if (carnet === undefined || carnet === null) {
         return false;
     }
     if (carnet.length !== 11) {
@@ -93,4 +104,44 @@ function validarCarnet(carnet) {
     }
     return true;
 }
-module.exports={buscar,avisoDeInscripcion,bloquear,enviarMensaje,cargar,actualizar,validarCarnet};
+
+function CompativilidadSnguinea(tipoSangre) {
+    switch (tipoSangre) {
+        case "A+": return ["A+", "AB+"];
+        case "A-": return ["A+", "A-", "AB+", "AB-"];
+        case "B+": return ["B+", "AB+"];
+        case "B-": return ["B+", "B-", "AB+", "AB-"];
+        case "AB+": return ["AB+"];
+        case "AB-": return ["AB-", "AB+"];
+        case "O+": return ["A+", "AB+", "B+", "O+"];
+        case "O-": return ["A+", "A-", "AB+", "AB-", "B-", "B+", "O+"];
+        default: return null;
+    }
+}
+function generarToken() {
+    var caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    var resultado = "";
+    for (var i = 0; i < 10; i++) {
+        resultado += caracteres.charAt(Math.floor(Math.random() * caracteres.length));
+    }
+    return resultado;
+}
+
+function guardarClaves(StringToken, booleaAdmin) {
+    var rutaArchivo = ".mar"
+    const datos = JSON.parse(fs.readFileSync(rutaArchivo));
+    if (booleaAdmin) {
+        datos.claveAdministrador = StringToken;
+    } else {
+        datos.claveUsuario = StringToken;
+    }
+    fs.writeFileSync(rutaArchivo, JSON.stringify(datos));
+}
+
+function leerClaves(admin) {
+    var rutaArchivo = ".mar"
+    const datos = JSON.parse(fs.readFileSync(rutaArchivo));
+    return admin ? datos.claveAdministrador : datos.claveUsuario;
+}
+
+module.exports = { guardarClaves, leerClaves, generarToken, CompativilidadSnguinea, buscar, buscarUsuario, avisoDeInscripcion, bloquear, enviarMensaje, cargar, actualizar, validarCarnet };
