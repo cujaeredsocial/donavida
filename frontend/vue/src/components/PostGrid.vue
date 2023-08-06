@@ -1,5 +1,5 @@
 <template>
-            <v-col cols="12" sm="4">
+            <v-col>
                 <v-card
                 color="rgb(255, 0, 0, 0.2)"
                 >

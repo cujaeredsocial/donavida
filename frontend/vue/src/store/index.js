@@ -43,11 +43,20 @@ export default new Vuex.Store({
   mutations: {
     setUser(state,user){
       state.user= user
+    },
+    deleteUser(state) {
+      state.user.email ="";
+      state.user.nameU =""; 
+      state.user.password =""; 
+      state.user.username =""; 
     }
   },
   actions: {
     setUser({commit},user){
       commit('setUser',user);
+    },
+    deleteUser({ commit }) {
+      commit('deleteUser');
     }
   },
   modules: {
