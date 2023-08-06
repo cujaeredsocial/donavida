@@ -83,10 +83,9 @@ npm install –-save mongoose
 npm install –-save bcryptjs (NUEVO)
 npm install –-save cookie-parser (NUEVO)
 npm install –-save cors (NUEVO)
-npm install –-save dotenv (NUEVO)
 npm install –-save jsonwebtoken (NUEVO)
 
-\*Fíjense que antes de save son dos plecas.
+*Fíjense que antes de save son dos plecas.
 Una vez hecho todo esto debería funcionar, si no me escriben.
 Lo más importante: Como acceder a la base de datos:
 Usar solicitudes de tipo POST o GET (hasta ahora) en dependencia del metodo que quieran, la seccion siguiente les dice la URL que deben mandar en la solicitud para cada metodo
