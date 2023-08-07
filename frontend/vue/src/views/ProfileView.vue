@@ -42,6 +42,8 @@
 
 <script>
 import cuenta from '../components/userComponents/cuenta.vue'
+import Informacion from '../components/userComponents/informacion.vue'
+
 export default{
     data(){
         return {
@@ -52,7 +54,7 @@ export default{
         menuItems(){
            return [
             {icon:'mdi-home',title:'Mi Cuenta',link:'/main',component:cuenta},
-            {icon:'mdi-account',title:'Donaciones',link:'/profile'},
+            {icon:'mdi-account',title:'Preguntas Frecuentes',link:'/profile', component: Informacion},
             {icon:'mdi-share-variant',title:'Informacion',link:''},
             {icon:'mdi-dots-vertical',title:'Contáctanos',link:''},
             ]
