@@ -4,5 +4,7 @@ module.exports = {
     PORT: process.env.PORT || 27000,
     MONGODB: process.env.MONGODB || 'mongodb://127.0.0.1:27017/donavidaDB',
     URLCLIENT: process.env.URLCLIENT || 'http://127.0.0.1:27001',
-    URLDSS: process.env.URLDSS || 'http://127.0.0.1:27002'
+    URLDSS: process.env.URLDSS || 'http://127.0.0.1:27002',
+    GEOPORT: process.env.GEOPORT || '27003',
+    GEOURL: process.env.GEOURL || '127.0.0.1'
   }

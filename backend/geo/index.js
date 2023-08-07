@@ -3,6 +3,7 @@ const engine = require('ejs-mate');
 const path = require('path');
 const socketIO = require('socket.io');
 const http = require('http');
+const config = require('../../config')
 
 //initializations
 const app = express();
@@ -24,6 +25,6 @@ app.use(require('./routes/'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 //starting the server
-server.listen(4000, ()=>{
+server.listen(config.GEOPORT, ()=>{
     console.log('Server on port 4000'); 
 });
