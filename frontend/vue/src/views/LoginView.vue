@@ -1,6 +1,6 @@
 <template>
   <v-app>
-   <v-container>
+   <v-container fluid class="background-container fill-container">
     <v-row align="center" justify="center">
         <v-card class="mx-auto my-16" width="400" height="420">
           <v-col class="mx-auto" cols="12" md="10">
@@ -82,3 +82,17 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.background-container {
+  background-image: url('../assets/back1.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.fill-container {
+  height: 100%;
+  min-height: calc(100vh - 64px); /* Ajusta la altura según tus necesidades */
+}
+</style>

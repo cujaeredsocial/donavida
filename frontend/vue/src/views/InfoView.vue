@@ -1,6 +1,6 @@
 <template>
     <v-app>
-        <v-container>
+        <v-container fluid class="background-container">
             <v-row>
                 <v-col cols="12" sm="8">
                     <v-card 
@@ -75,5 +75,12 @@ export default {
 .my-list {
     list-style-type: disc; /* utilizar "disc" para puntos o "|" para plecas */
     color: white;
+  }
+
+  .background-container {
+    background-image: url('../assets/back1.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
   }
 </style>
