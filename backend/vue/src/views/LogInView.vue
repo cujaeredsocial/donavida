@@ -1,5 +1,7 @@
 <template>
-  <log-in />
+  <v-container class="text-center">
+    <log-in />
+  </v-container>
 </template>
 
 <script>
@@ -13,3 +15,12 @@ export default {
   },
 };
 </script>
+<style>
+.center-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Se ajusta la altura al tamaño de la ventana */
+}
+</style>
+

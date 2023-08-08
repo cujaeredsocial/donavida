@@ -5,12 +5,12 @@ import router from "./router";
 import store from "./store";
 import vuetify from "./plugins/vuetify";
 
-//const config = require('../../config);
+const config = require('../../../config');
 Vue.config.productionTip = false;
 Vue.use(VueResource);
 
 new Vue({
-  //origin: config.URLDSS,
+  origin: config.URLDSS,
   router,
   store,
   vuetify,

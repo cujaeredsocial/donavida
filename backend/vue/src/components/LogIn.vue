@@ -1,6 +1,5 @@
 <template>
-  <v-container class="text-center">
-    <v-card class="mx-auto my-16" width="400" height="420">
+    <v-card class="mx-auto my-12" width="400" height="420">
       <v-col class="mx-auto" cols="12" md="10">
         <!--logo de donavida-->
         <v-img
@@ -52,7 +51,6 @@
         </router-link>
       </v-col>
     </v-card>
-  </v-container>
 </template>
 <script>
 export default {

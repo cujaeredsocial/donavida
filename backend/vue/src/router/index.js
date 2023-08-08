@@ -3,10 +3,16 @@ import VueRouter from "vue-router";
 import LogUp from "../views/LogUpView.vue";
 import HomeView from "../views/HomeView.vue";
 import SolicitudView from "../views/SolicitudView.vue";
+import GestionPrincipal from "../views/GestionPrincipalView.vue"
 
 Vue.use(VueRouter);
 
 const routes = [
+  {
+    path: "/inicio",
+    name: "inicio",
+    component: GestionPrincipal,
+  },
   {
     path: "/register",
     name: "register",
