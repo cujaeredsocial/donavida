@@ -1,5 +1,5 @@
 //Imports
-const config = require('./config');
+const config = require('../../config');
 const cookieParser = require('cookie-parser');
 const express = require("express");
 const bodyParser = require("body-parser");
