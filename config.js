@@ -1,6 +1,6 @@
 module.exports = {
     NODE_ENV: process.env.NODE_ENV || 'development',
-    HOST: process.env.HOST || '190.15.158.240',
+    HOST: process.env.HOST || '127.0.0.1',
     PORT: process.env.PORT || 27000,
     MONGODB: process.env.MONGODB || 'mongodb://127.0.0.1:27017/donavidaDB',
     TOKEN_SECRET: process.env.TOKEN_SECRET || "a2389sbnsyeuwnQsjd5830",
