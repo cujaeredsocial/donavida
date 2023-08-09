@@ -3,7 +3,7 @@
       <v-col class="mx-auto" cols="12" md="10">
         <!--logo de donavida-->
         <v-img
-          :src="require('../assets/DonaVida-removebg.png')"
+          :src="require('../../assets/DonaVida-removebg.png')"
           class="my-3"
           contain
           height="90"

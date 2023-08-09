@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import RolGestor from "../components/RolGestor.vue";
+import RolGestor from "../components/templates/RolGestor.vue";
 
 export default {
   name: "LogInView",
