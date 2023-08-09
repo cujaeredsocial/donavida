@@ -17,6 +17,7 @@
                 <v-form @submit.prevent="submit" v-for="item in form" :key="item.id">
                     <div v-if="item.type==='String'">
                         <v-text-field
+                        :rules="[item.regex]"
                         :label="item.title"
                         ></v-text-field>
                     </div>
@@ -32,6 +33,7 @@
                     </div>
                     <div v-else-if="item.type==='Number'">
                         <v-text-field
+                        :rules="item.regex"
                         type="number"
                         :label="item.title"
                         ></v-text-field>
@@ -63,8 +65,7 @@
        
         return{
             // cambia a true para visualizar el form y hacer pruebas
-            mostrarForm : false,
-
+            mostrarForm : true,
         }
     },
     computed: {
@@ -72,8 +73,8 @@
         // descomentar cuando se habiliten los metodos en la api
         // return this.getFormTemplate(rutaFormulario);
         return [
-        { id: 1, type: "Text", title: "Nombre", value: "" },
-        { id: 2, type: "Number", title: "Edad", value: 0 },
+        { id: 1, type: 'String', title: "Nombre", value: "",regex: v => !!v },
+        { id: 2, type: "Number", title: "Edad", value: 0 ,regex:[value => (value >= 18 && value <= 80) || 'La edad debe estar entre 18 y 80', v => !!v]},
         { id: 3, type: "Text", title: "Nombre", value: "" },
         { id: 4, type: "Text", title: "Nombre", value: "" },
         { id: 5, type: "Boolean", title: "Activo", value: false },
