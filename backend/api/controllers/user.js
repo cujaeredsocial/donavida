@@ -1,7 +1,7 @@
 const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-require("dotenv").config();
+const config = require('../../../config');
 
 //Crear un usuario 
 exports.postCreateUser = (req, res) => {  
@@ -39,8 +39,8 @@ exports.postCreateUser = (req, res) => {
           user.save();
 
           //Creando el token
-          const token = jwt.sign({ id: user._id }, process.env.TOKEN_SECRET, {
-            expiresIn: process.env.JWT_EXPIRE,
+          const token = jwt.sign({ id: user._id }, config.TOKEN_SECRET, {
+            expiresIn: config.JWT_EXPIRE,
           });
           user.token = token;
           res           
@@ -84,8 +84,8 @@ exports.postAuthenticateUser = (req, res, next) => {
       if (!isPasswordMatched) {
         throw Error("Wrong Credentials Password");
       } else {
-        return jwt.sign({ id: userAux._id }, process.env.TOKEN_SECRET, {
-          expiresIn: process.env.JWT_EXPIRE,
+        return jwt.sign({ id: userAux._id }, config.TOKEN_SECRET, {
+          expiresIn: config.JWT_EXPIRE,
         });
       }
     })

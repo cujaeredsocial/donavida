@@ -1,11 +1,11 @@
 //Imports
-const config = require('./config');
+const config = require('../../config');
 const cookieParser = require('cookie-parser');
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const cors = require('cors');
-require("dotenv").config();
+
 
 
 //Init5

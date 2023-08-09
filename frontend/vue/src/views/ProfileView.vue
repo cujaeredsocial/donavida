@@ -1,5 +1,6 @@
 <template>
     <v-app>
+      <v-container fluid class="background-container fill-container">
         <v-row>
           <v-col cols="4">
             <v-card>
@@ -37,11 +38,14 @@
             </v-card>
           </v-col>
         </v-row>
+        </v-container>
       </v-app>
 </template>
 
 <script>
 import cuenta from '../components/userComponents/cuenta.vue'
+import faq from '../components/userComponents/faq.vue'
+
 export default{
     data(){
         return {
@@ -52,7 +56,7 @@ export default{
         menuItems(){
            return [
             {icon:'mdi-home',title:'Mi Cuenta',link:'/main',component:cuenta},
-            {icon:'mdi-account',title:'Donaciones',link:'/profile'},
+            {icon:'mdi-account',title:'Preguntas Frecuentes',link:'/profile', component: faq},
             {icon:'mdi-share-variant',title:'Informacion',link:''},
             {icon:'mdi-dots-vertical',title:'Contáctanos',link:''},
             ]
@@ -65,3 +69,17 @@ export default{
   }
 }
 </script>
+
+<style scoped>
+.background-container {
+  background-image: url('../assets/back1.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.fill-container {
+  height: 100%;
+  min-height: calc(100vh - 64px); /* Ajusta la altura según tus necesidades */
+}
+</style>
