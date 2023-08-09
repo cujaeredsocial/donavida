@@ -51,7 +51,10 @@
       "requireConfigFile": false
     },
     "rules": {
-      "prettier/prettier": "off"
+      "prettier/prettier": "off",
+      "vue/no-multiple-template-root": "off",
+      "vetur.validation.template": 0
+
     }
   },
   "browserslist": [

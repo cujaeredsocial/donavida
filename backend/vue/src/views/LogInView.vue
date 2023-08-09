@@ -1,15 +1,26 @@
 <template>
-  <log-in />
+  <v-container class="text-center">
+    <rol-gestor />
+  </v-container>
 </template>
 
 <script>
-import LogIn from "../components/LogIn.vue";
+import RolGestor from "../components/templates/RolGestor.vue";
 
 export default {
   name: "LogInView",
 
   components: {
-    LogIn,
+    RolGestor,
   },
 };
 </script>
+<style>
+.center-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Se ajusta la altura al tamaño de la ventana */
+}
+</style>
+
