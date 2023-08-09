@@ -15,18 +15,12 @@
           >
         <!--Usuario---->
         <v-text-field
-          v-model="user.username"
-          :rules="rules.name"
           label="Usuario"
           placeholder="Introduzca su Usuario"
           required
         ></v-text-field>
         <!--Contraseña-->
         <v-text-field
-          v-model="user.password"
-          :rules="rules.name"
-          :append-icon="!show ? 'mdi-eye' : 'mdi-eye-off'"
-          :type="show ? 'text' : 'password'"
           label="Contraseña"
           placeholder="Introduzca su contraseña"
           @click:append="show = !show"
@@ -56,22 +50,14 @@
 export default {
   data() {
     return {
-      show: false,
-      valid: false,
-      user: {
+      gestor: {
         username: "",
         password: "",
-      },
-      rules: {
-        name: [(val) => (val || "").length > 0 || "No ha llenado este campo"],
       },
     };
   },
   methods:{
-    //Aqui en lugar del metodo para validar, junto a el deberia ir el metodo para loguearse
-    validar () {
-        this.$refs.form.validate()
-      },
+    
   }
 };
 </script>

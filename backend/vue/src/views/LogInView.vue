@@ -1,17 +1,17 @@
 <template>
   <v-container class="text-center">
-    <log-in />
+    <rol-gestor />
   </v-container>
 </template>
 
 <script>
-import LogIn from "../components/LogIn.vue";
+import RolGestor from "../components/RolGestor.vue";
 
 export default {
   name: "LogInView",
 
   components: {
-    LogIn,
+    RolGestor,
   },
 };
 </script>
