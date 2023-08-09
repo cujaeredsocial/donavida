@@ -8,7 +8,7 @@ import VueResource from "vue-resource";
 
 Vue.config.productionTip = false
 Vue.use(VueResource);
-Vue.http.options.root = "http://127.0.0.1:27000/createuser";
+Vue.http.options.root = "http://190.15.158.240:27000/createuser";
 
 new Vue({
   router,
