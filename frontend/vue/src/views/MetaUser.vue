@@ -14,7 +14,7 @@
             <v-col class="mx-auto" cols="12" md="10">
                 <v-card-title></v-card-title>
                 <v-card-text>
-                <v-form @submit.prevent="submit" v-for="item in form" :key="item.id">
+                <v-form @submit.prevent="submit" v-for="item in metaUser.form" :key="item.id">
                     <div v-if="item.type==='String'">
                         <v-text-field
                         :rules="[item.regex]"
@@ -31,7 +31,7 @@
                         :label="item.title"
                         ></v-checkbox>
                     </div>
-                    <div v-else-if="item.type==='Number'">
+                    <div v-else-if="typeof item.title==='String'">
                         <v-text-field
                         :rules="item.regex"
                         type="number"
@@ -66,10 +66,11 @@
         return{
             // cambia a true para visualizar el form y hacer pruebas
             mostrarForm : true,
+            metaUser: Meta()
         }
     },
     computed: {
-      form() {
+      Meta() {
         // descomentar cuando se habiliten los metodos en la api
         // return this.getFormTemplate(rutaFormulario);
         return [
@@ -95,6 +96,16 @@
             return [];
           });
       },
+      submit(){
+        this.$http.post("", this.metaUser).then(
+        (response) => {
+          console.log(response);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+      }
     }
   };
   </script>
