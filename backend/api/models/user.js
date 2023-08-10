@@ -23,14 +23,13 @@ const userSchema = new mongoose.Schema({
         type:Date,
         default:Date.now()
     },
-
+     //cuando se loguea al principio esta activado
     activate:{
         type:Boolean,
         default:true
-    },//cuando se loguea al rpincipio esta activado
-    token:{
-        type:String
-    }
+    },
+   
+   
 })
 
 

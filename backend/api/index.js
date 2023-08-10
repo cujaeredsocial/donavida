@@ -35,9 +35,9 @@ app.use(cors({
 
 //Routes
 app.use(require("./routes/users"));
-app.use(require("./routes/rol"));
-app.use(require("./routes/meta"));
-app.use(require("./routes/components"));
+app.use('/rol',require("./routes/rol"));
+app.use('/meta',require("./routes/meta"));
+app.use('/component',require("./routes/components"));
 // raiz
 app.get('/', (req, res) => {
   res.json("Api DonaVida");
