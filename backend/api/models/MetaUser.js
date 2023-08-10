@@ -2,19 +2,18 @@
 const{Schema,model} = require('mongoose');
 
 
-
 const esquemaMeta = new Schema({
     fecha:{
         type:String,
         default:Date.now()
     },
-    rol: {
+    user: {
         type: Schema.Types.ObjectId,
-        ref: 'Rol'
+        ref: 'User'
     },
-    components: [{
+    metas: [{
         type: Schema.Types.ObjectId,
-        ref: 'Componente'
+        ref: 'Meta'
       }],
       
 });

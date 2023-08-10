@@ -2,11 +2,12 @@ const{Schema,model} = require('mongoose');
 
 const esquemaComponente = new Schema({
     etiqueta:{//nombre de la etiqueta ex sexo
-        type:String,
+        type:String,       
         required:true
     },
     name:{//nombre del componente
         type:String,
+        unique:true,
         required:true
     },
     type:{//tipo de dato que va a tener el componente
