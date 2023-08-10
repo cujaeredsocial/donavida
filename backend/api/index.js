@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //app.use(express.static(path.join(__dirname, "public")));
 
 app.use(express.json());
-app.use(cookie);
+app.use(cookie());
 
 
 /*//Permitir usar el la direccion de interfaz de cliente
