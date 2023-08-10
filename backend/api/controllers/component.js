@@ -1,6 +1,5 @@
 const Component = require('../models/Component');
 
-//Probar el branch
 exports.post = (req,res) =>{
     const{etiqueta,name,type} = req.body;
     const valor = req.body.value;
