@@ -1,25 +1,65 @@
 {
+  
   "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "body-parser": "^1.20.2",
-    "cookie-parser": "^1.4.6",
-    "cors": "^2.8.5",
-    "dotenv": "^16.3.1",
-    "express": "^4.18.2",
-    "jsonwebtoken": "^9.0.1",
-    "mongoose": "^7.4.1",
-    "nodemon": "^3.0.1",
-    "path": "^0.12.7"
+  
+    
+  "bcryptjs": "^2.4.3",
+  
+    
+  "body-parser": "^1.20.2",
+  
+    
+  "cookie-parser": "^1.4.6",
+  
+    
+  "cors": "^2.8.5",
+  
+    
+  "dotenv": "^16.3.1",
+  
+    
+  "express": "^4.18.2",
+  
+    
+  "jsonwebtoken": "^9.0.1",
+  
+    
+  "mongoose": "^7.4.1",
+  
+    
+  "nodemon": "^3.0.1",
+  
+    
+  "path": "^0.12.7"
+  
   },
-  "name": "donavidaproyect",
+  
+  "name": "donavida",
+  
   "version": "1.0.0",
-  "main": "app.js",
+  
+  "description": "- SO: Ubuntu 20.04.1 LTS\r  - Instalación de MongoDB, para ello hay que actualizar los repositorios de paquetes oficiales de Ubuntu con versión estable de MongoDB primero instalar paquete necesario `sudo apt-get install gnupg` obtener claves `curl -fsSL https://www.mongodb.org/static/pgp/server-6.0.asc | sudo apt-key add -`, actualizar lista de apt `echo \"deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/6.0 multiverse\" | sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list`, mandar a actualizar el sistema operativo `sudo apt update`, instalar el paquete `sudo apt-get install -y mongodb-org`, iniciar los servicios `sudo service mongod start`, revisar si el servicio esta activo `sudo service mongod status`. Si fuera necesario introducir la clave para ubuntu `sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 39bd841e4be5fb195a65400e6a26b1ae64c3c388`. Revisar [How To Install MongoDB on Ubuntu 20.04](https://www.digitalocean.com/community/tutorials/how-to-install-mongodb-on-ubuntu-20-04), [Instalar MongoDB Community Edition en Ubuntu](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/)\r  - También se puede instalar desde el repo que se tiene en ubuntu `sudo apt install -y software-properties-common gnupg apt-transport-https ca-certificates` y `sudo apt install -y mongodb` con ello se instala la version 3.6.8 de mongodb. Revisar [Instalación sin docker en ubuntu 20.04 LTS](https://github.com/opendatacam/opendatacam/issues/250)\r  - Se puede verificar la instalación y el servicio haciendo la siguiente consulta al puerto `sudo ss -pnltu | grep 27017` y a la base de datos `mongo --eval 'db.runCommand({ connectionStatus: 1 })'`. Revisar [Cómo instalar MongoDB en Ubuntu 20.04](https://www.cherryservers.com/blog/how-to-install-and-start-using-mongodb-on-ubuntu-20-04).\r  - Para abrir un puerto se hace así `sudo ufw allow 8000/tcp`\r  - Para insertar un conjunto de datos en mongodb se hace así `mongoimport --db donavidaDB --collection users --file donavidaDB.users.json --jsonArray`\r  - Para abrir seccions se usa `screen` el comando para crear secciones `screen -S xxxxxxxx`, el comando para abrir sección `screen -x xxxxxxxx`, el comando listar secciones`screen -ls`. Para salir y dejarla en pausa se da Ctrl+A y Ctrl+D, para cerrar una seccion se da Ctrl+D o Ctrl+K.\r  - Para instalar node se debe hacer lo siguiente `curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash - &&\\`\r y luego se manda a instalar con `sudo apt-get install -y nodejs` con ello instala node con version 20.x. Luego es necesario actualizar npm para ello se debe hacer de la siguiente manera `npm install -g npm`. Por úlitmo tener presnte que cuando se haga a un proyecto npm install la carpeta node_modules debe tener privilegios de ejecución. [Revisar Documentación](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)",
+  
+  "main": "config.js",
+  
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+  
+    
+  "test": "echo \"Error: no test specified\" && exit 1",
+  
+    
+  "start": "nodemon index.js"
+  
   },
-  "keywords": [],
+  
   "author": "",
+  
   "license": "ISC",
-  "description": ""
+  
+  "devDependencies": {
+  
+    
+  "nodemon": "^3.0.1"
+  
+  }
 }
