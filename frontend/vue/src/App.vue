@@ -162,7 +162,6 @@ export default {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  height: 100vh; /* Ajusta la altura de la imagen de fondo al 100% del viewport */
 }
 
 .badge-container {

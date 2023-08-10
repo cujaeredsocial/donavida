@@ -1,10 +1,9 @@
 <template>
-  <v-container class="text-center">
-    <v-card class="mx-auto my-16" width="400" height="420">
+    <v-card class="mx-auto my-12" width="400" height="420">
       <v-col class="mx-auto" cols="12" md="10">
         <!--logo de donavida-->
         <v-img
-          :src="require('../assets/DonaVida-removebg.png')"
+          :src="require('../../assets/DonaVida-removebg.png')"
           class="my-3"
           contain
           height="90"
@@ -16,18 +15,12 @@
           >
         <!--Usuario---->
         <v-text-field
-          v-model="user.username"
-          :rules="rules.name"
           label="Usuario"
           placeholder="Introduzca su Usuario"
           required
         ></v-text-field>
         <!--Contraseña-->
         <v-text-field
-          v-model="user.password"
-          :rules="rules.name"
-          :append-icon="!show ? 'mdi-eye' : 'mdi-eye-off'"
-          :type="show ? 'text' : 'password'"
           label="Contraseña"
           placeholder="Introduzca su contraseña"
           @click:append="show = !show"
@@ -52,28 +45,19 @@
         </router-link>
       </v-col>
     </v-card>
-  </v-container>
 </template>
 <script>
 export default {
   data() {
     return {
-      show: false,
-      valid: false,
-      user: {
+      gestor: {
         username: "",
         password: "",
-      },
-      rules: {
-        name: [(val) => (val || "").length > 0 || "No ha llenado este campo"],
       },
     };
   },
   methods:{
-    //Aqui en lugar del metodo para validar, junto a el deberia ir el metodo para loguearse
-    validar () {
-        this.$refs.form.validate()
-      },
+    
   }
 };
 </script>
