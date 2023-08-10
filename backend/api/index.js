@@ -56,6 +56,6 @@ app.set("port", config.PORT);
 
 //Middlewares
 
-app.listen(3000/*config.PORT, config.HOST*/, () => {
+app.listen(config.PORT, config.HOST, () => {
   console.log(`Server mode ${config.NODE_ENV} in http://${config.HOST}:${config.PORT}`);
 });
