@@ -20,22 +20,24 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
 
-//Permitir usar el la direccion de interfaz de cliente
+/*//Permitir usar el la direccion de interfaz de cliente
 app.use(cors({
   origin: config.URLCLIENT,
   optionsSuccessStatus: 200
-}));
+}));*/
 
 //Permitir usar el la direccion de interfaz del dss
-app.use(cors({
+/*app.use(cors({
   origin: config.URLDSS,
   optionsSuccessStatus: 200
-}));
+}));*/
 
 
 //Routes
 app.use(require("./routes/users"));
-
+app.use(require("./routes/rol"));
+app.use(require("./routes/meta"));
+app.use(require("./routes/components"));
 // raiz
 app.get('/', (req, res) => {
   res.json("Api DonaVida");
