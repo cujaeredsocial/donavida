@@ -18,13 +18,16 @@
             label="Username"
             ></v-text-field>
             <v-text-field
-            :rules="[emailRules,campoNoVacioRule]"
+            :rules="emailRules"
             v-model="email"
             label="Email"
             ></v-text-field>
             <v-text-field
             :rules="[campoNoVacioRule]"
             v-model="password"
+            :type="showPassword ? 'text' : 'password'"
+            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+           @click:append="showPassword = !showPassword"
             label="Password"
            ></v-text-field>
            <v-btn
@@ -58,9 +61,10 @@ export default {
       errorMessage: "",
       campoNoVacioRule: v => !!v || 'Este campo es obligatorio',
       emailRules: [
-          v => !!v || 'No se ha llenado este campo',
-          v => /.+@.+\..+/.test(v) || 'Correo no válido',
-        ],
+     v => !!v || 'E-mail is required',
+     v => /^(([^<>()[\]\\.,;:\s@']+(\.[^<>()\\[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(v) || 'E-mail must be valid',
+   ],
+        showPassword:false
     };
   },
   methods: {
