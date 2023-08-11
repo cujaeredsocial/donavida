@@ -13,4 +13,11 @@
   "name": "Donante",
   "description": "Esto es inicial para probar",
   "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64d664c1c003e5c58e8e981b"
+  },
+  "name": "Solicitante",
+  "description": "Era una persona especial"
 }]
