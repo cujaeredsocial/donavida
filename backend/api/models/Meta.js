@@ -1,5 +1,7 @@
 //Son los templates o plantillas a rellenar para los distintos roles
 const{Schema,model} = require('mongoose');
+const { esquemaComponente } = require('./Component');
+const component = require('./Component').esquemaComponente;
 
 
 
@@ -12,10 +14,7 @@ const esquemaMeta = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Rol'
     },
-    components: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Componente'
-      }],
+    components: [esquemaComponente],
       model: { 
         type: Boolean,
         require:true,
