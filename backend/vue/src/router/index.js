@@ -2,9 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import SolicitudView from "../views/SolicitudView.vue";
-import GestionPrincipal from "../views/GestionPrincipalView.vue";
-// eslint-disable-next-line no-unused-vars
-import CrearReporte from "../components/CrearReporte.vue";
+import GestionPrincipal from "../views/GestionPrincipalView.vue"
 
 Vue.use(VueRouter);
 

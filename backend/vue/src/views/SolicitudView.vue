@@ -16,7 +16,6 @@
           </v-list>
         </v-card>
       </div>
-
     </v-row>
   </div>
 </template>

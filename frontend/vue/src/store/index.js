@@ -26,10 +26,10 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     user: {
-      username: "",
-      password: "",
-      nameU: "",
-      email: "",
+      username: localStorage.getItem("username"),
+      password: localStorage.getItem("password"),
+      nameU: localStorage.getItem("username"),
+      email: localStorage.getItem("email"),
     }
   },
   getters: {
@@ -37,7 +37,7 @@ export default new Vuex.Store({
       return state.user;
     },
     isEmpty: state => {
-      return Object.values(state.user).every(value => value === "");
+      return Object.values(state.user).every(value => value === null);
     }
   },
   mutations: {
@@ -45,10 +45,10 @@ export default new Vuex.Store({
       state.user= user
     },
     deleteUser(state) {
-      state.user.email ="";
-      state.user.nameU =""; 
-      state.user.password =""; 
-      state.user.username =""; 
+      state.user.email =null;
+      state.user.nameU =null; 
+      state.user.password =null; 
+      state.user.username =null; 
     }
   },
   actions: {

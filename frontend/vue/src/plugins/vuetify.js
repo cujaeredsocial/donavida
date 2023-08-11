@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuetify from 'vuetify/lib/framework';
+import 'vuetify/dist/vuetify.min.css';
 import { VMenu } from 'vuetify/lib';
 Vue.use(Vuetify);
 
