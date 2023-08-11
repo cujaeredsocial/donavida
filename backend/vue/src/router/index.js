@@ -2,7 +2,9 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import SolicitudView from "../views/SolicitudView.vue";
-import GestionPrincipal from "../views/GestionPrincipalView.vue"
+import GestionPrincipal from "../views/GestionPrincipalView.vue";
+// eslint-disable-next-line no-unused-vars
+import CrearReporte from "../components/CrearReporte.vue";
 
 Vue.use(VueRouter);
 
@@ -26,6 +28,11 @@ const routes = [
     path: "/solicitud",
     name: "solicitud",
     component: SolicitudView,
+  },
+  {
+    path: "/crearReporte",
+    name: "creaReporte",
+    component: () => import("../components/CrearReporte.vue"),
   },
 ];
 
