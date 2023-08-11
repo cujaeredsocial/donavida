@@ -53,12 +53,12 @@ exports.postCreateUser = (req, res) => {
 exports.postAuthenticateUser = (req, res, next) => {
   let userAux;
   //Comprobar que los campos no esten vacios
-  const { userName, password } = req.body;
-  if (!userName || !password) {
-    throw Error("userName and Password are required");
+  const { email, password } = req.body;
+  if (!email || !password) {
+    throw Error("Email and Password are required");
   }
   //Encontrar el usuario
-  User.findOne({ userName: userName })
+  User.findOne({ userName:userName })
     .then(user => {
       if (!user) {
         throw Error("Wrong Credentials");
@@ -69,7 +69,7 @@ exports.postAuthenticateUser = (req, res, next) => {
     })
     .then(user => {
       userAux = user;
-      return bcrypt.compare(password, user.password);
+       return bcrypt.compare(password, user.password);
     })
     .then(isPasswordMatched => {
       console.log(isPasswordMatched);
