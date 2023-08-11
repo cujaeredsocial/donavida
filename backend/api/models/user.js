@@ -5,7 +5,6 @@ const userSchema = new mongoose.Schema({
     userName: {
         type:String,
         required:true,
-        unique:true,
         minLength:[4,'Name should be minimum of 4 characters']
     },
     email:{
@@ -19,7 +18,7 @@ const userSchema = new mongoose.Schema({
         minLength:[8,'Password should be minimum of 8 characters']
     }, 
         
-    date:{
+    fecha:{
         type:Date,
         default:Date.now()
     },
