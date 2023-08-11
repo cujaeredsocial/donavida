@@ -9,6 +9,7 @@
         height="60"
       />
       <v-form>
+        <!--Los campos ya guardados en la base datos-->
         <v-col v-for="(campo, index) in camposArray" :key="index" class="ms-8">
           <v-row>
             <v-col cols="12" md="3">
@@ -37,10 +38,39 @@
             </v-col>
           </v-row>
         </v-col>
+        <!--Los campos nuevos que va a introducir el usuario-->
+        <v-col v-for="(campo, index) in n" :key="index" class="ms-8">
+          <v-row>
+            <v-col cols="12" md="3">
+              <v-text-field
+                label="Titulo"
+                v-model="component.title"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" md="2">
+              <v-text-field
+                label="Tipo"
+                v-model="component.type"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" md="2">
+              <v-text-field
+                label="Valor"
+                v-model="component.value"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" md="4">
+              <v-text-field
+                label="Regex"
+                v-model="component.regex"
+              ></v-text-field>
+            </v-col>
+          </v-row>
+        </v-col>
         <v-card-actions>
           <v-col class="ms-6" cols="12" md="10">
-            <v-btn color="red" icon>
-              <v-icon> </v-icon>
+            <v-btn color="red" @click="nuevoCampo" text>
+              <v-icon> MAS</v-icon>
             </v-btn>
           </v-col>
         </v-card-actions>
@@ -59,6 +89,7 @@ export default {
         value: "",
         regex: "",
       },
+      componentsNuevos: [],
       camposArray: [
         {
           title: "Nombre de Usuario",
@@ -81,6 +112,13 @@ export default {
       ],
     };
   },
-  methods: {},
+  methods: {
+    nuevoCampo() {
+      this.n += 1;
+    },
+    guardarCambios() {
+      this.componentsNuevos[this.n - 1] = this.component;
+    },
+  },
 };
 </script>
