@@ -14,10 +14,9 @@ const esquemaComponente = new Schema({
         default:[]
     },
     regex:{//regex para el campo
-        type:String,
-        unique:true,     
+        type:String,    
     },
 
 });
-
-module.exports = model('Componente',esquemaComponente);
+const modelSchema = model('Componente',esquemaComponente);
+module.exports = {modelSchema, esquemaComponente};

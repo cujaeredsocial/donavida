@@ -26,7 +26,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     user: {
-      username: localStorage.getItem("username"),
+      userName: localStorage.getItem("username"),
       password: localStorage.getItem("password"),
       nameU: localStorage.getItem("username"),
       email: localStorage.getItem("email"),
@@ -48,7 +48,7 @@ export default new Vuex.Store({
       state.user.email =null;
       state.user.nameU =null; 
       state.user.password =null; 
-      state.user.username =null; 
+      state.user.userName =null; 
     }
   },
   actions: {

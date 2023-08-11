@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const cors = require('cors');
 const cookie = require('cookie-parser');
+const socketIO = require('socket.io');
 
 
 
@@ -21,23 +22,24 @@ app.use(express.json());
 app.use(cookie());
 
 
-/*//Permitir usar el la direccion de interfaz de cliente
+//Permitir usar el la direccion de interfaz de cliente
 app.use(cors({
   origin: config.URLCLIENT,
   optionsSuccessStatus: 200
-}));*/
+}));
 
 //Permitir usar el la direccion de interfaz del dss
-/*app.use(cors({
+app.use(cors({
   origin: config.URLDSS,
   optionsSuccessStatus: 200
-}));*/
+}));
 
 
 //Routes
 app.use(require("./routes/users"));
 app.use('/rol',require("./routes/rol"));
 app.use('/meta',require("./routes/meta"));
+//app.use('/metauser',require("./routes/metauser"));
 // app.use('/component',require("./routes/components"));
 // raiz
 app.get('/', (req, res) => {
@@ -57,6 +59,17 @@ app.set("port", config.PORT);
 
 //Middlewares
 
-app.listen(config.PORT, config.HOST, () => {
+const server = app.listen(config.PORT, config.HOST, () => {
   console.log(`Server mode ${config.NODE_ENV} in http://${config.HOST}:${config.PORT}`);
+});
+
+
+//websocket socket.io
+//1-inicializar la web socket
+const io = socketIO(server);
+
+//2-escuchar eventos
+io.on('connect',() => {
+  console.log("hola mundo");
+  console.log('Gracias por utilizar nuestra red');
 });
