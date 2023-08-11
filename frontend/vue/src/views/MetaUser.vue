@@ -5,16 +5,16 @@
             <v-row align="center" justify="center">
                 <!-- Para obtenerlo segun el id de una tabla solo habria q  pasar el id del tipo de formulario q se debe en el parametro del metodo -->
                 <div class="button-container" v-if="!mostrarForm">
-        <v-btn color="red" dark @click="getFormTemplate('/getFormManager')">Solicitud de Gestor</v-btn>
-        <v-btn color="red" dark @click="getFormTemplate('/getFormDonante')">Solicitud de Donante</v-btn>
-        <v-btn color="red" dark  @click="getFormTemplate('/getFormSolicitud')">Solicitud de Donación</v-btn>
+        <v-btn color="red" dark @click="getFormTemplate('/plantilla:manager')">Solicitud de Gestor</v-btn>
+        <v-btn color="red" dark @click="getFormTemplate('/plantilla:donante')">Solicitud de Donante</v-btn>
+        <v-btn color="red" dark  @click="getFormTemplate('/plantilla:solicitud')">Solicitud de Donación</v-btn>
         </div>
 
         <v-card v-if="mostrarForm" class="mx-auto my-12" width="600" max-height="900" >
             <v-col class="mx-auto" cols="12" md="10">
                 <v-card-title></v-card-title>
                 <v-card-text>
-                <v-form @submit.prevent="submit" v-for="item in formulario" :key="item.etiqueta">
+                <v-form @submit.prevent="submit" v-for="item in formulario.components" :key="item.etiqueta">
                     <div v-if="item.type==='String'">
                         <v-text-field
                         :rules="[item.regex]"
@@ -65,23 +65,23 @@
        
         return{
             // cambia a true para visualizar el form y hacer pruebas
-            mostrarForm : true,
+            mostrarForm : false,
             metaUser:{/* */}
         }
     },
     computed: {
       formulario() {
         // descomentar cuando se habiliten los metodos en la api
-        // return this.getFormTemplate(rutaFormulario);
-        return [
-          {etiqueta:"Nombre",name:"textField",type:"String",value:"",regex:v => !!v||'Campo requerido' }
+         return this.getFormTemplate(rutaFormulario);
+        // return [
+        //   {etiqueta:"Nombre",name:"textField",type:"String",value:"",regex:v => !!v||'Campo requerido' }
         // Agrega más elementos según tus necesidades
-      ]
+     // ]
       }
     },
     methods: {
       getFormTemplate(rutaFormulario) {
-        return this.$http.get(`/ruta-al-endpoint-de-la-base-de-datos/${rutaFormulario}`)
+        return this.$http.get(`http://127.0.0.1:27000${rutaFormulario}`)
           .then(response => {
             this.mostrarForm=true;
             return response.body;
