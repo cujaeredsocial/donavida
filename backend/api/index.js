@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const cors = require('cors');
 const cookie = require('cookie-parser');
+const socketIO = require('socket.io');
 
 
 
@@ -58,6 +59,14 @@ app.set("port", config.PORT);
 
 //Middlewares
 
-app.listen(config.PORT, config.HOST, () => {
+const server = app.listen(config.PORT, config.HOST, () => {
   console.log(`Server mode ${config.NODE_ENV} in http://${config.HOST}:${config.PORT}`);
 });
+
+
+//websocket socket.io
+//1-inicia;izar la web socket
+const io = socketIO(server);
+io.on('conection',_ => {
+  console.log('Gracias por utilizar nuestra red');
+})
