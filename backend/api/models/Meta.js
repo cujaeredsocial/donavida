@@ -16,6 +16,10 @@ const esquemaMeta = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Componente'
       }],
+      model: { 
+        type: Boolean,
+        require:true,
+      },
       
 });
 
