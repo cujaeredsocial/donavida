@@ -1,0 +1,16 @@
+[{
+  "_id": {
+    "$oid": "64d3f60bf7b90786b68f2d5a"
+  },
+  "name": "Gestor",
+  "description": "Los vecionas aseguran que era un tipo normal",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64d6516859329ea9ff46430d"
+  },
+  "name": "Donante",
+  "description": "Esto es inicial para probar",
+  "__v": 0
+}]
