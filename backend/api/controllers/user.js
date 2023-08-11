@@ -53,9 +53,9 @@ exports.postCreateUser = (req, res) => {
 exports.postAuthenticateUser = (req, res, next) => {
   let userAux;
   //Comprobar que los campos no esten vacios
-  const { email, password } = req.body;
-  if (!email || !password) {
-    throw Error("Email and Password are required");
+  const { userName, password } = req.body;
+  if (!userName || !password) {
+    throw Error("Username and Password are required");
   }
   //Encontrar el usuario
   User.findOne({ userName:userName })
