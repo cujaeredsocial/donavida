@@ -55,11 +55,11 @@ mongoose
   .catch(err => console.log(err));
 
 //setting of express
-app.set("port", config.PORT);
+app.set('port', config.PORT);
 
 //Middlewares
 
-const server = app.listen(config.PORT, config.HOST, () => {
+const server = app.listen(app.get('port'),config.HOST, () => {
   console.log(`Server mode ${config.NODE_ENV} in http://${config.HOST}:${config.PORT}`);
 });
 
@@ -69,7 +69,7 @@ const server = app.listen(config.PORT, config.HOST, () => {
 const io = socketIO(server);
 
 //2-escuchar eventos
-io.on('connect',() => {
+io.on('connection',() =>{
   console.log("hola mundo");
   console.log('Gracias por utilizar nuestra red');
 });
