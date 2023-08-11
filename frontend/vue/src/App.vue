@@ -137,7 +137,7 @@ export default {
       ]
         }else{
           return [
-        {icon:'mdi-account',title:'',link:'/profile'},
+        {icon:'mdi-account',title:"",link:'/profile'},
         {icon:'mdi-share-variant',title:'',link:''},
       ]
         }

@@ -11,7 +11,6 @@
         <v-btn 
         red
         @click="deleteUserData"
-        to="/"
         >
             Sign out
         </v-btn>
@@ -32,7 +31,10 @@ export default {
     methods: {
         ...mapActions(['deleteUser']),
         deleteUserData(){
+            localStorage.clear()
             this.deleteUser();
+            this.$router.push({ name: 'welcome' });
+            
         }
     }
 }

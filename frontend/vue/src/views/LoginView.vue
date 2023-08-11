@@ -70,6 +70,9 @@ export default {
           console.log(response);
           this.$router.push({ name: "main" });
           this.$store.dispatch('setUser',this.user);
+          localStorage.setItem('password', this.user.password)
+          localStorage.setItem('email', this.user.email)
+
         },
         (error) => {
           console.log(error);
