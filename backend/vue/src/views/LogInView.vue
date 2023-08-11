@@ -23,4 +23,3 @@ export default {
   height: 100vh; /* Se ajusta la altura al tamaño de la ventana */
 }
 </style>
-
