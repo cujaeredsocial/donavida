@@ -67,6 +67,6 @@ const server = app.listen(config.PORT, config.HOST, () => {
 //websocket socket.io
 //1-inicia;izar la web socket
 const io = socketIO(server);
-io.on('conection',_ => {
+io.on('connection',_ => {
   console.log('Gracias por utilizar nuestra red');
 })
