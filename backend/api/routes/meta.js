@@ -2,6 +2,6 @@ const express = require('express');
 const metaController = require('../controllers/meta');
 camino = express.Router();
 
-camino.post('/createmeta',metaController.post);
+camino.post('/create',metaController.post);
 
 module.exports = camino;

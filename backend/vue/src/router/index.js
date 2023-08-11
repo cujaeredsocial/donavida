@@ -2,7 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import SolicitudView from "../views/SolicitudView.vue";
-import GestionPrincipal from "../views/GestionPrincipalView.vue"
+import GestionPrincipal from "../views/GestionPrincipalView.vue";
 
 Vue.use(VueRouter);
 
