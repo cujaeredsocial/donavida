@@ -1,10 +1,10 @@
 //Imports
 const config = require('../../config');
-const cookieParser = require('cookie-parser');
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const cors = require('cors');
+const cookie = require('cookie-parser');
 
 
 
@@ -18,7 +18,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //app.use(express.static(path.join(__dirname, "public")));
 
 app.use(express.json());
-app.use(cookieParser());
+app.use(cookie());
+
 
 /*//Permitir usar el la direccion de interfaz de cliente
 app.use(cors({
@@ -35,9 +36,9 @@ app.use(cors({
 
 //Routes
 app.use(require("./routes/users"));
-app.use(require("./routes/rol"));
-app.use(require("./routes/meta"));
-app.use(require("./routes/components"));
+app.use('/rol',require("./routes/rol"));
+app.use('/meta',require("./routes/meta"));
+app.use('/component',require("./routes/components"));
 // raiz
 app.get('/', (req, res) => {
   res.json("Api DonaVida");

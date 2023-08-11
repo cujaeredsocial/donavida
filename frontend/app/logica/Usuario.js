@@ -1,20 +1,13 @@
 class Usuario {
 
-    constructor(id, admin, nombreUsuario, carnet) {
+    constructor(nombreUsuario, clave, correo, id) {
         this.id = id;
-        this.admin = admin;
-        this.bloqueado = false;
         this.nombreUsuario = nombreUsuario;
-        this.donador = !admin;
-        this.carnet = carnet;
-
-    }
-    setTipoSangre(tipoSanguineo) {
-        this.tipoSanguineo = tipoSanguineo;
+        this.clave = clave;
+        this.correo = correo;
+        this.bloqueado=false;
+        this.eliminado=false;
     }
 
-    toString() {
-        return `Tipo: Usuario\nNombre Usuario: @${this.nombreUsuario}\n funcion: ${this.admin ? "admin" : "donador"}\n ${this.bloqueado ? "bloqueado" : "no bloqueado"}\n Carnet: ${this.carnet}\n ${this.donador ? "donador\n" : ""} Tipo de sangre: ${this.tipoSanguineo !== undefined ? this.tipoSanguineo : "no establecido"}`;
-    }
 }
 module.exports = Usuario;

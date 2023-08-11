@@ -1,4 +1,3 @@
-
 const fs = require('fs');
 const Usuario = require('./Usuario.js');
 
@@ -78,7 +77,7 @@ function cargar(fichero) {
     }
 }
 
-function actualizar(listaUsuario,fichero) {
+function actualizar(listaUsuario, fichero) {
     const data = JSON.stringify(listaUsuario);
     fs.writeFileSync(fichero, data);
 }
@@ -145,5 +144,8 @@ function leerClaves(admin) {
     const datos = JSON.parse(fs.readFileSync(rutaArchivo));
     return admin ? datos.claveAdministrador : datos.claveUsuario;
 }
-
-module.exports = { guardarClaves, leerClaves, generarToken, CompativilidadSnguinea, buscar, buscarUsuario, avisoDeInscripcion, bloquear, enviarMensaje, cargar, actualizar, validarCarnet };
+function validaCorreo(correo) {
+    const regex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    return regex.test(correo);
+}
+module.exports = { validaCorreo, guardarClaves, leerClaves, generarToken, CompativilidadSnguinea, buscar, buscarUsuario, avisoDeInscripcion, bloquear, enviarMensaje, cargar, actualizar, validarCarnet };

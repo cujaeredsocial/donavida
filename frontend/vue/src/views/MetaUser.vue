@@ -14,34 +14,34 @@
             <v-col class="mx-auto" cols="12" md="10">
                 <v-card-title></v-card-title>
                 <v-card-text>
-                <v-form @submit.prevent="submit" v-for="item in metaUser.form" :key="item.id">
+                <v-form @submit.prevent="submit" v-for="item in formulario" :key="item.etiqueta">
                     <div v-if="item.type==='String'">
                         <v-text-field
                         :rules="[item.regex]"
-                        :label="item.title"
+                        :label="item.etiqueta"
                         ></v-text-field>
                     </div>
                     <div v-if="item.type==='Text'">
                         <v-textarea
-                        :label="item.title"
+                        :label="item.etiqueta"
                         ></v-textarea>
                     </div>
                     <div v-else-if="item.type==='Boolean'">
                         <v-checkbox
-                        :label="item.title"
+                        :label="item.etiqueta"
                         ></v-checkbox>
                     </div>
-                    <div v-else-if="typeof item.title==='String'">
+                    <div v-else-if="typeof item.type==='String'">
                         <v-text-field
                         :rules="item.regex"
                         type="number"
-                        :label="item.title"
+                        :label="item.etiqueta"
                         ></v-text-field>
                     </div>
                     <div v-else-if="item.type==='Select'">
                         <v-combobox
                         :items="item.value"
-                        :label="item.title"
+                        :label="item.etiqueta"
                         ></v-combobox>
                     </div>
                 </v-form>
@@ -66,20 +66,15 @@
         return{
             // cambia a true para visualizar el form y hacer pruebas
             mostrarForm : true,
-            metaUser: Meta()
+            metaUser:{/* */}
         }
     },
     computed: {
-      Meta() {
+      formulario() {
         // descomentar cuando se habiliten los metodos en la api
         // return this.getFormTemplate(rutaFormulario);
         return [
-        { id: 1, type: 'String', title: "Nombre", value: "",regex: v => !!v },
-        { id: 2, type: "Number", title: "Edad", value: 0 ,regex:[value => (value >= 18 && value <= 80) || 'La edad debe estar entre 18 y 80', v => !!v]},
-        { id: 3, type: "Text", title: "Nombre", value: "" },
-        { id: 4, type: "Text", title: "Nombre", value: "" },
-        { id: 5, type: "Boolean", title: "Activo", value: false },
-        { id: 6, type: "Select", title: "Tipo de Sangre", value: ['A','B','C'] },
+          {etiqueta:"Nombre",name:"textField",type:"String",value:"",regex:v => !!v||'Campo requerido' }
         // Agrega más elementos según tus necesidades
       ]
       }
