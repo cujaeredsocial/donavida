@@ -21,17 +21,17 @@ app.use(express.json());
 app.use(cookie());
 
 
-/*//Permitir usar el la direccion de interfaz de cliente
+//Permitir usar el la direccion de interfaz de cliente
 app.use(cors({
   origin: config.URLCLIENT,
   optionsSuccessStatus: 200
-}));*/
+}));
 
 //Permitir usar el la direccion de interfaz del dss
-/*app.use(cors({
+app.use(cors({
   origin: config.URLDSS,
   optionsSuccessStatus: 200
-}));*/
+}));
 
 
 //Routes
