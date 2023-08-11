@@ -65,8 +65,11 @@ const server = app.listen(config.PORT, config.HOST, () => {
 
 
 //websocket socket.io
-//1-inicia;izar la web socket
+//1-inicializar la web socket
 const io = socketIO(server);
-io.on('connection',_ => {
+
+//2-escuchar eventos
+io.on('connect',() => {
+  console.log("hola mundo");
   console.log('Gracias por utilizar nuestra red');
-})
+});

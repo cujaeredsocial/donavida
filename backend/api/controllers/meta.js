@@ -57,17 +57,17 @@ exports.update = (req, res) => {
 };
 
 exports.get = (req, res) => {
-  const rol = req.params.rol;
+  const namerol = req.params.rol;
 
-  if (!rol) {
-    return resp.status(400).json("Rol no valido");
+  if (!namerol) {
+    return res.status(400).json("Rol no valido");
   }
-  Rol.findOne({ name: rol })
-    .then(rol => {     
-      if (!rol) {
+  Rol.findOne({ name: namerol })
+    .then(roldev => {     
+      if (!roldev) {
         throw new Error("Rol no existe");
       } else {
-        return Meta.findOne({ rol: rol, model: true });
+        return Meta.findOne({ rol: roldev.name });
       }
     })
     .then(meta => {
@@ -98,3 +98,82 @@ exports.delete = (req, res) => {
       res.status(401).json(err);
     });
 };
+
+
+/*[
+{
+    "fecha": "1691777043472",
+    "rol": {
+        "_id": "64d3f60bf7b90786b68f2d5a",
+        "name": "Gestor",
+        "description": "Los vecionas aseguran que era un tipo normal",
+        "__v": 0
+    },
+    "components": [
+        {
+            "label": "Usuario",
+            "type": "String",
+            "value": [],
+            "regex": "Un ex de 0 a 10 letras",
+            "_id": "64d67a185fcf320f6aa70fbb"
+        },
+        {
+            "label": "CI",
+            "type": "String",
+            "value": [],
+            "regex": "Un ex de 0 a 10 letras",
+            "_id": "64d67a185fcf320f6aa70fbc"
+        },
+        {
+            "label": "Numero de telefono",
+            "type": "String",
+            "value": [],
+            "regex": "Un ex de 0 a 10 letras",
+            "_id": "64d67a185fcf320f6aa70fbd"
+        }
+    ],
+    "model": true,
+    "_id": "64d67a185fcf320f6aa70fba",
+    "__v": 0
+},{
+    "fecha": "1691777786796",
+    "rol": {
+        "_id": "64d6516859329ea9ff46430d",
+        "name": "Donante",
+        "description": "Esto es inicial para probar",
+        "__v": 0
+    },
+    "components": [
+        {
+            "label": "Usuario",
+            "type": "String",
+            "value": [],
+            "regex": "Un ex de 0 a 10 letras",
+            "_id": "64d67cb4f3d03d03beba3f4e"
+        },
+        {
+            "label": "CI",
+            "type": "String",
+            "value": [],
+            "regex": "Un ex de 0 a 10 letras",
+            "_id": "64d67cb4f3d03d03beba3f4f"
+        },
+        {
+            "label": "Numero de telefono",
+            "type": "String",
+            "value": [],
+            "regex": "Un ex de 0 a 10 letras",
+            "_id": "64d67cb4f3d03d03beba3f50"
+        },
+        {
+            "label": "Tipo de Sangre",
+            "type": "String",
+            "value": [],
+            "regex": "Un ex de 0 a 10 letras",
+            "_id": "64d67cb5f3d03d03beba3f51"
+        }
+    ],
+    "model": true,
+    "_id": "64d67cb4f3d03d03beba3f4d",
+    "__v": 0
+}]*/

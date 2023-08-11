@@ -1,50 +1,12 @@
+
 [
-{
-    "fecha": "1691777043472",
-    "rol": {
-        "_id": "64d3f60bf7b90786b68f2d5a",
-        "name": "Gestor",
-        "description": "Los vecionas aseguran que era un tipo normal",
-        "__v": 0
-    },
-    "components": [
-        {
-            "label": "Usuario",
-            "type": "String",
-            "value": [],
-            "regex": "Un ex de 0 a 10 letras",
-            "_id": "64d67a185fcf320f6aa70fbb"
-        },
-        {
-            "label": "CI",
-            "type": "String",
-            "value": [],
-            "regex": "Un ex de 0 a 10 letras",
-            "_id": "64d67a185fcf320f6aa70fbc"
-        },
-        {
-            "label": "Numero de telefono",
-            "type": "String",
-            "value": [],
-            "regex": "Un ex de 0 a 10 letras",
-            "_id": "64d67a185fcf320f6aa70fbd"
-        }
-    ],
-    "model": true,
-    "_id": "64d67a185fcf320f6aa70fba",
-    "__v": 0
-},{
+{ 
     "fecha": "1691777786796",
-    "rol": {
-        "_id": "64d6516859329ea9ff46430d",
-        "name": "Donante",
-        "description": "Esto es inicial para probar",
-        "__v": 0
-    },
+    "rol": "Donante",
     "components": [
         {
             "label": "Usuario",
-            "type": "String",
+            "type": "String", 
             "value": [],
             "regex": "Un ex de 0 a 10 letras",
             "_id": "64d67cb4f3d03d03beba3f4e"
@@ -74,4 +36,35 @@
     "model": true,
     "_id": "64d67cb4f3d03d03beba3f4d",
     "__v": 0
-}]
+    },
+    {
+        "fecha": "1691777043472",
+        "rol":"Gestor",
+        "components": [
+            {
+                "label": "Usuario",
+                "type": "String",
+                "value": [],
+                "regex": "Un ex de 0 a 10 letras",
+                "_id": "64d67a185fcf320f6aa70fbb"
+            },
+            {
+                "label": "CI",
+                "type": "String",
+                "value": [],
+                "regex": "Un ex de 0 a 10 letras",
+                "_id": "64d67a185fcf320f6aa70fbc"
+            },
+            {
+                "label": "Numero de telefono",
+                "type": "String",
+                "value": [],
+                "regex": "Un ex de 0 a 10 letras",
+                "_id": "64d67a185fcf320f6aa70fbd"
+            }
+        ],
+        "model": true,
+        "_id": "64d67a185fcf320f6aa70fba",
+        "__v": 0
+    }
+]

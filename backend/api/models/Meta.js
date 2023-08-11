@@ -11,8 +11,10 @@ const esquemaMeta = new Schema({
         default:Date.now()
     },
     rol: {
-        type: Schema.Types.ObjectId,
-        ref: 'Rol'
+       /* type: Schema.Types.ObjectId,
+        ref: 'Rol'*/
+        type:String,
+        require: true
     },
     components: [esquemaComponente],
       model: { 
@@ -20,6 +22,12 @@ const esquemaMeta = new Schema({
         require:true,
       },
       
-});
+},
+);
+esquemaMeta.methods.comparar = (name)=>{
+    if(rol.name === name){
+      return rol
+    }
+}
 
 module.exports = model("Meta",esquemaMeta); 
