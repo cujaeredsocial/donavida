@@ -2,7 +2,7 @@
     <v-card>
         <v-card-title>Informacion de la cuenta</v-card-title>
         <v-card-text>
-           <h3>Name: {{user.username}}</h3>
+           <h3>Name: {{user.userName}}</h3>
            <br>
            <h3>Password: {{user.password}}</h3>
            <br>

@@ -73,7 +73,7 @@
     <v-main>
       <v-container fluid class="mt-4 app-container">
         <transition name="fade">
-          <router-view/>
+          <router-view />
         </transition>
       </v-container>
     </v-main>
@@ -100,6 +100,10 @@ export default {
          
          // Escucha el evento "notification" y actualiza las notificaciones
          this.socket.on("notification", this.handleNotification);
+
+         if (!this.$store.getters.isEmpty) {
+        this.$router.push({ name: 'main' });
+    }
        },
   methods: {
     handleNotification(notification) {
@@ -128,6 +132,7 @@ export default {
   },
   },
   computed :{
+  
      horizontalNavItems(){
         if(this.$store.getters.isEmpty){
       return [
