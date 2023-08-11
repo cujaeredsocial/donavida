@@ -11,7 +11,7 @@
 
        <!-- Side NavBar Links -->
           <v-list>
-            <v-list-item ripple v-for="item in sideNavItems" :key="item.title" :to="item.link">
+            <v-list-item ripple v-for="item in sideNavItems" :key="item.id" :to="item.link">
                 <v-icon>{{item.icon}}</v-icon>
                 {{ item.title }}
             </v-list-item>
@@ -47,7 +47,7 @@
        <v-btn 
        color="bar" 
        v-for="item in horizontalNavItems" 
-       :key="item.title" 
+       :key="item.id" 
        :to="item.link">
           <v-icon left>{{item.icon}}</v-icon>
             {{item.title}}
@@ -59,11 +59,11 @@
       <v-card>
         <!-- Contenido del panel -->
         <v-card-text>
-          <ul>
+          <!-- <ul>
             <li v-for="notification in notifications" :key="notification.id">
               {{ notification.message }}
             </li>
-          </ul>
+          </ul> -->
         </v-card-text>
       </v-card>
     </v-menu>
@@ -94,21 +94,21 @@ export default {
       notifications: [],
     };
   },
-  created() {
-         this.socket = io("http://localhost:3000");
-          // Reemplaza la URL con la URL de tu servidor WebSocket
+  // created() {
+  //        this.socket = io("http://localhost:3000");
+  //         // Reemplaza la URL con la URL de tu servidor WebSocket
          
-         // Escucha el evento "notification" y actualiza las notificaciones
-         this.socket.on("notification", this.handleNotification);
+  //        // Escucha el evento "notification" y actualiza las notificaciones
+  //        this.socket.on("notification", this.handleNotification);
 
-         if (!this.$store.getters.isEmpty) {
-        this.$router.push({ name: 'main' });
-    }
-       },
+  //        if (!this.$store.getters.isEmpty) {
+  //       this.$router.push({ name: 'main' });
+  //   }
+  //      },
   methods: {
-    handleNotification(notification) {
-           this.notifications.push(notification);
-         },
+    // handleNotification(notification) {
+    //        this.notifications.push(notification);
+    //      },
     goToRegister() {
       if (this.$route.name !== 'home') {
         this.$router.push({ name: 'home' });
