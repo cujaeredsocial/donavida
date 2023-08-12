@@ -1,0 +1,52 @@
+[
+    {
+        "sucess": true,
+        "usermeta": {
+            "fecha": "1691872972128",
+            "user": "64cd3ba89804a1eb990dc496",
+            "metas": {
+                "fecha": "1691872972170",
+                "rol": "Donante",
+                "components": [
+                    {
+                        "label": "Usuario",
+                        "type": "String",
+                        "value": [],
+                        "value_Introducido_por_el_usuario": "fa",
+                        "regex": "Un ex de 0 a 10 letras",
+                        "_id": "64d67cb4f3d03d03beba3f4e"
+                    },
+                    {
+                        "label": "CI",
+                        "type": "String",
+                        "value": [],
+                        "value_Introducido_por_el_usuario": "01182498709",
+                        "regex": "Un ex de 0 a 10 letras",
+                        "_id": "64d67cb4f3d03d03beba3f4f"
+                    },
+                    {
+                        "label": "Numero de telefono",
+                        "type": "String",
+                        "value": [],
+                        "value_Introducido_por_el_usuario": "76224214",
+                        "regex": "Un ex de 0 a 10 letras",
+                        "_id": "64d67cb4f3d03d03beba3f50"
+                    },
+                    {
+                        "label": "Tipo de Sangre",
+                        "type": "String",
+                        "value": [],
+                        "value_Introducido_por_el_usuario": "O-",
+                        "regex": "Un ex de 0 a 10 letras",
+                        "_id": "64d67cb5f3d03d03beba3f51"
+                    }
+                ],
+                "model": true,
+                "_id": "64d7eecdb594ebdfb2e4b2a4"
+            },
+            "_id": "64d7eecdb594ebdfb2e4b2a9",
+            "__v": 0
+        },
+        "message": "Se ha creado un nuevo meta user"
+    }
+]

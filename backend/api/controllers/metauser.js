@@ -48,22 +48,18 @@ exports.postCrear = (req,res) => {
                             model: meta.model
                         }),
                     });
-                    console.log(meta + 'este es meta');
-                    console.log(userMeta.metas +'este es meta');
-
-                   /* const components = meta.components;
-                    console.log('meta.components')
-                    components.forEach(component => {
-                        console.log('s')
-                        userMeta.metas.components.push(component);
-                        console.log('s')
-                      });*/
-                    userMeta.save();
-                    res.json({
-                        sucess:true,
-                        usermeta:userMeta,
-                        message:'Se ha creado un nuevo meta user'
-                    });
+                    userMeta.save()
+                    .then(()=>{
+                        res.json({
+                            sucess:true,
+                            usermeta:userMeta,
+                            message:'Se ha creado un nuevo meta user'
+                        });
+                    })
+                    .catch(err =>{
+                        res.status(404).json({message: 'no se ha podido crear' + err});
+                    })
+                    
                 }
             })
             .catch(err =>{
