@@ -73,55 +73,6 @@ exports.postCrear = (req,res) => {
     
 }
 
-/*exports.postCrear = (req, res) => {
-    const { username, name_rol } = req.body;
-  
-    // Validar que no estén vacíos
-    if (!username || !name_rol) {
-      return res.status(400).json({ message: 'Valores incompletos' });
-    }
-  
-    User.findOne({ userName: username })
-      .then(user => {
-        if (!user) {
-          return res.status(404).json({ message: 'El usuario no existe' });
-        } else {
-          Meta.findOne({ rol: name_rol })
-            .then(meta => {
-              if (!meta) {
-                return res.status(404).json({ message: 'El meta no existe' });
-              } else {
-                const userMeta = new UserMeta({
-                  user: user._id,
-                  metas: [meta._id],
-                });
-  
-                const components = meta.components;
-                components.forEach(component => {
-                  userMeta.components.push(component);
-                });
-  
-                userMeta.save()
-                  .then(() => {
-                    res.json({
-                      success: true,
-                      usermeta: userMeta,
-                      message: 'Se ha creado un nuevo meta user',
-                    });
-                  })
-                  .catch(err => {
-                    res.status(500).json({ message: 'Error al guardar el UserMeta', error: err });
-                  });
-              }
-            })
-            .catch(err => {
-              res.status(500).json({ message: 'Error en la búsqueda del meta', error: err });
-            });
-        }
-      })
-      .catch(err => {
-        res.status(500).json({ message: 'Error en la búsqueda del usuario', error: err });
-      });
-  };*/
 //Mostrar el metauser
+
 //Eliminar el metauser
