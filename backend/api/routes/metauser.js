@@ -1,10 +1,10 @@
-/*const express = require('express');
-const metaUserController = require('../controllers/metauser');
-const camino = express.Router();
+const express = require('express');
+const controllerMetaUser = require('../controllers/metauser');
+const router = express.Router();
 
 
-camino.put('/update/:id',metaUserController.update);
-camino.get('/:id',metaUserController.get);
-camino.get('/:id',metaUserController.delete);
+router.post('/create',controllerMetaUser.postCrear);
+router.get('/buscartodos/:nombre',controllerMetaUser.getMostrarTodos);
 
-module.exports = camino;*/
+
+module.exports = router;

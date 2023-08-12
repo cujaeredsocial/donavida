@@ -12,11 +12,15 @@ const esquemaMetaUser = new Schema({
         ref: 'User',
         require: true
     },
-    metas: [{
+   /* id_meta:{
+        type:String,
+        require:true
+    }*/
+    metas: {
         type: Schema.Types.ObjectId,
         ref: 'Meta'
-      }],
-      
+      },
+      //aca habia un arreglo
 });
 
 module.exports = model("MetaUser",esquemaMetaUser); 

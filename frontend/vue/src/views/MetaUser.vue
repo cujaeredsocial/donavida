@@ -12,53 +12,82 @@
 
         <v-container fluid>
           <v-row justify="center">
-            <v-col cols="12" sm="6" md="4">
-              <v-btn color="bar" dark @click="mostrarForm=false" v-if="mostrarForm">Atrás</v-btn>
+            <v-col cols="12" sm="6" md="6">
+              <v-btn 
+              color="bar" 
+              dark 
+              @click="goBack" 
+              v-if="mostrarForm"
+              class="mr-12"
+              >Atrás</v-btn>
+
+              <v-btn
+                 v-if="mostrarForm && !formsend"
+                @click="comprobar" 
+                color="red"
+                dark
+                >Siguiente</v-btn>
             </v-col>
           </v-row>
         </v-container>
 
-        <v-card v-if="mostrarForm" class="mx-auto my-12" width="600" max-height="900" >
+        <v-card v-if="mostrarForm && !formsend" class="mx-auto my-12" width="600" max-height="900" >
             <v-col class="mx-auto" cols="12" md="10">
-                <v-card-title><h3>{{tiulo}}</h3></v-card-title>
+                <v-card-title><h3 style="text-align: center; color: red;">{{titulo}}</h3></v-card-title>
                 <v-card-text>
-                <v-form @submit.prevent="submit" v-for="item in components" :key="item.etiqueta">
+                <v-form @submit.prevent="send" v-for="item in components" :key="item.etiqueta">
                     <div v-if="item.type==='String'">
                         <v-text-field
+                        :rules="[item.regex]"
+                        v-model="item.value"
                         :label="item.label"
                         ></v-text-field>
                     </div>
                     <div v-if="item.type==='Text'">
                         <v-textarea
+                        :rules="[item.regex]"
+                        v-model="item.value"
                         :label="item.label"
                         ></v-textarea>
                     </div>
                     <div v-else-if="item.type==='Boolean'">
                         <v-checkbox
+                        :rules="[item.regex]"
+                        v-model="item.value"
                         :label="item.label"
                         ></v-checkbox>
                     </div>
-                    <div v-else-if="typeof item.type==='String'">
+                    <div v-else-if="typeof item.type==='Number'">
                         <v-text-field
+                        :rules="[item.regex]"
+                        v-model="item.value"
                         type="number"
                         :label="item.label"
                         ></v-text-field>
                     </div>
                     <div v-else-if="item.type==='Select'">
                         <v-combobox
+                        :rules="[item.regex]"
+                        v-model="item.value"
                         :items="item.value"
                         :label="item.label"
                         ></v-combobox>
                     </div>
                 </v-form>
-                <v-btn
-                block 
-                class="mt-2" 
-                color="red"
-                dark
-                >Submit</v-btn>
             </v-card-text>
             </v-col>
+        </v-card>
+        <v-card v-if="formsend" class="mx-auto my-12" width="400" max-height="900">
+          <v-card-title><h2 style="text-align: center; color: red;">{{titulo}}</h2></v-card-title>
+          <v-card-text v-for="item in components" :key="item.etiqueta">
+           <h3 >{{ item.label}}</h3>{{ item.value }}
+          </v-card-text>
+          <v-btn
+           v-if="mostrarForm"
+           @click="send" 
+           color="red"
+           dark
+           >Enviar Solicitud</v-btn>
         </v-card>
     </v-row>
 </v-container>
@@ -70,32 +99,35 @@
     data (){
        
         return{
-            // cambia a true para visualizar el form y hacer pruebas
+            metaUser: {components:[],username:"",idMeta:""},
             mostrarForm : false,
-            metaUser:{/* */},
-            formulario() {
-         return this.getFormTemplate(rutaFormulario);
-            },
-            tiulo:"",
-            components:[]
+            formsend: false,
+            titulo:"",
+            components:[],
+            campoNoVacioRule: v => !!v || 'Este campo es obligatorio',
         }
     },
-    computed: {
-    },
     methods: {
+      goBack(){
+         if(this.formsend ){
+          this.formsend=false;
+          this.mostrarForm=true;
+         }else if(this.mostrarForm){
+          this.mostrarForm=false;
+         }
+      },
       getFormTemplate(rutaFormulario) {
         return this.$http.get(`http://127.0.0.1:27000/meta${rutaFormulario}`)
           .then(response => {
-            console.log(response);
             this.mostrarForm=true;
+            this.metaUser.idMeta=response.data._id;
             this.components=response.data.components;
-            console.log(this.components);
             if(rutaFormulario=='/plantilla/Gestor'){
-              this.tiulo="Plantilla de Solicitud de Gestor";
+              this.titulo="Solicitud de Gestor";
             }else if(rutaFormulario=='/plantilla/Donante'){
-              this.tiulo="Plantilla de Solicitud de Donante";
+              this.titulo="Solicitud de Donante";
             }else if(rutaFormulario=='/plantilla/Solicitante'){
-              this.tiulo="Plantilla de Solicitud de Donacion";
+              this.titulo="Solicitud de Donación";
             }
             return response.data;
           })
@@ -104,7 +136,16 @@
             return [];
           });
       },
-      submit(){
+      comprobar(){
+        if(this.components.every(component => component.value!="")){
+        this.metaUser.components=this.components;
+        this.metaUser.username=this.$store.getters.getUserData.userName;
+        this.formsend=true;
+      }else{
+        confirm("Debe Rellenar Todos los campos de la solicitud");
+      }
+      },
+      send(){
         this.$http.post("", this.metaUser).then(
         (response) => {
           console.log(response);

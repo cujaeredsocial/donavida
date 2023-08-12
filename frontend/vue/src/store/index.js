@@ -33,7 +33,7 @@ export default new Vuex.Store({
     }
   },
   getters: {
-    getUserData: user =>{
+    getUserData: state =>{
       return state.user;
     },
     isEmpty: state => {
