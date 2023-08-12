@@ -1,7 +1,9 @@
 const User = require("../models/user");
+const MetaUser = require("../models/MetaUser");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const config = require("../../../config");
+
 
 
 //Crear un usuario
@@ -35,7 +37,11 @@ exports.postCreateUser = (req, res) => {
             password: hash,
             manager: req.body.manager,
           });
-          console.log(user._id);
+          //Crear su metauser
+          metauser = new MetaUser({
+            user:user,
+            metas:[],
+          })
           //Guardar usuario
           user.save();      
           res.json({
