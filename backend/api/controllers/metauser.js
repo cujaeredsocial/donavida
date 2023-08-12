@@ -79,8 +79,9 @@ exports.getMostrarTodos = (req,res) =>{
     MetaUser.find({user:username})
     .then(usuarios => {
         if(usuarios){
-            res.json({usuarios:usuarios
-                ,message:'Encontrados',
+            res.json({
+                usuarios:usuarios,
+                message:'Encontrados',
                 cant:usuarios.length
             });
          }else{
@@ -92,6 +93,33 @@ exports.getMostrarTodos = (req,res) =>{
             message:"Existe un error pq no encuentra el usuario",
             error:err
         });
+    })
+}
+
+exports.getMostrarElUltimoIntroducido = (req,res) =>{
+    console.log('Llega');
+    MetaUser.find()
+    .then(metausers =>{
+        console.log(metausers);
+        if(!metausers){
+            return res.status(404).json({messge:'No tiene ningun metauser'});
+        }else{
+            let actual = metausers[0].fecha;
+            
+            metausers.forEach((meta)=>{
+                let aux = meta.fecha;
+                console.log(actual);
+                console.log(meta);
+                console.log('actual');
+                if(actual > aux){
+                    actual = aux;
+                }
+            })
+            res.json(meta);
+        }
+    })
+    .catch(err => {
+        res.status(404).json(err);
     })
 }
 //Eliminar el metauser
