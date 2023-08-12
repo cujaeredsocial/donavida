@@ -74,5 +74,24 @@ exports.postCrear = (req,res) => {
 }
 
 //Mostrar el metauser
-
+exports.getMostrarTodos = (req,res) =>{
+    const {username} = req.params;
+    MetaUser.find({user:username})
+    .then(usuarios => {
+        if(usuarios){
+            res.json({usuarios:usuarios
+                ,message:'Encontrados',
+                cant:usuarios.length
+            });
+         }else{
+            res.status(404).json({message:"El usuario dio null"});
+         }
+    })
+    .catch(err =>{
+        res.status(404).json({
+            message:"Existe un error pq no encuentra el usuario",
+            error:err
+        });
+    })
+}
 //Eliminar el metauser
