@@ -1,6 +1,6 @@
 const Meta = require("../models/Meta");
 const Rol = require("../models/Rol");
-const mongoose = require("mongoose");
+
 
 exports.post = (req, resp) => {
   //valido que el rol no este vacio
