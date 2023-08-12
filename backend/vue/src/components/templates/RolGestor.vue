@@ -1,6 +1,6 @@
 <template>
   <v-container class="spacing-playground pa-12" fluid>
-    <v-card class="mx-auto my-auto" width="800" min-height="450">
+    <v-card class="mx-auto my-auto" width="900" min-height="450">
       <!--logo de donavida-->
       <v-img
         :src="require('../../assets/DonaVida-removebg.png')"
@@ -14,7 +14,7 @@
           <v-col
             v-for="(campo, index) in camposArray"
             :key="index"
-            class="ms-8 mt-n9"
+            class="ms-2 mt-n9"
           >
             <v-row>
               <v-col cols="12" md="3">
@@ -35,7 +35,7 @@
                   v-model="camposArray[index].value"
                 ></v-text-field>
               </v-col>
-              <v-col cols="12" md="3">
+              <v-col cols="12" md="4">
                 <v-text-field
                   label="Regex"
                   v-model="camposArray[index].regex"
@@ -44,42 +44,56 @@
             </v-row>
           </v-col>
           <!--Los campos nuevos que va a introducir el usuario-->
-          <v-col v-for="(campo, index) in n" :key="index" class="ms-8 mt-n8">
+          <v-col
+            v-for="(campo, n) in componentsNuevos"
+            :key="n"
+            class="ms-2 mt-n9"
+          >
             <v-row>
               <v-col cols="12" md="3">
                 <v-text-field
                   label="Titulo"
-                  v-model="component.title"
+                  v-model="campo.title"
                 ></v-text-field>
               </v-col>
               <v-col cols="12" md="2">
-                <v-text-field
-                  label="Tipo"
-                  v-model="component.type"
-                ></v-text-field>
+                <v-text-field label="Tipo" v-model="campo.type"></v-text-field>
               </v-col>
               <v-col cols="12" md="2">
                 <v-text-field
                   label="Valor"
-                  v-model="component.value"
+                  v-model="campo.value"
                 ></v-text-field>
               </v-col>
               <v-col cols="12" md="4">
                 <v-text-field
                   label="Regex"
-                  v-model="component.regex"
+                  v-model="campo.regex"
                 ></v-text-field>
               </v-col>
+              <v-btn class="mt-8" icon>
+                <v-icon color="green"> mdi mdi-check-circle </v-icon>
+              </v-btn>
+              <v-btn class="ms-n2 mt-8" icon>
+                <v-icon
+                  id="iconoEliminar"
+                  class="circle-shadow"
+                  color="red"
+                  @click="eliminarCampo(n)"
+                >
+                  mdi mdi-close-circle
+                </v-icon>
+              </v-btn>
             </v-row>
           </v-col>
         </v-form>
+        <v-spacer></v-spacer>
       </v-card-text>
-
-      <v-divider></v-divider>
+      <v-divider class="mt-auto"></v-divider>
 
       <v-card-actions>
-        <v-btn color="green" @click="nuevoCampo" outlined rounded icon>
-          <v-icon>mdi mdi-plus</v-icon>
+        <v-btn color="green" @click="nuevoCampo" icon>
+          <v-icon>mdi mdi-plus-circle</v-icon>
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -121,10 +135,17 @@ export default {
   },
   methods: {
     nuevoCampo() {
-      this.n += 1;
+      this.componentsNuevos.push(this.component);
+      this.component = {
+        title: "",
+        type: "",
+        value: "",
+        regex: "",
+      };
+      console.console.log("Se hizo");
     },
-    guardarCambios() {
-      this.componentsNuevos[this.n - 1] = this.component;
+    eliminarCampo(index) {
+      this.componentsNuevos.splice(index, 1);
     },
   },
 };
