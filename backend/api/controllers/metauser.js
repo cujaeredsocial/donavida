@@ -25,9 +25,9 @@ const Meta = require('../models/Meta');
 
 //Crear el metauser
 exports.postCrear = (req,res) => {
-    const {username,name_rol} = req.body;
+    const {username,name_rol,componentes} = req.body;
     //Validar que no esten vacios
-    if(!username || !name_rol){
+    if(!username || !name_rol || !componentes){//debes pasarme aunque sea un arreglo vacio
         return res.status(404).json('Valores Incompletos');
     }
     User.findOne({userName:username})
@@ -44,7 +44,7 @@ exports.postCrear = (req,res) => {
                         user:user,
                         metas:new Meta({
                             rol:meta.rol,
-                            components:meta.components,
+                            components:componentes ,
                             model: meta.model
                         }),
                     });
