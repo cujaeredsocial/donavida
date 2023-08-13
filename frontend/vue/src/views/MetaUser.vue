@@ -39,28 +39,28 @@
                     <div v-if="item.type==='String'">
                         <v-text-field
                         :rules="[item.regex]"
-                        v-model="item.value"
+                        v-model="item.value_Introducido_por_el_usuario"
                         :label="item.label"
                         ></v-text-field>
                     </div>
                     <div v-if="item.type==='Text'">
                         <v-textarea
                         :rules="[item.regex]"
-                        v-model="item.value"
+                        v-model="item.value_Introducido_por_el_usuario"
                         :label="item.label"
                         ></v-textarea>
                     </div>
                     <div v-else-if="item.type==='Boolean'">
                         <v-checkbox
                         :rules="[item.regex]"
-                        v-model="item.value"
+                        v-model="item.value_Introducido_por_el_usuario"
                         :label="item.label"
                         ></v-checkbox>
                     </div>
                     <div v-else-if="typeof item.type==='Number'">
                         <v-text-field
                         :rules="[item.regex]"
-                        v-model="item.value"
+                        v-model="item.value_Introducido_por_el_usuario"
                         type="number"
                         :label="item.label"
                         ></v-text-field>
@@ -68,7 +68,7 @@
                     <div v-else-if="item.type==='Select'">
                         <v-combobox
                         :rules="[item.regex]"
-                        v-model="item.value"
+                        v-model="item.value_Introducido_por_el_usuario"
                         :items="item.value"
                         :label="item.label"
                         ></v-combobox>
@@ -80,7 +80,7 @@
         <v-card v-if="formsend" class="mx-auto my-12" width="400" max-height="900">
           <v-card-title><h2 style="text-align: center; color: red;">{{titulo}}</h2></v-card-title>
           <v-card-text v-for="item in components" :key="item.etiqueta">
-           <h3 >{{ item.label}}</h3>{{ item.value }}
+           <h3 >{{ item.label}}</h3>{{ item.value_Introducido_por_el_usuario }}
           </v-card-text>
           <v-btn
            v-if="mostrarForm"
@@ -99,7 +99,7 @@
     data (){
        
         return{
-            metaUser: {components:[],username:"",idMeta:""},
+            metaUser: {username:"",name_rol:"",componentes:[]},
             mostrarForm : false,
             formsend: false,
             titulo:"",
@@ -120,7 +120,7 @@
         return this.$http.get(`http://127.0.0.1:27000/meta${rutaFormulario}`)
           .then(response => {
             this.mostrarForm=true;
-            this.metaUser.idMeta=response.data._id;
+            this.metaUser.name_rol=response.data.rol;
             this.components=response.data.components;
             if(rutaFormulario=='/plantilla/Gestor'){
               this.titulo="Solicitud de Gestor";
@@ -137,8 +137,8 @@
           });
       },
       comprobar(){
-        if(this.components.every(component => component.value!="")){
-        this.metaUser.components=this.components;
+        if(this.components.every(component => component.value_Introducido_por_el_usuario!="")){
+        this.metaUser.componentes=this.components;
         this.metaUser.username=this.$store.getters.getUserData.userName;
         this.formsend=true;
       }else{
@@ -146,11 +146,15 @@
       }
       },
       send(){
-        this.$http.post("", this.metaUser).then(
+        this.$http.post("http://127.0.0.1:27000/metauser/create", this.metaUser).then(
         (response) => {
+          if(response.status==200){
+            this.$router.push({ name: "main" });
+          }
           console.log(response);
         },
         (error) => {
+          console.log(this.metaUser);
           console.log(error);
         }
       );
