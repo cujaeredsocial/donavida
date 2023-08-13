@@ -13,6 +13,10 @@ const esquemaComponente = new Schema({
         type:[String],
         default:[]
     },
+    value_Introducido_por_el_usuario:{
+        type:String,
+        default:""
+    },
     regex:{//regex para el campo
         type:String,    
     },
