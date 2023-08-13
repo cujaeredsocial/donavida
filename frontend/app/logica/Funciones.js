@@ -148,4 +148,5 @@ function validaCorreo(correo) {
     const regex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     return regex.test(correo);
 }
+
 module.exports = { validaCorreo, guardarClaves, leerClaves, generarToken, CompativilidadSnguinea, buscar, buscarUsuario, avisoDeInscripcion, bloquear, enviarMensaje, cargar, actualizar, validarCarnet };
