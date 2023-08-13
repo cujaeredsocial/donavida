@@ -14,9 +14,11 @@
     "jszip": "^3.10.1",
     "mammoth": "^1.6.0",
     "pizzip": "^3.1.4",
+    "socket.io-client": "^4.7.2",
     "vue": "^2.6.14",
     "vue-resource": "^1.5.3",
     "vue-router": "^3.5.1",
+    "vue-snotify": "^3.2.1",
     "vuetify": "^2.6.0",
     "vuex": "^3.6.2",
     "vuex-persist": "^3.1.3"

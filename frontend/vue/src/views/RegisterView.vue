@@ -83,6 +83,12 @@ export default {
           console.log(response); // Puedes mostrar o utilizar la respuesta recibida
           this.$router.push({ name: "main" });
           this.$store.dispatch('setUser', user);
+          localStorage.setItem("password", user.password)
+          localStorage.setItem("username", user.userName)
+          localStorage.setItem("email", user.email)
+
+
+          
         } else {
           // Mostrar mensaje de error si la respuesta no es exitosa
           console.log(response.statusText); // Puedes mostrar o utilizar el mensaje de error

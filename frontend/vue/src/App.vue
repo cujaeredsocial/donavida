@@ -11,7 +11,7 @@
 
        <!-- Side NavBar Links -->
           <v-list>
-            <v-list-item ripple v-for="item in sideNavItems" :key="item.title" :to="item.link">
+            <v-list-item ripple v-for="item in sideNavItems" :key="item.id" :to="item.link">
                 <v-icon>{{item.icon}}</v-icon>
                 {{ item.title }}
             </v-list-item>
@@ -44,25 +44,36 @@
     <v-spacer></v-spacer>
 
     <!-- Horizontal navBar items -->
-     <v-toolbar-items class="hidden-xs-only" >
        <v-btn 
-       color="bar"  
-       v-for="item in horizontalNavItems" :key="item.title" :to="item.link">
-          <v-icon class="hidden-sm-only" left>{{item.icon}}</v-icon>
+       color="bar" 
+       v-for="item in horizontalNavItems" 
+       :key="item.id" 
+       :to="item.link">
+          <v-icon left>{{item.icon}}</v-icon>
             {{item.title}}
        </v-btn>
-       <!-- <div class="badge-container" v-if="!(this.$route.name==='welcome')&&!(this.$route.name==='home')&&!(this.$route.name==='about')">
-        <v-badge :content="12">
-          <v-icon>mdi-bell</v-icon>
-         </v-badge>
-       </div> -->
-     </v-toolbar-items>
+     <v-menu offset-y v-if='!this.$store.getters.isEmpty'>
+      <template v-slot:activator="{ on }">
+        <v-btn v-on="on" text><v-icon>mdi-bell</v-icon></v-btn>
+      </template>
+      <v-card>
+        <!-- Contenido del panel -->
+        <v-card-text>
+          <!-- <ul>
+            <li v-for="notification in notifications" :key="notification.id">
+              {{ notification.message }}
+            </li>
+          </ul> -->
+        </v-card-text>
+      </v-card>
+    </v-menu>
+
     </v-app-bar>
     <!-- Current View -->
     <v-main>
       <v-container fluid class="mt-4 app-container">
         <transition name="fade">
-          <router-view/>
+          <router-view />
         </transition>
       </v-container>
     </v-main>
@@ -71,15 +82,33 @@
 </template>
 
 <script>
+ import io from "socket.io-client";
 export default {
   name: 'App',
 
   data(){
     return{
-      sideNav :false
+      sideNav :false,
+      panelVisible: false,
+      socket: null,
+      notifications: [],
     };
   },
+  // created() {
+  //        this.socket = io("http://localhost:3000");
+  //         // Reemplaza la URL con la URL de tu servidor WebSocket
+         
+  //        // Escucha el evento "notification" y actualiza las notificaciones
+  //        this.socket.on("notification", this.handleNotification);
+
+  //        if (!this.$store.getters.isEmpty) {
+  //       this.$router.push({ name: 'main' });
+  //   }
+  //      },
   methods: {
+    // handleNotification(notification) {
+    //        this.notifications.push(notification);
+    //      },
     goToRegister() {
       if (this.$route.name !== 'home') {
         this.$router.push({ name: 'home' });
@@ -98,8 +127,12 @@ export default {
     getUser(){
       return this.$store.getters.getUserData;
     },
+    togglePanel() {
+    this.panelVisible = !this.panelVisible;
+  },
   },
   computed :{
+  
      horizontalNavItems(){
         if(this.$store.getters.isEmpty){
       return [
@@ -109,9 +142,8 @@ export default {
       ]
         }else{
           return [
-        {icon:'mdi-account',title:'',link:'/profile'},
+        {icon:'mdi-account',title:"",link:'/profile'},
         {icon:'mdi-share-variant',title:'',link:''},
-        {icon:'mdi-bell',title:'',link:''}
       ]
         }
 

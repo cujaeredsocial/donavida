@@ -1,13 +1,8 @@
 const{Schema,model} = require('mongoose');
 
 const esquemaComponente = new Schema({
-    etiqueta:{//nombre de la etiqueta ex sexo
+    label:{//nombre de la etiqueta ex sexo
         type:String,       
-        required:true
-    },
-    name:{//nombre del componente
-        type:String,
-        unique:true,
         required:true
     },
     type:{//tipo de dato que va a tener el componente
@@ -18,7 +13,14 @@ const esquemaComponente = new Schema({
         type:[String],
         default:[]
     },
-//regex para el campo
-});
+    value_Introducido_por_el_usuario:{
+        type:String,
+        default:""
+    },
+    regex:{//regex para el campo
+        type:String,    
+    },
 
-module.exports = model('Componente',esquemaComponente);
+});
+const modelSchema = model('Componente',esquemaComponente);
+module.exports = {modelSchema, esquemaComponente};

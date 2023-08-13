@@ -14,7 +14,7 @@
           <v-form @submit.prevent="singIN">
           <v-text-field
           :rules="[campoNoVacioRule]"
-           v-model="user.email"
+           v-model="user.userName"
            label="Username"
            ></v-text-field>
            <v-text-field
@@ -51,7 +51,7 @@ export default {
   data() {
     return {
       user: {
-        email: "",
+        userName: "",
         password: ""
       },
       errorMessage: "",
@@ -70,6 +70,9 @@ export default {
           console.log(response);
           this.$router.push({ name: "main" });
           this.$store.dispatch('setUser',this.user);
+          localStorage.setItem('password', this.user.password)
+          localStorage.setItem('username', this.user.userName)
+
         },
         (error) => {
           console.log(error);
@@ -81,7 +84,7 @@ export default {
   },
   computed : {
     todosCamposLlenos() {
-      return this.user.email && this.user.password;
+      return this.user.userName && this.user.password;
     },
   }
 };

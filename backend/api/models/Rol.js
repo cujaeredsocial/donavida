@@ -17,4 +17,5 @@ const esquemaRol = new Schema ({
    
 
 });
+
 module.exports = model("Rol",esquemaRol);

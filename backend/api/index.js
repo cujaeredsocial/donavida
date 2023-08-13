@@ -1,10 +1,11 @@
 //Imports
 const config = require('../../config');
-const cookieParser = require('cookie-parser');
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const cors = require('cors');
+const cookie = require('cookie-parser');
+const socketIO = require('socket.io');
 
 
 
@@ -18,26 +19,28 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //app.use(express.static(path.join(__dirname, "public")));
 
 app.use(express.json());
-app.use(cookieParser());
+app.use(cookie());
 
-/*//Permitir usar el la direccion de interfaz de cliente
+
+//Permitir usar el la direccion de interfaz de cliente
 app.use(cors({
   origin: config.URLCLIENT,
   optionsSuccessStatus: 200
-}));*/
+}));
 
 //Permitir usar el la direccion de interfaz del dss
-/*app.use(cors({
+app.use(cors({
   origin: config.URLDSS,
   optionsSuccessStatus: 200
-}));*/
+}));
 
 
 //Routes
 app.use(require("./routes/users"));
-app.use(require("./routes/rol"));
-app.use(require("./routes/meta"));
-app.use(require("./routes/components"));
+app.use('/rol',require("./routes/rol"));
+app.use('/meta',require("./routes/meta"));
+app.use('/metauser',require("./routes/metauser"));
+// app.use('/component',require("./routes/components"));
 // raiz
 app.get('/', (req, res) => {
   res.json("Api DonaVida");
@@ -52,10 +55,21 @@ mongoose
   .catch(err => console.log(err));
 
 //setting of express
-app.set("port", config.PORT);
+app.set('port', config.PORT);
 
 //Middlewares
 
-app.listen(config.PORT, config.HOST, () => {
+const server = app.listen(app.get('port'),config.HOST, () => {
   console.log(`Server mode ${config.NODE_ENV} in http://${config.HOST}:${config.PORT}`);
+});
+
+
+//websocket socket.io
+//1-inicializar la web socket
+const io = socketIO(server);
+
+//2-escuchar eventos
+io.on('connection',() =>{
+  console.log("hola mundo");
+  console.log('Gracias por utilizar nuestra red');
 });

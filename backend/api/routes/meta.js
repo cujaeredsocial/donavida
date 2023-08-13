@@ -1,7 +1,10 @@
 const express = require('express');
 const metaController = require('../controllers/meta');
-camino = express.Router();
+const camino = express.Router();
 
-camino.post('/createmeta',metaController.post);
+camino.post('/create',metaController.post);
+camino.put('/update/:id',metaController.update);
+camino.get('/plantilla/:rol',metaController.get);
+camino.delete('/delete/:rol',metaController.delete);
 
 module.exports = camino;

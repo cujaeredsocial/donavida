@@ -6,7 +6,7 @@
           :src="require('../assets/DonaVida-removebg.png')"
           class="my-3"
           contain
-          height="200"
+          height="100"
         />
       </v-col>
 
@@ -18,14 +18,6 @@
           sangre <br />
           en este apartado usted sera el encargado de gestionar este proceso
         </p>
-        <v-btn class="ma-2 white--text" color="red" @click="toInicio">
-          <v-icon>mdi mdi-login-variant</v-icon>
-          <span>Iniciar Sesion</span>
-        </v-btn>
-        <v-btn class="ma-2 white--text" color="red" @click="toRegister">
-          <v-icon>mdi mdi-account-plus-outline</v-icon>
-          <span>Registrar Sesion</span>
-        </v-btn>
       </v-col>
     </v-row>
   </v-container>

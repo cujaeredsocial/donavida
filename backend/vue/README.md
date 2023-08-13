@@ -22,3 +22,6 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+Composicion de nuestra parte del proyecto
+En la carpeta components se encuentran los 

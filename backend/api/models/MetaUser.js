@@ -2,20 +2,25 @@
 const{Schema,model} = require('mongoose');
 
 
-const esquemaMeta = new Schema({
+const esquemaMetaUser = new Schema({
     fecha:{
         type:String,
         default:Date.now()
     },
     user: {
         type: Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'User',
+        require: true
     },
-    metas: [{
+   /* id_meta:{
+        type:String,
+        require:true
+    }*/
+    metas: {
         type: Schema.Types.ObjectId,
         ref: 'Meta'
-      }],
-      
+      },
+      //aca habia un arreglo
 });
 
-module.exports = model("Meta",esquemaMeta); 
+module.exports = model("MetaUser",esquemaMetaUser); 

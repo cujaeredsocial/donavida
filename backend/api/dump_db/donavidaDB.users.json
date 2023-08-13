@@ -1,260 +1,105 @@
 [{
   "_id": {
-    "$oid": "64cc47a59db80d93542ccebe"
+    "$oid": "64cb446908e0de78dd082814"
   },
-  "userName": "user1",
-  "email": "test1@gmail.com",
+  "userName": "Manolo",
+  "email": "manoloAA",
   "manager": true,
-  "password": "0000",
+  "password": "manoloAAA",
   "createdAt": {
-    "$date": "2023-08-04T00:34:45.193Z"
+    "$date": "2023-08-03T06:08:41.328Z"
   },
   "__v": 0
 },
 {
   "_id": {
-    "$oid": "64cc47a59db80d93542ccebf"
+    "$oid": "64cc5e29f80b5fe004fdb94f"
   },
-  "userName": "user2",
-  "email": "test2@gmail.com",
+  "userName": "Carlos",
+  "email": "carlitoslamofa",
   "manager": false,
-  "password": "1111",
+  "password": "carlosdd",
   "createdAt": {
-    "$date": "2023-08-04T00:34:45.197Z"
+    "$date": "2023-08-04T02:10:49.075Z"
   },
   "__v": 0
 },
 {
   "_id": {
-    "$oid": "64cc47a59db80d93542ccec0"
+    "$oid": "64cc6484d0e0fefddeb29aff"
   },
-  "userName": "user3",
-  "email": "test3@gmail.com",
+  "userName": "Rodo",
+  "email": "rodando",
+  "manager": false,
+  "password": "carlosdd",
+  "createdAt": {
+    "$date": "2023-08-04T02:37:56.109Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64cc701b71c2cf41dd6619c9"
+  },
+  "userName": "Fabo",
+  "email": "fabo002",
   "manager": true,
-  "password": "2222",
+  "password": "familia",
   "createdAt": {
-    "$date": "2023-08-04T00:34:45.198Z"
+    "$date": "2023-08-04T03:27:23.632Z"
   },
   "__v": 0
 },
 {
   "_id": {
-    "$oid": "64cc47a59db80d93542ccec1"
+    "$oid": "64cd36eb794e141e59305493"
   },
-  "userName": "user4",
-  "email": "test4@gmail.com",
+  "userName": "kristian",
+  "email": "soycarreñosoygay",
   "manager": false,
-  "password": "3333",
+  "password": "sisoygay",
   "createdAt": {
-    "$date": "2023-08-04T00:34:45.199Z"
+    "$date": "2023-08-04T17:35:39.577Z"
   },
   "__v": 0
 },
 {
   "_id": {
-    "$oid": "64cc47a59db80d93542ccec2"
+    "$oid": "64cd3ba89804a1eb990dc496"
   },
-  "userName": "user5",
-  "email": "test5@gmail.com",
-  "manager": true,
-  "password": "4444",
+  "userName": "fa",
+  "email": "famtastis",
+  "password": "asdasd",
   "createdAt": {
-    "$date": "2023-08-04T00:34:45.199Z"
+    "$date": "2023-08-04T17:55:53.038Z"
   },
   "__v": 0
 },
 {
   "_id": {
-    "$oid": "64cc47a59db80d93542ccec3"
+    "$oid": "64d429544df3ae41f73693f2"
   },
-  "userName": "user6",
-  "email": "test6@gmail.com",
-  "manager": false,
-  "password": "5555",
-  "createdAt": {
-    "$date": "2023-08-04T00:34:45.200Z"
+  "userName": "Montan Morales",
+  "email": "moralseojoc",
+  "password": "$2a$05$jdKEXCFlKObiW02NMN02U.mrhDacEoSLdo4AcKvfSRLiG6K9gts5O",
+  "fecha": {
+    "$date": "2023-08-10T00:01:28.431Z"
   },
+  "activate": true,
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZDQyOTU0NGRmM2FlNDFmNzM2OTNmMiIsImlhdCI6MTY5MTYyNTgxMiwiZXhwIjoxNjkxNzk4NjEyfQ.6bO-BWTU6-5bqsBbp5C17hQsKQjrgmVV7-sVKuMUCc8",
   "__v": 0
 },
 {
   "_id": {
-    "$oid": "64cc47a59db80d93542ccec4"
+    "$oid": "64d429804df3ae41f73693f6"
   },
-  "userName": "user7",
-  "email": "test7@gmail.com",
-  "manager": true,
-  "password": "6666",
-  "createdAt": {
-    "$date": "2023-08-04T00:34:45.204Z"
+  "userName": "Montan Morales",
+  "email": "moralseojocxzcczxc",
+  "password": "$2a$05$rCkuUVXrwZsHs/aTCMcrhOVMkGK8vcnzEUGYket8XVk7p4XGx4za.",
+  "fecha": {
+    "$date": "2023-08-10T00:01:28.431Z"
   },
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "64cc47a59db80d93542ccec5"
-  },
-  "userName": "user8",
-  "email": "test8@gmail.com",
-  "manager": false,
-  "password": "7777",
-  "createdAt": {
-    "$date": "2023-08-04T00:34:45.204Z"
-  },
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "64cc47a59db80d93542ccec6"
-  },
-  "userName": "user9",
-  "email": "test9@gmail.com",
-  "manager": true,
-  "password": "8888",
-  "createdAt": {
-    "$date": "2023-08-04T00:34:45.205Z"
-  },
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "64cc47a59db80d93542ccec7"
-  },
-  "userName": "user10",
-  "email": "test10@gmail.com",
-  "manager": false,
-  "password": "9999",
-  "createdAt": {
-    "$date": "2023-08-04T00:34:45.206Z"
-  },
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "64cc47a59db80d93542ccec8"
-  },
-  "userName": "user11",
-  "email": "test11@gmail.com",
-  "manager": true,
-  "password": "1010",
-  "createdAt": {
-    "$date": "2023-08-04T00:34:45.206Z"
-  },
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "64cc47a59db80d93542ccec9"
-  },
-  "userName": "user12",
-  "email": "test12@gmail.com",
-  "manager": false,
-  "password": "1111",
-  "createdAt": {
-    "$date": "2023-08-04T00:34:45.207Z"
-  },
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "64cc47a59db80d93542cceca"
-  },
-  "userName": "user13",
-  "email": "test13@gmail.com",
-  "manager": true,
-  "password": "1212",
-  "createdAt": {
-    "$date": "2023-08-04T00:34:45.207Z"
-  },
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "64cc47a59db80d93542ccecb"
-  },
-  "userName": "user14",
-  "email": "test14@gmail.com",
-  "manager": false,
-  "password": "1313",
-  "createdAt": {
-    "$date": "2023-08-04T00:34:45.208Z"
-  },
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "64cc47a59db80d93542ccecc"
-  },
-  "userName": "user15",
-  "email": "test15@gmail.com",
-  "manager": true,
-  "password": "1414",
-  "createdAt": {
-    "$date": "2023-08-04T00:34:45.208Z"
-  },
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "64cc47a59db80d93542ccecd"
-  },
-  "userName": "user16",
-  "email": "test16@gmail.com",
-  "manager": false,
-  "password": "1515",
-  "createdAt": {
-    "$date": "2023-08-04T00:34:45.208Z"
-  },
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "64cc47a59db80d93542ccece"
-  },
-  "userName": "user17",
-  "email": "test17@gmail.com",
-  "manager": true,
-  "password": "1616",
-  "createdAt": {
-    "$date": "2023-08-04T00:34:45.208Z"
-  },
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "64cc47a59db80d93542ccecf"
-  },
-  "userName": "user18",
-  "email": "test18@gmail.com",
-  "manager": false,
-  "password": "1717",
-  "createdAt": {
-    "$date": "2023-08-04T00:34:45.209Z"
-  },
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "64cc47a59db80d93542cced0"
-  },
-  "userName": "user19",
-  "email": "test19@gmail.com",
-  "manager": true,
-  "password": "1818",
-  "createdAt": {
-    "$date": "2023-08-04T00:34:45.209Z"
-  },
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "64cc47a59db80d93542cced1"
-  },
-  "userName": "user20",
-  "email": "test20@gmail.com",
-  "manager": false,
-  "password": "1919",
-  "createdAt": {
-    "$date": "2023-08-04T00:34:45.209Z"
-  },
+  "activate": true,
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZDQyOTgwNGRmM2FlNDFmNzM2OTNmNiIsImlhdCI6MTY5MTYyNTg1NiwiZXhwIjoxNjkxNzk4NjU2fQ.LC_jO5IN-tGNhFQqxQ7aPlMbnboJBCEu3NZmugabhas",
   "__v": 0
 }]
