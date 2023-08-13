@@ -45,7 +45,7 @@ exports.postCrear = (req,res) => {
                         metas:new Meta({
                             rol:meta.rol,
                             components:componentes ,
-                            model: meta.model
+                            model: false
                         }),
                     });
                     userMeta.save()
