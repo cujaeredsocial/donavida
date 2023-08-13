@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 const cors = require('cors');
 const cookie = require('cookie-parser');
 const {Server} = require('socket.io');
-const socketControllers = require('./controllers/socket-io');
+const socketControllers = require('./socket.io/socket-io');
 
 //Init5
 const app = express();
