@@ -5,9 +5,8 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const cors = require('cors');
 const cookie = require('cookie-parser');
-const {Server}= require('socket.io');
-
-
+const {Server} = require('socket.io');
+const socketControllers = require('./controllers/socket-io');
 
 //Init5
 const app = express();
@@ -63,24 +62,6 @@ const server = app.listen(app.get('port'),config.HOST, () => {
   console.log(`Server mode ${config.NODE_ENV} in http://${config.HOST}:${config.PORT}`);
 });
 
-
-//websocket socket.io------------------------------------------------------------------------------------
-//1-inicializar la web socket
 const io = new Server(server);
-
-//emicion de eventos
-io.emit(() =>{
-  console.log('Usted esta conectado');//simple llamada para ver que socket.io este instalado y funcionando
-});
-//Multiplexado solo para el uso de los admins
-const admins = io.of('/admin');//esto sirve para las opciones de los gestores
-
-admins.emit(() => {
-  console.log("Hola soy admin");
-})
-//2-escuchar eventos
-io.on('connection',(socket) =>{
-  sockett.send.json('ho;a')
-  console.log("hola mundo");
-  console.log('Gracias por utilizar nuestra red');
-});
+socketControllers(io);
+//websocket socket.io------------------------------------------------------------------------------------
