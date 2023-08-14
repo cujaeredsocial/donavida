@@ -160,6 +160,7 @@ export default {
           return [
         {icon:'mdi-home',title:'Home',link:'/main'},
         {icon:'mdi-account',title:'User',link:'/profile'},
+        {icon:'mdi-note',title:'Solicitudes',link: '/requests'},
         {icon:'mdi-share-variant',title:'Share',link:''},
         {icon:'mdi-folder',title:'Info',link:'/info'},
       ]
