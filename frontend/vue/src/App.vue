@@ -52,23 +52,39 @@
           <v-icon left>{{item.icon}}</v-icon>
             {{item.title}}
        </v-btn>
-     <v-menu offset-y v-if='!this.$store.getters.isEmpty'>
-      <template v-slot:activator="{ on }">
-        <v-btn v-on="on" text><v-icon>mdi-bell</v-icon></v-btn>
-      </template>
-      <v-card>
-        <!-- Contenido del panel -->
-        <v-card-text>
-          <!-- <ul>
-            <li v-for="notification in notifications" :key="notification.id">
-              {{ notification.message }}
-            </li>
-          </ul> -->
-        </v-card-text>
-      </v-card>
-    </v-menu>
+       <v-btn
+       @click="drawer=!drawer"
+       @dblclick="handleDoubleClick"
+       color="bar"
+       >
+        <v-icon>mdi-bell</v-icon>
+       </v-btn>
 
     </v-app-bar>
+    <transition name="expand-x">
+      <div v-if="drawer" class="panel">
+        <v-toolbar color="red" dark>
+          <v-btn icon @click="drawer = !drawer">
+            <v-icon>mdi-chevron-left</v-icon>
+          </v-btn>
+          <v-toolbar-title>Centro de Notificaciones</v-toolbar-title>
+          <v-btn
+           @click="handleDoubleClick"
+       color="bar"
+       >
+        <v-icon>mdi-bell</v-icon>
+       </v-btn>
+        </v-toolbar>
+        <div class="panel-content">
+        <v-list>
+          <v-list-item ripple v-for="item in Notifications" :key="item.id" :to="item.link" class="mb-4">
+            <Notificacion :Notification="item" />
+          </v-list-item>
+        </v-list>
+      </div>
+      </div>
+    </transition>
+
     <!-- Current View -->
     <v-main>
       <v-container fluid class="mt-4 app-container">
@@ -83,32 +99,83 @@
 
 <script>
  import io from "socket.io-client";
+ import Notificacion from "./components/Notificacion.vue";
 export default {
   name: 'App',
-
+  components: {
+    Notificacion
+  },
   data(){
     return{
       sideNav :false,
+      drawer : false,
       panelVisible: false,
       socket: null,
       notifications: [],
+      Notifications:[
+            {title:"Ha sido Aprobado como donante", informacion:"blabla",link:"info",fecha:"  2/2/12",type:"green",icon:"mdi-checkbox-marked-circle"},
+            {title:"Ha sido Aprobado como donante", informacion:"blabla",link:"profile",fecha:"  2/2/12",type:"red",icon: "mdi-cancel"},
+            {title:"Ha sido Aprobado como donante", informacion:"blabla",link:"info",fecha:"  2/2/12",type:"gray",icon: "mdi-minus-circle"},
+            {title:"Ha sido Aprobado como donante", informacion:"blabla",route:"info",fecha:"  2/2/12",type:"gray",icon: "mdi-minus-circle"},
+            {title:"Ha sido Aprobado como donante", informacion:"blabla",route:"info",fecha:"  2/2/12",type:"gray",icon: "mdi-minus-circle"}
+         ]
     };
   },
-  // created() {
-  //        this.socket = io("http://localhost:3000");
-  //         // Reemplaza la URL con la URL de tu servidor WebSocket
+  created() {
+         this.socket = io("http://localhost:3000");
+          // Reemplaza la URL con la URL de tu servidor WebSocket
          
-  //        // Escucha el evento "notification" y actualiza las notificaciones
-  //        this.socket.on("notification", this.handleNotification);
-
-  //        if (!this.$store.getters.isEmpty) {
-  //       this.$router.push({ name: 'main' });
-  //   }
-  //      },
+         // Escucha el evento "notification" y actualiza las notificaciones
+         this.socket.on("notification", this.handleNotification);
+         
+       },
   methods: {
-    // handleNotification(notification) {
-    //        this.notifications.push(notification);
-    //      },
+    handleNotification(notification) {
+           if(notification.message=="Donante Aprobado"){
+            this.notifications.push({
+              title:"Felicitaciones usted ha sido aprobado como donante",
+              informacion:"Su solicitud como donante ha sido aprobada bienvenido a DonaVida project su pequeño gesto puede hacer grandes cosas. Presione aqui para comenzar como donante",
+              link:"no se q poner",//definir
+              fecha: Date.now,
+              type: "green",
+              icon: "mdi-checkbox-marked-circle"
+            });
+           }else if(notification.message=="Donante Rechazado"){
+            this.notifications.push({
+              title:"Lo sentimos lamentablemente usted no cumple con las condiciones médicas para ser donante",
+              informacion:"Su solicitud como donante ha sido rechazada debido a que no cumplía requisitos médicos necesarios, pero si aún esta interesado presione aqui para rellenar una solicitud de Gestor",
+              link:"no se q poner",//definir
+              fecha: Date.now,
+              type: "red",
+              icon: "mdi-cancel"
+            });
+           }else if(notification.message=="Gestor Aprobado"){
+            this.notifications.push({
+              title:"Felicitaciones usted ha sido aprobado como Gestor de DonaVida",
+              informacion:"Su solicitud como gestor ha sido aprobada bienvenido a DonaVida project su pequeño gesto puede hacer grandes cosas. Presione aqui para comenzar como Gestor",
+              link:"no se q poner",//definir
+              fecha: Date.now,
+              type: "green",
+              icon: "mdi-checkbox-marked-circle"
+            });
+           }else if(notification.message=="Gestor Rechazado"){
+            this.notifications.push({
+              title:"Lo sentimos lamentablemente usted no cumple con las condiciones para ser Gestor",
+              informacion:"Su solicitud como gestor ha sido rechazada debido a que no cumplía los requisitos necesarios",
+              link:"no se q poner",//definir
+              fecha: Date.now,
+              type: "red",
+              icon: "mdi-cancel"
+            });
+           }
+           this.notifications.push(notification);
+         },
+    handleDoubleClick() {
+      if (this.$route.name !== 'notificaciones') {
+        this.drawer=false;
+      this.$router.push({ name: 'notificaciones' });
+      }
+    },
     goToRegister() {
       if (this.$route.name !== 'home') {
         this.$router.push({ name: 'home' });
@@ -160,7 +227,6 @@ export default {
           return [
         {icon:'mdi-home',title:'Home',link:'/main'},
         {icon:'mdi-account',title:'User',link:'/profile'},
-        {icon:'mdi-note',title:'Solicitudes',link: '/requests'},
         {icon:'mdi-share-variant',title:'Share',link:''},
         {icon:'mdi-folder',title:'Info',link:'/info'},
       ]
@@ -171,7 +237,7 @@ export default {
   };
 </script>
 
-<style>
+<style scoped>
 
 .fade-enter-active,
 .fade-leave-active{
@@ -200,5 +266,38 @@ export default {
 .badge-container {
   display: flex;
   align-items: center;
+}
+
+.panel {
+  width: 400px;
+  height: 100vh;
+  background-color: #f5f5f5;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 999;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+.expand-x-enter-active,
+.expand-x-leave-active {
+  transition: all 0.3s;
+}
+.expand-x-enter,
+.expand-x-leave-to {
+  transform: translateX(100%);
+}
+
+.panel-content {
+  height: calc(100% - 56px); /* Resta el alto de la barra de herramientas */
+  overflow-y: auto; /* Habilita el scroll vertical */
+}
+.panel-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Color semi-transparente */
+  z-index: 998; /* Debajo del panel */
 }
 </style>
