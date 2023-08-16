@@ -25,12 +25,12 @@ const Meta = require('../models/Meta');
 
 //Crear el metauser
 exports.postCrear = (req,res) => {
-    const {username,name_rol,componentes} = req.body;
+    const {userName,name_rol,componentes} = req.body;
     //Validar que no esten vacios
-    if(!username || !name_rol || !componentes){//debes pasarme aunque sea un arreglo vacio
+    if(!userName || !name_rol || !componentes){//debes pasarme aunque sea un arreglo vacio
         return res.status(404).json('Valores Incompletos');
     }
-    User.findOne({userName:username})
+    User.findOne({userName:userName})
     .then(user =>{
         if(!user){
             return res.status(404).json('El user no existe');
@@ -38,15 +38,16 @@ exports.postCrear = (req,res) => {
             Meta.findOne({rol:name_rol})
             .then(meta => {
                 if(!meta){
-                    return res.status(404).json('El meta no existe');
+                    return res.status(404).json('El rol es incorrecto');
                 }else{
                     const userMeta = new MetaUser({
                         user:user,
-                        metas:new Meta({
-                            rol:meta.rol,
-                            components:componentes ,
-                            model: false
-                        }),
+                        rol:name_rol,
+                        meta:meta,
+                        components:componentes,
+                        updated:true,
+                        last:true,
+                
                     });
                     userMeta.save()
                     .then(()=>{

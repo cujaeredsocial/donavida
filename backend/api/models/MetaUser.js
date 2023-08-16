@@ -11,7 +11,7 @@ const esquemaMetaUser = new Schema({
     },
     rol: {
         type: String,
-        enum:['Donante','Gestor','Solicitante'],
+        enum:['donante','gestor','solicitante'],
         require: true
     },
     date:{
@@ -20,9 +20,8 @@ const esquemaMetaUser = new Schema({
     },  
     meta: Meta.schema,
     components:[Component.schema],
-    date:{
-        type:Date,
-        default:Date.now,
+    dateUpdate:{
+        type:Date,       
     },
     updated:{
         type: Boolean,
