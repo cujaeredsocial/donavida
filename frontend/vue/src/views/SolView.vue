@@ -1,5 +1,5 @@
 <template>
-  <v-responsive class="overflow-y-auto" style="height: 85vh">
+  <v-responsive  style="height: 100vh">
     <div class="pa-6 text-center">
       <h1 style="text-align: center; color: red">
         Registro de solicitudes realizadas
