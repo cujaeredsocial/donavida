@@ -43,44 +43,44 @@
               <v-form
                 @submit.prevent="send"
                 v-for="item in components"
-                :key="item.etiqueta"
+                :key="item.title"
                 v-model="valid"
               >
-                <div v-if="item.type === 'String'">
+                <div v-if="item.dataType === 'String'">
                   <v-text-field
-                    :rules="[item.regex]"
-                    v-model="item.value_Introducido_por_el_usuario"
-                    :label="item.label"
+                    :rules="[item.regex||item.message]"
+                    v-model="item.data"
+                    :label="item.title"
                   ></v-text-field>
                 </div>
-                <div v-if="item.type === 'Text'">
+                <div v-if="item.dataType === 'Text'">
                   <v-textarea
-                    :rules="[item.regex]"
-                    v-model="item.value_Introducido_por_el_usuario"
-                    :label="item.label"
+                    :rules="[item.regex||item.message]"
+                    v-model="item.data"
+                    :label="item.title"
                   ></v-textarea>
                 </div>
-                <div v-else-if="item.type === 'Boolean'">
+                <div v-else-if="item.dataType === 'Boolean'">
                   <v-checkbox
-                    :rules="[item.regex]"
-                    v-model="item.value_Introducido_por_el_usuario"
-                    :label="item.label"
+                    :rules="[item.regex||item.message]"
+                    v-model="item.data"
+                    :label="item.title"
                   ></v-checkbox>
                 </div>
-                <div v-else-if="typeof item.type === 'Number'">
+                <div v-else-if="item.dataType === 'Number'">
                   <v-text-field
-                    :rules="[item.regex]"
-                    v-model="item.value_Introducido_por_el_usuario"
+                    :rules="[item.regex||item.message]"
+                    v-model="item.data"
                     type="number"
-                    :label="item.label"
+                    :label="item.title"
                   ></v-text-field>
                 </div>
-                <div v-else-if="item.type === 'Select'">
+                <div v-else-if="item.dataType === 'Select'">
                   <v-combobox
-                    :rules="[item.regex]"
-                    v-model="item.value_Introducido_por_el_usuario"
-                    :items="item.value"
-                    :label="item.label"
+                    :rules="[item.regex||item.message]"
+                    v-model="item.data"
+                    :items="item.values"
+                    :label="item.title"
                   ></v-combobox>
                 </div>
               </v-form>
@@ -117,9 +117,9 @@
               </h2></v-card-title
             >
             <h3>Revise si son correctos los datos introducidos</h3>
-            <v-card-text v-for="item in components" :key="item.etiqueta">
-              <h3 style="display: inline">{{ item.label + ": " }}</h3>
-              {{ item.value_Introducido_por_el_usuario }}
+            <v-card-text v-for="item in components" :key="item.title">
+              <h3 style="display: inline">{{ item.title + ": " }}</h3>
+              {{ item.data }}
             </v-card-text>
             <div style="padding: 6px">
               <v-btn
@@ -199,7 +199,7 @@ export default {
   data() {
     return {
       valid: false,
-      metaUser: { username: "", name_rol: "", componentes: [] },
+      metaUser: { userName: "", name_rol: "", components: [] },
       mostrarForm: false,
       formsend: false,
       titulo: "",
@@ -240,11 +240,11 @@ export default {
     comprobar() {
       if (
         this.components.every(
-          (component) => component.value_Introducido_por_el_usuario != ""
+          (component) => component.data != ""
         )
       ) {
-        this.metaUser.componentes = this.components;
-        this.metaUser.username = this.$store.getters.getUserData.userName;
+        this.metaUser.components = this.components;
+        this.metaUser.userName = this.$store.getters.getUserData.userName;
         this.formsend = true;
       } else {
         confirm("Debe Rellenar Todos los campos de la solicitud");
@@ -256,6 +256,7 @@ export default {
         .then(
           (response) => {
             if (response.status == 200) {
+              //mensaje de felicitacion general y para la pantalla de inicio o de solicitudes
               this.$router.push({ name: "main" });
             }
             console.log(response);
