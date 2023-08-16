@@ -127,7 +127,7 @@ exports.postUpdateUser = (req, res) => {
 };
 
 //Buscar todos los usuarios
-exports.postAllUsers = (req, res) => {
+exports.getAllUsers = (req, res) => {
   User.find()
     .then(users => {
       users.length > 0 ? res.json(users) : res.json("No users yet");
