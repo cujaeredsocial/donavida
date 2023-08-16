@@ -1,23 +1,22 @@
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
-const config = require('../config');
+const config = require('../../../config');
 
-const isAuthenticated = (req, res, next) => {
-  const { token } = req.cookies;
+const verifyToken = (req, res, next) => {
+  const token =  req.cookies.token;
+
   if (!token) {
-    return next("Please login to access the data");
+    return res.status(403).send("A token is required for authentication");
   }
-  const verify = jwt.verify(token, config.TOKEN_SECRET);
-  req.user = User
-    .findById(verify.id)
-    .then(() => {
-      next();
-    })
-    .catch(err => {
-      next(err);
-    });
+  try {
+    const decoded = jwt.verify(token, config.TOKEN_SECRET);
+    req.userId = decoded.userId;
+  } catch (err) {
+    return res.status(401).send("Invalid Token");
+  }
+  return next();
 };
 
-module.exports = isAuthenticated;
+module.exports = verifyToken;
 
  

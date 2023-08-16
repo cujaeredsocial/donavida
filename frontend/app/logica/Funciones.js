@@ -1,4 +1,3 @@
-
 const fs = require('fs');
 const Usuario = require('./Usuario.js');
 
@@ -12,7 +11,7 @@ function buscar(ctx, listaU) {
     return -1;
 }
 function buscarUsuario(listaUsuarios, usuarioNombre) {
-    console.log(usuarioNombre);
+
     for (var i = 0; i < listaUsuarios.length; i++) {
         if (usuarioNombre === "@" + listaUsuarios[i].nombreUsuario) {
             return i;
@@ -59,9 +58,9 @@ function enviarMensaje(ctx, listadoU, bot) {
     }
 }
 
-function cargar() {
+function cargar(fichero) {
     try {
-        const data = fs.readFileSync('Usuarios.json', 'utf8');
+        const data = fs.readFileSync(fichero, 'utf8');
         const usuariosData = JSON.parse(data);
         const usuarios = usuariosData.map(usuarioData => {
             const usuario = new Usuario();
@@ -77,9 +76,10 @@ function cargar() {
         }
     }
 }
-function actualizar(listaUsuario) {
+
+function actualizar(listaUsuario, fichero) {
     const data = JSON.stringify(listaUsuario);
-    fs.writeFileSync('Usuarios.json', data);
+    fs.writeFileSync(fichero, data);
 }
 
 function validarCarnet(carnet) {
@@ -118,6 +118,7 @@ function CompativilidadSnguinea(tipoSangre) {
         default: return null;
     }
 }
+
 function generarToken() {
     var caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     var resultado = "";
@@ -143,5 +144,9 @@ function leerClaves(admin) {
     const datos = JSON.parse(fs.readFileSync(rutaArchivo));
     return admin ? datos.claveAdministrador : datos.claveUsuario;
 }
+function validaCorreo(correo) {
+    const regex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    return regex.test(correo);
+}
 
-module.exports = { guardarClaves, leerClaves, generarToken, CompativilidadSnguinea, buscar, buscarUsuario, avisoDeInscripcion, bloquear, enviarMensaje, cargar, actualizar, validarCarnet };
+module.exports = { validaCorreo, guardarClaves, leerClaves, generarToken, CompativilidadSnguinea, buscar, buscarUsuario, avisoDeInscripcion, bloquear, enviarMensaje, cargar, actualizar, validarCarnet };

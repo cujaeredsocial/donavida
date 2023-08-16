@@ -6,10 +6,31 @@ import LoginView from '../views/LoginView.vue'
 import WelcomeView from '../views/WelcomeView.vue'
 import ProfileView from  '../views/ProfileView.vue'
 import InfoView from  '../views/InfoView.vue'
+import MetaUser from '@/views/MetaUser.vue'
+import SolView from '../views/SolView.vue'
+import NotificationCenter from '@/views/NotificationCenter.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path: '/notificaciones',
+    name: 'notificaciones',
+    component: NotificationCenter
+
+  },
+  {
+    path: '/requests',
+    name: 'req',
+    component: SolView
+
+  },
+  {
+    path: '/forms',
+    name: 'forms',
+    component: MetaUser
+
+  },
   {
     path: '/info',
     name: 'info',

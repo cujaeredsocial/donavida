@@ -11,22 +11,28 @@
           height="90"
             />
           <v-card-text>
-          <v-form @submit.prevent="singIN">
+          <v-form @submit.prevent="singIN"  ref="form" v-model="valid">
+          
+          <!--Username-->
           <v-text-field
-          :rules="[campoNoVacioRule]"
-           v-model="user.email"
+          :rules="rules"
+           v-model="user.userName"
            label="Username"
            ></v-text-field>
+           
+           <!--Password-->
            <v-text-field
-           :rules="[campoNoVacioRule]"
+           :rules="rules"
            v-model="user.password"
            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
            :type="showPassword ? 'text' : 'password'"
            @click:append="showPassword = !showPassword"
            label="Password"
           ></v-text-field>
+
+           <!--Submit-->
           <v-btn 
-          :disabled="!todosCamposLlenos" 
+          :disabled="!valid" 
           type="submit" 
           block 
           class="mt-2" 
@@ -48,14 +54,19 @@
 
 <script>
 export default {
+   
   data() {
     return {
+      valid: false,
       user: {
-        email: "",
+        userName: "",
         password: ""
       },
       errorMessage: "",
-      campoNoVacioRule: v => !!v || 'Este campo es obligatorio',
+      rules: [
+        v => !!v || 'Este campo es obligatorio',
+        v => v.length>4 || 'Este campo requiere al menos 4 caracteres',
+    ],
       showPassword: false,
     };
   },
@@ -66,6 +77,9 @@ export default {
           console.log(response);
           this.$router.push({ name: "main" });
           this.$store.dispatch('setUser',this.user);
+          localStorage.setItem('password', this.user.password)
+          localStorage.setItem('username', this.user.userName)
+
         },
         (error) => {
           console.log(error);
@@ -75,11 +89,7 @@ export default {
       );
     },
   },
-  computed : {
-    todosCamposLlenos() {
-      return this.user.email && this.user.password;
-    },
-  }
+  
 };
 </script>
 

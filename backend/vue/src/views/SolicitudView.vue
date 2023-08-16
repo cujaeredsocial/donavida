@@ -16,21 +16,6 @@
           </v-list>
         </v-card>
       </div>
-
-      <div>
-        <v-card class="pa-2" width="300" height="600" tile>
-          <v-list dense>
-            <v-subheader>Donantes</v-subheader>
-            <v-list-item-group color="primary">
-              <v-list-item v-for="(donante, i) in donantes" :key="i">
-                <v-list-item-content>
-                  <v-list-item-title>{{ donante }}</v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </v-list-item-group>
-          </v-list>
-        </v-card>
-      </div>
     </v-row>
   </div>
 </template>

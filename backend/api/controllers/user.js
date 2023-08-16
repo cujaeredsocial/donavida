@@ -1,13 +1,16 @@
 const User = require("../models/user");
+const MetaUser = require("../models/MetaUser");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const config = require('../config');
+const config = require("../../../config");
 
-//Crear un usuario 
-exports.postCreateUser = (req, res) => {  
+
+
+//Crear un usuario
+exports.postCreateUser = (req, res) => {
   //Verificar que ningun campo esta vacio
   const { userName, email, password } = req.body;
-   if (!userName || !email || !password) {
+  if (!userName || !email || !password) {
     throw new Error("need to complete all fields");
   }
   //Verificar que el email no se repita
@@ -34,21 +37,18 @@ exports.postCreateUser = (req, res) => {
             password: hash,
             manager: req.body.manager,
           });
-          console.log(user._id);
+          //Crear su metauser
+          metauser = new MetaUser({
+            user:user,
+            metas:[],
+          })
           //Guardar usuario
-          user.save();
-
-          //Creando el token
-          const token = jwt.sign({ id: user._id }, config.TOKEN_SECRET, {
-            expiresIn: config.JWT_EXPIRE,
+          user.save();      
+          res.json({
+            success: true,
+            message: "UserCreate Succesfully",
+            user: user,
           });
-          user.token = token;
-          res           
-            .json({
-              success: true,
-              message: "LoggedIn Successfully",
-              user: user,
-            });
         });
       });
     })
@@ -59,25 +59,23 @@ exports.postCreateUser = (req, res) => {
 exports.postAuthenticateUser = (req, res, next) => {
   let userAux;
   //Comprobar que los campos no esten vacios
-  const { email, password } = req.body;
-  if (!email || !password) {
-    throw Error("Email and Password are required");
+  const { userName, password } = req.body;
+  if (!userName || !password) {
+    throw Error("Username and Password are required");
   }
   //Encontrar el usuario
-  User.findOne({ email: email })
+  User.findOne({ userName:userName })
     .then(user => {
       if (!user) {
         throw Error("Wrong Credentials");
       } else {
         return user;
       }
-      //Verificar que la contrasennas coincidan 
+      //Verificar que la contrasennas coincidan
     })
     .then(user => {
       userAux = user;
-      console.log(password);
-      console.log(user.password);
-      return bcrypt.compare(password, user.password);
+       return bcrypt.compare(password, user.password);
     })
     .then(isPasswordMatched => {
       console.log(isPasswordMatched);
@@ -90,15 +88,15 @@ exports.postAuthenticateUser = (req, res, next) => {
       }
     })
     .then(token => {
+      console.log(token);
       res
-        .cookie({ token: token })
+        .cookie('token', token)
         .json({ success: true, message: "LoggedIn Successfully" });
     })
     .catch(err => res.status(401).json(err));
 };
 
-
-//Actualizar un usuario 
+//Actualizar un usuario
 exports.postUpdateUser = (req, res) => {
   const id = req.body.userId;
   let updateUser;
@@ -128,8 +126,7 @@ exports.postUpdateUser = (req, res) => {
     });
 };
 
-
-//Buscar todos los usuarios 
+//Buscar todos los usuarios
 exports.postAllUsers = (req, res) => {
   User.find()
     .then(users => {
@@ -139,7 +136,6 @@ exports.postAllUsers = (req, res) => {
       res.status(403).json(err);
     });
 };
-
 
 //Buscar todos los usuarios donantes
 exports.postAllDonorsUsers = (req, res) => {
@@ -152,7 +148,6 @@ exports.postAllDonorsUsers = (req, res) => {
     });
 };
 
-
 //Buscar todos los usuarios gestores
 exports.postAllManagersUsers = (req, res) => {
   User.find({ manager: true })
@@ -162,8 +157,7 @@ exports.postAllManagersUsers = (req, res) => {
     .catch(err => res.status(403).json("Error Finding Managers " + err));
 };
 
-
-//Eliminar un usuario por id 
+//Eliminar un usuario por id
 exports.postDeleteUser = (req, res) => {
   const id = req.body.userId;
   User.findByIdAndDelete(id)

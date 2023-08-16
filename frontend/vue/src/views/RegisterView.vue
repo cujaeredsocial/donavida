@@ -11,24 +11,27 @@
           height="90"
         />
            <v-card-text>
-           <v-form @submit.prevent="submit">
+           <v-form @submit.prevent="submit"  v-model="valid">
             <v-text-field
-            :rules="[campoNoVacioRule]"
+            :rules="campoNoVacioRule"
             v-model="userName"
             label="Username"
             ></v-text-field>
             <v-text-field
-            :rules="[emailRules,campoNoVacioRule]"
+            :rules="emailRules"
             v-model="email"
             label="Email"
             ></v-text-field>
             <v-text-field
-            :rules="[campoNoVacioRule]"
+            :rules="campoNoVacioRule"
             v-model="password"
+            :type="showPassword ? 'text' : 'password'"
+            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+           @click:append="showPassword = !showPassword"
             label="Password"
            ></v-text-field>
            <v-btn
-           :disabled="!todosCamposLlenos" 
+           :disabled="!valid" 
            type="submit" 
            block 
            class="mt-2" 
@@ -52,15 +55,20 @@
 export default {
   data() {
     return {
+        valid: false,
         userName: '',
         password: '',
         email: '',
       errorMessage: "",
-      campoNoVacioRule: v => !!v || 'Este campo es obligatorio',
+      campoNoVacioRule: [
+        v => !!v || 'Este campo es obligatorio',
+        v => v.length>4 || 'Este campo requiere al menos 4 caracteres',
+    ],
       emailRules: [
-          v => !!v || 'No se ha llenado este campo',
-          v => /.+@.+\..+/.test(v) || 'Correo no válido',
-        ],
+     v => !!v || 'E-mail is required',
+     v => /^(([^<>()[\]\\.,;:\s@']+(\.[^<>()\\[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(v) || 'E-mail must be valid',
+   ],
+        showPassword:false
     };
   },
   methods: {
@@ -79,6 +87,12 @@ export default {
           console.log(response); // Puedes mostrar o utilizar la respuesta recibida
           this.$router.push({ name: "main" });
           this.$store.dispatch('setUser', user);
+          localStorage.setItem("password", user.password)
+          localStorage.setItem("username", user.userName)
+          localStorage.setItem("email", user.email)
+
+
+          
         } else {
           // Mostrar mensaje de error si la respuesta no es exitosa
           console.log(response.statusText); // Puedes mostrar o utilizar el mensaje de error
