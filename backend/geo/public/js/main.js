@@ -32,7 +32,8 @@ map.on('click', function(e){
     console.log(e)
     console.log(e.latlng.lat)
     console.log(e.latlng.lng)
-    const secondMarker = L.marker([e.latlng.lat, e.latlng.lng]).addTo(map);
+    const secondMarker = L.marker([e.latlng.lat, e.latlng.lng]);
+    secondMarker.bindPopup('Latitud:', e.latlng.lat, 'Longitud:', e.latlng.lng);
 
     L.Routing.control({
        waypoint: [
