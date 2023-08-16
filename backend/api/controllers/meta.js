@@ -3,7 +3,7 @@ const Rol = require("../models/Rol");
 
 exports.post = (req, resp) => {
   //valido que el rol no este vacio
-  const { rol, components, model } = req.body;
+  const { rol, components } = req.body;
   if (!rol) {
     return resp.status(400).json("Rol no valido");
   }

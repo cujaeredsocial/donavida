@@ -5,10 +5,10 @@ const Component = require("./Component");
 const esquemaMeta = new Schema({
   rol: {
     type: String,
-    enum: ["Donante", "Gestor", "Solicitante"],
+    enum: ["donante", "gestor", "solicitante"],
     require: true,
   },
-  components: [Component.schema],  
+  components: [Component.schema]  
 });
 esquemaMeta.methods.comparar = name => {
   if (rol === name) {
