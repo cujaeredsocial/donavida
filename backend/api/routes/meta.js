@@ -5,6 +5,6 @@ const camino = express.Router();
 camino.post('/create',metaController.post);
 camino.put('/update/:id',metaController.update);
 camino.get('/plantilla/:rol',metaController.get);
-camino.delete('/delete/:rol',metaController.delete);
+
 
 module.exports = camino;

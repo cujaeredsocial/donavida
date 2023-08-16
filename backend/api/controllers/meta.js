@@ -1,32 +1,22 @@
 const Meta = require("../models/Meta");
 const Rol = require("../models/Rol");
 
-
 exports.post = (req, resp) => {
   //valido que el rol no este vacio
   const { rol, components, model } = req.body;
   if (!rol) {
     return resp.status(400).json("Rol no valido");
   }
-  //Valido la existencia de ese rol
-  Rol.findOne({ name: rol })
-    .then(rol => {
-      console.log(rol);
-      if (!rol) {
-        throw new Error("Rol no existe");
-      } else {
-        meta = new Meta({
-          rol: rol,
-          components: [],
-          model: model,
-        });
-        components.forEach(component => {
-          meta.components.push(component);
-        });
+  meta = new Meta({
+    rol: rol,
+    components: [],   
+  });
+  components.forEach(component => {
+    meta.components.push(component);
+  });
 
-        return meta.save();
-      }
-    })
+  meta
+    .save()
     .then(meta => {
       resp.json({
         success: true,
@@ -62,40 +52,12 @@ exports.get = (req, res) => {
   if (!namerol) {
     return res.status(400).json("Rol no valido");
   }
-  Rol.findOne({ name: namerol })
-    .then(roldev => {     
-      if (!roldev) {
-        throw new Error("Rol no existe");
-      } else {
-        return Meta.findOne({ rol: roldev.name });
-      }
-    })
+  Meta.findOne({ rol: namerol })
     .then(meta => {
       res.json(meta);
     })
     .catch(err => {
       res.status(400).json(err);
-    });
-};
-
-exports.delete = (req, res) => {
-  const rol = req.params.rol;
-  if (!rol) {
-    return resp.status(400).json("Rol no valido");
-  }
-  Rol.findOneAndRemove({ rol: rol })
-    .then(rol => {
-      if (!rol) {
-        throw new Error("Rol no existe");
-      } else {
-        return Meta.findOne({ rol: rol, model: true });
-      }
-    })
-    .then(meta => {
-      res.json("Borrado exitosamente", meta);
-    })
-    .catch(err => {
-      res.status(401).json(err);
     });
 };
 
