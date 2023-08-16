@@ -10,8 +10,8 @@
         <v-card-text>
           {{ metaUser.state }}
             <div v-for="item in metaUser.components" :key="item.id" style="display: flex;" >
-              <h3 style="display: inline;">{{ item.label +": "}}</h3>
-              <p style="display: inline;">{{ item.value_Introducido_por_el_usuario }}</p>
+              <h3 style="display: inline;">{{ item.title +": "}}</h3>
+              <p style="display: inline;">{{ item.data }}</p>
             </div>
         </v-card-text>
       </v-card>

@@ -10,7 +10,7 @@
       v-for="metauser in usuarios"
       :key="metauser._id">
       <div class="text-rigth text-body-2 ">
-        Fecha: {{ new Date(metauser.fecha).toDateString() }}
+        Fecha: {{ new Date(metauser.date).toDateString() }}
       </div>
 
       <v-lazy
