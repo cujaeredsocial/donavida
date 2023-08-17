@@ -57,16 +57,20 @@
           v-for="item in horizontalNavItems"
           :key="item.id"
           :to="item.link"
-        >
+          >
           <v-icon left>{{ item.icon }}</v-icon>
           {{ item.title }}
         </v-btn>
         <v-btn
-          @click="drawer = !drawer"
+          v-if="!this.$store.getters.isEmpty"
+          @click="botonCampana"
           @dblclick="handleDoubleClick"
           color="bar"
         >
-          <v-icon>mdi-bell</v-icon>
+          <v-badge color="blue" dot  :value="areThereNewNotifications">
+            <v-icon>mdi-bell</v-icon>
+          </v-badge>
+          
         </v-btn>
       </v-app-bar>
 
@@ -86,14 +90,15 @@
             <v-list>
               <v-row justify="center">
                 <v-col
-                cols="12" sm="11" class="mx-2"
+                  cols="12"
+                  sm="11"
+                  class="mx-2"
                   v-for="Notificacion in Notifications"
                   :key="Notificacion.id"
-                  >
+                >
                   <Notificacion :Notification="Notificacion" />
                 </v-col>
               </v-row>
-              
             </v-list>
           </div>
         </div>
@@ -129,11 +134,13 @@ export default {
       Notifications: [
         {
           title: "Ha sido Aprobado como donante",
-          informacion: "loremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremvv",
+          informacion:
+            "loremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremvv",
           link: "info",
           fecha: "  2/2/12",
           type: "green",
           icon: "mdi-checkbox-marked-circle",
+          leida: false,
         },
         {
           title: "Ha sido Aprobado como donante",
@@ -142,6 +149,7 @@ export default {
           fecha: "  2/2/12",
           type: "red",
           icon: "mdi-cancel",
+          leida: true,
         },
         {
           title: "Ha sido Aprobado como donante",
@@ -150,6 +158,7 @@ export default {
           fecha: "  2/2/12",
           type: "gray",
           icon: "mdi-minus-circle",
+          leida: true,
         },
         {
           title: "Ha sido Aprobado como donante",
@@ -158,6 +167,7 @@ export default {
           fecha: "  2/2/12",
           type: "gray",
           icon: "mdi-minus-circle",
+          leida: true,
         },
         {
           title: "Ha sido Aprobado como donante",
@@ -166,6 +176,7 @@ export default {
           fecha: "  2/2/12",
           type: "gray",
           icon: "mdi-minus-circle",
+          leida: true,
         },
       ],
     };
@@ -178,6 +189,24 @@ export default {
     this.socket.on("notification", this.handleNotification);
   },
   methods: {
+    //Estos es el metodo de lo que hace el btn de la campana cuando le das click
+    botonCampana(){
+      this.drawer = !this.drawer; 
+          if(this.areThereNewNotifications){
+            this.marcarNoLeidas();
+          }
+    },
+
+    //Metodo para marcar todoas las no leidas como leidas
+    marcarNoLeidas(){
+      const noLeidas = this.Notifications.filter((element)=>{
+        return !element.leida
+      });
+      console.log(noLeidas)
+      noLeidas.forEach((element)=>{
+        element.leida= true;
+      })
+    },
     handleNotification(notification) {
       if (notification.message == "Donante Aprobado") {
         this.notifications.push({
@@ -229,10 +258,10 @@ export default {
       if (this.$route.name !== "notificaciones") {
         this.drawer = false;
         this.$router.push({ name: "notificaciones" });
-      }
-      else{
+      } else {
         this.drawer = false;
       }
+     
     },
     goToRegister() {
       if (this.$route.name !== "home") {
@@ -257,6 +286,16 @@ export default {
     },
   },
   computed: {
+        //Metodo para saber si hay nueva notificaion
+        areThereNewNotifications(){
+      if(this.Notifications.find((element)=>{
+        return !element.leida
+      })){
+        return true
+      }else{
+        return false
+      }
+    },
     horizontalNavItems() {
       if (this.$store.getters.isEmpty) {
         return [
@@ -370,5 +409,4 @@ export default {
   background-color: rgba(0, 0, 0, 0.5); /* Color semi-transparente */
   z-index: 998; /* Debajo del panel */
 }
-
 </style>

@@ -43,44 +43,44 @@
               <v-form
                 @submit.prevent="send"
                 v-for="item in components"
-                :key="item.etiqueta"
+                :key="item.title"
                 v-model="valid"
               >
-                <div v-if="item.type === 'String'">
+                <div v-if="item.dataType === 'String'">
                   <v-text-field
-                    :rules="[item.regex]"
-                    v-model="item.value_Introducido_por_el_usuario"
-                    :label="item.label"
+                    :rules="[item.regex || item.message]"
+                    v-model="item.data"
+                    :label="item.title"
                   ></v-text-field>
                 </div>
-                <div v-if="item.type === 'Text'">
+                <div v-if="item.dataType === 'Text'">
                   <v-textarea
-                    :rules="[item.regex]"
-                    v-model="item.value_Introducido_por_el_usuario"
-                    :label="item.label"
+                    :rules="[item.regex || item.message]"
+                    v-model="item.data"
+                    :label="item.title"
                   ></v-textarea>
                 </div>
-                <div v-else-if="item.type === 'Boolean'">
+                <div v-else-if="item.dataType === 'Boolean'">
                   <v-checkbox
-                    :rules="[item.regex]"
-                    v-model="item.value_Introducido_por_el_usuario"
-                    :label="item.label"
+                    :rules="[item.regex || item.message]"
+                    v-model="item.data"
+                    :label="item.title"
                   ></v-checkbox>
                 </div>
-                <div v-else-if="typeof item.type === 'Number'">
+                <div v-else-if="item.dataType === 'Number'">
                   <v-text-field
-                    :rules="[item.regex]"
-                    v-model="item.value_Introducido_por_el_usuario"
+                    :rules="[item.regex || item.message]"
+                    v-model="item.data"
                     type="number"
-                    :label="item.label"
+                    :label="item.title"
                   ></v-text-field>
                 </div>
-                <div v-else-if="item.type === 'Select'">
+                <div v-else-if="item.dataType === 'Select'">
                   <v-combobox
-                    :rules="[item.regex]"
-                    v-model="item.value_Introducido_por_el_usuario"
-                    :items="item.value"
-                    :label="item.label"
+                    :rules="[item.regex || item.message]"
+                    v-model="item.data"
+                    :items="item.values"
+                    :label="item.title"
                   ></v-combobox>
                 </div>
               </v-form>
@@ -104,6 +104,8 @@
             </v-card-text>
           </v-col>
         </v-card>
+
+        <!--Tarjeta de confirmacion de envio de la solicitud-->
         <v-card
           v-if="formsend"
           class="mx-auto my-12"
@@ -117,9 +119,9 @@
               </h2></v-card-title
             >
             <h3>Revise si son correctos los datos introducidos</h3>
-            <v-card-text v-for="item in components" :key="item.etiqueta">
-              <h3 style="display: inline">{{ item.label + ": " }}</h3>
-              {{ item.value_Introducido_por_el_usuario }}
+            <v-card-text v-for="item in components" :key="item.title">
+              <h3 style="display: inline">{{ item.title + ": " }}</h3>
+              {{ item.data }}
             </v-card-text>
             <div style="padding: 6px">
               <v-btn
@@ -132,60 +134,9 @@
               >
 
               <!--Enviar informacion de la solicitud-->
-              <v-row justify="space-around">
-                <v-col cols="auto">
-                  <v-dialog
-                    transition="dialog-bottom-transition"
-                    max-width="600"
-                  >
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-btn color="primary" v-bind="attrs" v-on="on"
-                        >From the bottom</v-btn
-                      >
-                    </template>
-                    <template v-slot:default="dialog">
-                      <v-card>
-                        <v-toolbar color="primary" dark
-                          >Opening from the bottom</v-toolbar
-                        >
-                        <v-card-text>
-                          <div class="text-h2 pa-12">Hello world!</div>
-                        </v-card-text>
-                        <v-card-actions class="justify-end">
-                          <v-btn text @click="dialog.value = false"
-                            >Close</v-btn
-                          >
-                        </v-card-actions>
-                      </v-card>
-                    </template>
-                  </v-dialog>
-                </v-col>
-
-                <v-col cols="auto">
-                  <v-dialog transition="dialog-top-transition" max-width="600">
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-btn color="primary" v-bind="attrs" v-on="on"
-                        >From the top</v-btn
-                      >
-                    </template>
-                    <template v-slot:default="dialog">
-                      <v-card>
-                        <v-toolbar color="primary" dark
-                          >Opening from the top</v-toolbar
-                        >
-                        <v-card-text>
-                          <div class="text-h2 pa-12">Hello world!</div>
-                        </v-card-text>
-                        <v-card-actions class="justify-end">
-                          <v-btn text @click="dialog.value = false"
-                            >Close</v-btn
-                          >
-                        </v-card-actions>
-                      </v-card>
-                    </template>
-                  </v-dialog>
-                </v-col>
-              </v-row>
+              <v-btn v-if="mostrarForm" @click="send" color="red" dark
+                >Enviar Solicitud</v-btn
+              >
             </div>
           </v-col>
         </v-card>
@@ -199,7 +150,7 @@ export default {
   data() {
     return {
       valid: false,
-      metaUser: { username: "", name_rol: "", componentes: [] },
+      metaUser: { userName: "", name_rol: "", components: [] },
       mostrarForm: false,
       formsend: false,
       titulo: "",
@@ -220,9 +171,12 @@ export default {
       return this.$http
         .get(`http://127.0.0.1:27000/meta${rutaFormulario}`)
         .then((response) => {
+          console.log(response);
           this.mostrarForm = true;
           this.metaUser.name_rol = response.data.rol;
           this.components = response.data.components;
+          //Aqui se llama al metodo de autocompletar pero todavia no existe el endpoint
+          //this.autocompletar(rutaFormulario);
           if (rutaFormulario == "/plantilla/Gestor") {
             this.titulo = "Solicitud de Gestor";
           } else if (rutaFormulario == "/plantilla/Donante") {
@@ -237,14 +191,26 @@ export default {
           return [];
         });
     },
+    autocompletar(rutaFormulario){
+      this.$http.get(`http://127.0.0.1:27000/metauser/ultimoFormulario${rutaFormulario}`)//esto habre q cambiarlo
+      .then((response) => {
+        const componentsOld =response.data.components  //esto habra q cambiarlo
+        for(let comp in this.components){
+          const found= componentsOld.find((elemnt)=>{
+            return elemnt.title === comp.title
+          });
+          if (found){
+            comp.data = found.data;
+          }
+        }
+      }).catch((error) => {
+          console.error(error);
+      });
+    },
     comprobar() {
-      if (
-        this.components.every(
-          (component) => component.value_Introducido_por_el_usuario != ""
-        )
-      ) {
-        this.metaUser.componentes = this.components;
-        this.metaUser.username = this.$store.getters.getUserData.userName;
+      if (this.components.every((component) => component.data != "")) {
+        this.metaUser.components = this.components;
+        this.metaUser.userName = this.$store.getters.getUserData.userName;
         this.formsend = true;
       } else {
         confirm("Debe Rellenar Todos los campos de la solicitud");
@@ -256,6 +222,7 @@ export default {
         .then(
           (response) => {
             if (response.status == 200) {
+              //mensaje de felicitacion general y para la pantalla de inicio o de solicitudes
               this.$router.push({ name: "main" });
             }
             console.log(response);
