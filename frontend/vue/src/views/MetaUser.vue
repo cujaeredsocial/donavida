@@ -7,16 +7,16 @@
       <v-row align="center" justify="center">
         <!-- Para obtenerlo segun el id de una tabla solo habria q  pasar el id del tipo de formulario q se debe en el parametro del metodo -->
         <div class="button-container" v-if="!mostrarForm">
-          <v-btn color="red" dark @click="getFormTemplate('/plantilla/Gestor')"
+          <v-btn color="red" dark @click="getFormTemplate('/plantilla/gestor')"
             >Solicitud de Gestor</v-btn
           >
-          <v-btn color="red" dark @click="getFormTemplate('/plantilla/Donante')"
+          <v-btn color="red" dark @click="getFormTemplate('/plantilla/donante')"
             >Solicitud de Donante</v-btn
           >
           <v-btn
             color="red"
             dark
-            @click="getFormTemplate('/plantilla/Solicitante')"
+            @click="getFormTemplate('/plantilla/solicitante')"
             >Solicitud de Donación</v-btn
           >
         </div>
@@ -48,7 +48,7 @@
               >
                 <div v-if="item.dataType === 'String'">
                   <v-text-field
-                    :rules="[item.regex || item.message]"
+                    :rules="[v => new RegExp(item.regex).test(v) || item.message]"
                     v-model="item.data"
                     :label="item.title"
                   ></v-text-field>
@@ -69,7 +69,7 @@
                 </div>
                 <div v-else-if="item.dataType === 'Number'">
                   <v-text-field
-                    :rules="[item.regex || item.message]"
+                    :rules="[v => new RegExp(item.regex).test(v) || item.message]"
                     v-model="item.data"
                     type="number"
                     :label="item.title"
@@ -150,7 +150,7 @@ export default {
   data() {
     return {
       valid: false,
-      metaUser: { userName: "", name_rol: "", components: [] },
+      metaUser: { userName: "", name_rol: "", componentes: [] },
       mostrarForm: false,
       formsend: false,
       titulo: "",
@@ -177,11 +177,11 @@ export default {
           this.components = response.data.components;
           //Aqui se llama al metodo de autocompletar pero todavia no existe el endpoint
           //this.autocompletar(rutaFormulario);
-          if (rutaFormulario == "/plantilla/Gestor") {
+          if (rutaFormulario == "/plantilla/gestor") {
             this.titulo = "Solicitud de Gestor";
-          } else if (rutaFormulario == "/plantilla/Donante") {
+          } else if (rutaFormulario == "/plantilla/donante") {
             this.titulo = "Solicitud de Donante";
-          } else if (rutaFormulario == "/plantilla/Solicitante") {
+          } else if (rutaFormulario == "/plantilla/solicitante") {
             this.titulo = "Solicitud de Donación";
           }
           return response.data;
@@ -209,7 +209,7 @@ export default {
     },
     comprobar() {
       if (this.components.every((component) => component.data != "")) {
-        this.metaUser.components = this.components;
+        this.metaUser.componentes = this.components;
         this.metaUser.userName = this.$store.getters.getUserData.userName;
         this.formsend = true;
       } else {
