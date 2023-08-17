@@ -170,16 +170,25 @@ Lo más importante: Como acceder a la base de datos:
         meta: el template o meta de la solicitud: Meta.
         components: arreglo de componentes visuales: Component[].
         dateUpdate: fecha de modificacion: Date.
+        status:El estado de la solicitud:en proceso|| aceptado|| denagado
         updated: para saber si esta actualizdo con respecto a su template origen, cuando se crea es verdadero: Boolean.
         last: para saber si es el ultimo de su respectivo usuario, cuando se crea es verdadero: Boolean.
       
       Endpoints:
-        postCrer:
+        postCrear:
           tipo: Post
           ruta:/metauser/create.  
           descripción: Crea un nuevo metauser y lo guarda en la base de datos
           entrada: userName: String, name_rol: donante||gestor||solicitante,componentes: Component[]
           salida: Mensaje de éxito y el metauser recien creado
+          errores:  
+        putState:
+          tipo: Put
+          ruta:/metauser/changestate/<id>.(id del metaUser que se va actualizar el estado
+          ejemplo: /metauser/changestate/64dd8b83db99d14bcd444378 )  
+          descripción: cambia el estado de una solicitud a aceptado, denegado o en proceso.
+          entrada: status:aceptado||denegado||en proceso
+          salida: Mensaje de éxito y el metauser con el estado actualizado
           errores:  
 
 

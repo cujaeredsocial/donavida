@@ -23,6 +23,10 @@ const esquemaMetaUser = new Schema({
     dateUpdate:{
         type:Date,       
     },
+    status:{
+        type:String,
+        enum:['en proceso','aceptado','denegado']
+    },
     updated:{
         type: Boolean,
         required : true,

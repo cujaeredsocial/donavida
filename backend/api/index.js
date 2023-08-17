@@ -10,12 +10,10 @@ const socketControllers = require('./socket.io/socket-io');
 
 //Init5
 const app = express();
-// app.set("view engine", "ejs");
-// app.set("views", "views");
 
 
 app.use(bodyParser.urlencoded({ extended: false }));
-//app.use(express.static(path.join(__dirname, "public")));
+
 
 app.use(express.json());
 app.use(cookie());

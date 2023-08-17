@@ -47,12 +47,12 @@ exports.update = (req, res) => {
 };
 
 exports.get = (req, res) => {
-  const namerol = req.params.rol;
+  const rol = req.params.rol;
 
-  if (!namerol) {
+  if (!rol) {
     return res.status(400).json("Rol no valido");
   }
-  Meta.findOne({ rol: namerol })
+  Meta.findOne({ rol: rol })
     .then(meta => {
       res.json(meta);
     })
