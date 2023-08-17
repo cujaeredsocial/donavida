@@ -279,6 +279,9 @@ export default {
           (response) => {
             if (response.status == 200) {
               //mensaje de felicitacion general y para la pantalla de inicio o de solicitudes
+              if(this.metaUser.name_rol=="donante"){
+                //emitir un mensaje al server para q envie una notificacion
+              }
               this.$router.push({ name: "main" });
             }
             console.log(response);
