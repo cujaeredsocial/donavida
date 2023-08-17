@@ -1,17 +1,19 @@
 const MetaUser = require("../models/MetaUser");
 const User = require("../models/user");
 const Meta = require("../models/Meta");
+const socketIo = require('../socket.io/socket-io');
+
 
 //Funcion para actualizar para actualizar el ultimo metaUser
-function changeLast(user) {
+function changeLast(user,rol) {
   MetaUser.findOneAndUpdate(
-    { user: user, last: true },
+    { user: user,rol:rol, last: true },
     { last: false },
     { new: true }
   )
     .then(metaU => console.log(metaU))
     .catch(err => console.log(err));
-}
+};
 
 //Crear el metauser
 exports.postCrear = (req, res) => {
@@ -112,7 +114,7 @@ exports.putStatus = (req, res) => {
         //Crear el metauser actualizado
         const newuserMeta = new MetaUser({
           user: metaU.user,
-          rol: metaU.name_rol,
+          rol: metaU.rol,
           meta: metaU.meta,
           components: metaU.componentes,
           status: status,
@@ -120,7 +122,7 @@ exports.putStatus = (req, res) => {
           last: true,
         });
         //Cambiar el estado de la ultima solicitud
-        changeLast(metaU.user);
+        changeLast(metaU.user,metaU.rol);
         //Guardar el metaUser en la base de datos
         return newuserMeta.save();
       } else {

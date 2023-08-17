@@ -1,5 +1,7 @@
+const MetaUser = require("../models/MetaUser");
+const User = require("../models/user");
 const Meta = require("../models/Meta");
-const Rol = require("../models/Rol");
+const socketIo = require("../socket.io/socket-io");
 
 exports.post = (req, resp) => {
   //valido que el rol no este vacio
@@ -9,7 +11,7 @@ exports.post = (req, resp) => {
   }
   meta = new Meta({
     rol: rol,
-    components: [],   
+    components: [],
   });
   components.forEach(component => {
     meta.components.push(component);
@@ -46,6 +48,84 @@ exports.update = (req, res) => {
     });
 };
 
+exports.update = (req, res) => {
+  //Obtener y validar campos
+  const rol = req.params.rol;
+  const components = req.body.components;
+  if (!rol) {
+    return res.status(400).json("Rol no valido");
+  }
+  if (components.lenght > 0) {
+    return res.status(400).json("Componentes vacios");
+  }
+  //Buscar plantilla original
+  Meta.findOne({ rol: rol })
+    .then(meta => {
+      //Crear mapas de ambos arreglos por el titulo para comparar los elemento que fueron agregados
+      //modificados y eliminados
+      const originalMetaComponentsMap = meta.components.reduce(
+        (map, obj) => ((map[obj.title] = obj), map),
+        {}
+      );
+      const changedMetaComponentsMap = components.reduce(
+        (map, obj) => ((map[obj.title] = obj), map),
+        {}
+      );
+      //Guardar los componentes agregados
+      const added = Object.keys(changedMetaComponentsMap)
+        .filter(id => !(id in originalMetaComponentsMap))
+        .map(id => changedMetaComponentsMap[id]);
+      //Guardar los componentes modificados
+      const modified = Object.keys(originalMetaComponentsMap)
+        .filter(
+          id =>
+            id in changedMetaComponentsMap &&
+            JSON.stringify(originalMetaComponentsMap[id]) !==
+              JSON.stringify(changedMetaComponentsMap[id])
+        )
+        .map(id => ({
+          before: originalMetaComponentsMap[id],
+          after: changedMetaComponentsMap[id],
+        }));
+      //Guardar los componentes eliminados
+      const deleted = Object.keys(originalMetaComponentsMap)
+        .filter(id => !(id in changedMetaComponentsMap))
+        .map(id => originalMetaComponentsMap[id]);
+      //Buscar todos los usuarios que deben ser avisados
+      //del cambio en la plantilla
+      MetaUser.find({ rol: rol, last: true })
+        .then(metaUsers => {
+          const users = metaUsers.map(metaU => metaU.user);
+          //Mandar el mensaje con socket.io
+
+          //Definir el mensaje
+          const name = "Cambios en la plantilla del rol " + rol;
+          const message = {
+            users: users,
+            newcomponents: components,
+            addedcomponents: added,
+            modifiedcomponents: modified,
+            deletedcomponents: deleted,
+          };
+          //Emitir el mensaje
+          socketIo.SimpleEmit(name, message);
+         
+          //Actualizar la platilla
+          meta.components = [...components];
+          return meta.save();
+        })
+        .then(meta => {
+          res.json({
+            message: "Updated Meta and Notification Sended",
+            meta: meta,
+          });
+        })
+        .catch(err => res.status(400).json(err));
+    })
+    .catch(err => {
+      res.status(400).json(err);
+    });
+};
 exports.get = (req, res) => {
   const rol = req.params.rol;
 
@@ -60,7 +140,6 @@ exports.get = (req, res) => {
       res.status(400).json(err);
     });
 };
-
 
 /*[
 {

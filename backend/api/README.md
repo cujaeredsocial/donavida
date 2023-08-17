@@ -154,11 +154,27 @@ Lo más importante: Como acceder a la base de datos:
           errores:
         get:
           tipo: Get
-          ruta:/plantilla/<rol>.
-          (puede ser /plantilla/donante ; plantilla/gestor ; plantilla/solicitante) 
+          ruta:/meta/plantilla/<rol>.
+          (puede ser /meta/plantilla/donante ; /metaplantilla/gestor ; /meta/plantilla/solicitante) 
           descripción: Devuelve el meta de un rol especifico
           entrada: ninguna
           salida: meta especifico de un rol
+          errores:       
+        update:
+          tipo: Put
+          ruta:/meta/plantilla/<rol>.
+          (puede ser /meta/plantilla/donante ; /meta/plantilla/gestor ; /meta/plantilla/solicitante) 
+          descripción: Actualiza el arreglo de componentes de un meta, manda un mensaje con socket.io con el nombre Cambios en la plantilla del rol <rol>.Dentro del mensaje estan los usuarios que tienen ese meta en su ultima solicitud, el nuevo arreglo de componentes, los componentes arreglados, los modificados y los eliminados. 
+          IMPORTANTE: todos estos cambios los lee a partir del titulo del componente, por lo tanto cualquier agrego que se haga debe ser con otro titulo, y cualquier modificacion no se debe cambiar el titulo, en caso de cambiarse el titulo, no deja de funcionara, pero manda ese componente como agregado y no como modificado.
+          entrada: components:Component[]
+          salida: 
+            En el JSON: el meta actualizado con los nuevos componentes,
+            En el mensaje de io.emit:
+              users: los usuarios con la ultima solicitud de este tipo,
+              newcomponents: componentes nuevos,
+              addedcomponents: componentes agregados,
+              modifiedcomponents: componentes modificados,
+              deletedcomponents: componentes eliminados,
           errores:       
 
     5. MetaUser:

@@ -6,14 +6,16 @@ const mongoose = require("mongoose");
 const cors = require('cors');
 const cookie = require('cookie-parser');
 const {Server} = require('socket.io');
-const socketControllers = require('./socket.io/socket-io');
+const { socketConnection } = require('./socket.io/socket-io');
 
 //Init5
 const app = express();
+// app.set("view engine", "ejs");
+// app.set("views", "views");
 
 
 app.use(bodyParser.urlencoded({ extended: false }));
-
+//app.use(express.static(path.join(__dirname, "public")));
 
 app.use(express.json());
 app.use(cookie());
@@ -60,6 +62,5 @@ const server = app.listen(app.get('port'),config.HOST, () => {
   console.log(`Server mode ${config.NODE_ENV} in http://${config.HOST}:${config.PORT}`);
 });
 
-const io = new Server(server);
-socketControllers(io);
+socketConnection(server);
 //websocket socket.io------------------------------------------------------------------------------------
