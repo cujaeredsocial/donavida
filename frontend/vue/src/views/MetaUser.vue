@@ -6,21 +6,6 @@
       </h1>
       <v-row align="center" justify="center">
         <!-- Para obtenerlo segun el id de una tabla solo habria q  pasar el id del tipo de formulario q se debe en el parametro del metodo -->
-        <div class="button-container" v-if="!mostrarForm">
-          <v-btn color="red" dark @click="getFormTemplate('/plantilla/gestor')"
-            >Solicitud de Gestor</v-btn
-          >
-          <v-btn color="red" dark @click="getFormTemplate('/plantilla/donante')"
-            >Solicitud de Donante</v-btn
-          >
-          <v-btn
-            color="red"
-            dark
-            @click="getFormTemplate('/plantilla/solicitante')"
-            >Solicitud de Donación</v-btn
-          >
-        </div>
-
         <v-container fluid>
           <v-row justify="center">
             <v-col cols="12" sm="6" md="6"> </v-col>
@@ -47,6 +32,7 @@
                 >
                 <div  v-for="item in components"
                 :key="item.title">
+                <!-- Para textos normales como nombres y eso -->
                   <div v-if="item.dataType === 'String'">
                     <v-text-field
                       :rules="[
@@ -56,6 +42,7 @@
                       :label="item.title"
                     ></v-text-field>
                   </div>
+                  <!-- Para textos de presentacion en cualquier caso -->
                   <div v-if="item.dataType === 'Text'">
                     <v-textarea
                       :rules="[
@@ -65,6 +52,7 @@
                       :label="item.title"
                     ></v-textarea>
                   </div>
+                  <!-- Para informacion q necesite ser marcada -->
                   <div v-else-if="item.dataType === 'Boolean'">
                     <v-checkbox
                       :rules="[
@@ -74,6 +62,7 @@
                       :label="item.title"
                     ></v-checkbox>
                   </div>
+                  <!-- Para numeros -->
                   <div v-else-if="item.dataType === 'Number'">
                     <v-text-field
                       :rules="[
@@ -84,6 +73,7 @@
                       :label="item.title"
                     ></v-text-field>
                   </div>
+                  <!-- Para informacion predefinida que necesite ser seleccionada -->
                   <div v-else-if="item.dataType === 'Select'">
                     <v-combobox
                       :rules="[
@@ -93,6 +83,27 @@
                       :items="item.values"
                       :label="item.title"
                     ></v-combobox>
+                  </div>
+                  <!-- Para imagenes -->
+                  <div v-else-if="item.dataType === 'Image'">
+                    <v-file-input
+                      v-model="fotos"
+                      :label="item.title"
+                    ></v-file-input>
+                  </div>
+                  <!-- Para localizaciones las cuales vendrian predefinidas -->
+                  <div v-else-if="item.dataType === 'Localization'">
+                    <v-combobox
+                      :rules="[
+                        (v) => new RegExp(item.regex).test(v) || item.message,
+                      ]"
+                      v-model="item.data"
+                      :items="item.values"
+                      :label="item.title"
+                    ></v-combobox>
+                    <v-btn icon small>
+                      <v-icon>mdi-plus</v-icon>
+                    </v-btn>
                   </div>
                 </div>
               </v-form>
@@ -116,6 +127,27 @@
             </v-card-text>
           </v-col>
         </v-card>
+
+        <!-- Componente para nueva ubicacion -->
+        <v-card
+          v-if="formlocale"
+          class="mx-auto my-12"
+          width="600"
+          max-height="900"
+        >
+        <v-col class="mx-auto" cols="12" md="10">
+          <v-card-title>
+            <h2 style="text-align: center; color:red">Introduzca los datos de la nueva ubicacion</h2>
+          </v-card-title>
+          <v-card-text>
+            <v-form @submit.prevent="send">
+              <v-text-field></v-text-field>
+              <v-text-field></v-text-field>
+              <v-text-field></v-text-field>
+            </v-form>
+          </v-card-text>
+        </v-col>
+      </v-card>
 
         <!--Tarjeta de confirmacion de envio de la solicitud-->
         <v-card
@@ -161,15 +193,23 @@
 export default {
   data() {
     return {
+      fotos:[],
       valid: false,
       metaUser: { userName: "", name_rol: "", componentes: [] },
-      mostrarForm: false,
+      mostrarForm: true,
       formsend: false,
+      formlocale:false,
       titulo: "",
       components: [],
-      campoNoVacioRule: (v) => !!v || "Este campo es obligatorio",
+      campoNoVacioRule: (v) => !!v || ";Este campo es obligatorio",
+      location:{},
     };
   },
+  created(){
+    const ruta = this.$route.params.ruta;
+    this.getFormTemplate(ruta);
+  },
+
   methods: {
     goBack() {
       if (this.formsend) {
@@ -181,7 +221,7 @@ export default {
     },
     getFormTemplate(rutaFormulario) {
       return this.$http
-        .get(`http://127.0.0.1:27000/meta${rutaFormulario}`)
+        .get(`http://127.0.0.1:27000/meta/plantilla${rutaFormulario}`)
         .then((response) => {
           console.log(response);
           this.mostrarForm = true;
@@ -189,11 +229,11 @@ export default {
           this.components = response.data.components;
           //Aqui se llama al metodo de autocompletar pero todavia no existe el endpoint
           //this.autocompletar(rutaFormulario);
-          if (rutaFormulario == "/plantilla/gestor") {
+          if (rutaFormulario == "/gestor") {
             this.titulo = "Solicitud de Gestor";
-          } else if (rutaFormulario == "/plantilla/donante") {
+          } else if (rutaFormulario == "/donante") {
             this.titulo = "Solicitud de Donante";
-          } else if (rutaFormulario == "/plantilla/solicitante") {
+          } else if (rutaFormulario == "/solicitante") {
             this.titulo = "Solicitud de Donación";
           }
           return response.data;
