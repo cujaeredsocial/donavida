@@ -190,6 +190,13 @@ Lo más importante: Como acceder a la base de datos:
           entrada: status:aceptado||denegado||en proceso
           salida: Mensaje de éxito y el metauser con el estado actualizado
           errores:  
+        getInProcessRequests:
+          tipo: Get
+          ruta:/metauser/inprocessrequests
+          descripción: devuelve todos las solicitudes que estan en proceso, sin importar el rol
+          entrada: ninguna
+          salida: Mensaje de éxito y un arreglo con todas las solicitudes en procesp
+          errores:  
 
 
 # Errores Comunes

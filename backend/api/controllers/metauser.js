@@ -133,6 +133,14 @@ exports.putStatus = (req, res) => {
     .catch(err => res.status(400).json("No se pudo cambiar el estado " + err));
 };
 
+exports.getInProcessRequests = (req,res) => {
+  MetaUser.find({ status: "en proceso", last: true })
+    .then(metaUs => {
+      res.json({ message: "success", metas: metaUs });
+    })
+    .catch(err => res.status(404).json(err));
+};
+
 //Mostrar el metauser
 exports.getMostrarTodos = (req, res) => {
   const { username } = req.params;
