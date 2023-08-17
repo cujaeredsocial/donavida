@@ -213,6 +213,14 @@ Lo más importante: Como acceder a la base de datos:
           entrada: ninguna
           salida: Mensaje de éxito y un arreglo con todas las solicitudes en procesp
           errores:  
+        getLastREq:
+          tipo: Get
+          ruta:/metauser/request/<rol>/<id>(el nombre del rol y el id del usuario, 
+          ejemplo: /metauser/request/gestor/64dd8af637db26bda1dadbe6)
+          descripción: devuelve el ultimo metauser de un usuario en dependencia del rol
+          entrada: ninguna
+          salida: Mensaje de éxito y la ultima solicitud del rol especificado
+          errores:  
 
 
 # Errores Comunes

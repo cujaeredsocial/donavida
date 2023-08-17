@@ -1,19 +1,19 @@
 const MetaUser = require("../models/MetaUser");
 const User = require("../models/user");
 const Meta = require("../models/Meta");
-const socketIo = require('../socket.io/socket-io');
-
+const socketIo = require("../socket.io/socket-io");
 
 //Funcion para actualizar para actualizar el ultimo metaUser
-function changeLast(user,rol) {
+function changeLast(user, rol) {
   MetaUser.findOneAndUpdate(
-    { user: user,rol:rol, last: true },
+    { user: user, rol: rol, last: true },
     { last: false },
     { new: true }
   )
     .then(metaU => console.log(metaU))
     .catch(err => console.log(err));
 };
+
 
 //Crear el metauser
 exports.postCrear = (req, res) => {
@@ -122,7 +122,7 @@ exports.putStatus = (req, res) => {
           last: true,
         });
         //Cambiar el estado de la ultima solicitud
-        changeLast(metaU.user,metaU.rol);
+        changeLast(metaU.user, metaU.rol);
         //Guardar el metaUser en la base de datos
         return newuserMeta.save();
       } else {
@@ -135,12 +135,19 @@ exports.putStatus = (req, res) => {
     .catch(err => res.status(400).json("No se pudo cambiar el estado " + err));
 };
 
-exports.getInProcessRequests = (req,res) => {
+exports.getInProcessRequests = (req, res) => {
   MetaUser.find({ status: "en proceso", last: true })
     .then(metaUs => {
       res.json({ message: "success", metas: metaUs });
     })
     .catch(err => res.status(404).json(err));
+};
+exports.getLastReq = (req, res) => {
+  const id = req.params.id;
+  const rol = req.params.rol;
+  MetaUser.findOne({ user: id, rol: rol, last: true })
+    .then(metaU => res.json(metaU))
+    .catch(err => res.status(400).json(err));
 };
 
 //Mostrar el metauser
