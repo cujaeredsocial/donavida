@@ -22,7 +22,7 @@
         transition="fade-transition"
         style="padding-bottom: 40px;"
       >
-        <solicitud-vue :meta-user="metauser.usermeta.metas"></solicitud-vue>
+        <solicitud-vue :meta-user="metauser"></solicitud-vue>
       </v-lazy>
 
     </v-responsive >
@@ -36,11 +36,11 @@ export default {
     console.log(this.$store.getters.getUserData.userName);
     this.$http
       .get(
-        `http://127.0.0.1:27000/metauser/buscartodos/${this.$store.getters.getUserData.userName}`
+        `http://127.0.0.1:27000/metauser/inprocessrequests`
       )
       .then((response) => {
         console.log(response);
-        this.usuarios = response.body.usuarios;
+        this.usuarios = response.body.metas;
         console.log(this.usuarios);
       })
       .catch((error) => {
