@@ -26,7 +26,7 @@
             <v-col cols="12" sm="6" md="6"> </v-col>
           </v-row>
         </v-container>
-
+        <!--Formulario dinamico-->
         <v-card
           v-if="mostrarForm && !formsend"
           class="mx-auto my-12"
@@ -42,46 +42,58 @@
             <v-card-text>
               <v-form
                 @submit.prevent="send"
-                v-for="item in components"
-                :key="item.title"
+               
                 v-model="valid"
-              >
-                <div v-if="item.dataType === 'String'">
-                  <v-text-field
-                    :rules="[v => new RegExp(item.regex).test(v) || item.message]"
-                    v-model="item.data"
-                    :label="item.title"
-                  ></v-text-field>
-                </div>
-                <div v-if="item.dataType === 'Text'">
-                  <v-textarea
-                    :rules="[item.regex || item.message]"
-                    v-model="item.data"
-                    :label="item.title"
-                  ></v-textarea>
-                </div>
-                <div v-else-if="item.dataType === 'Boolean'">
-                  <v-checkbox
-                    :rules="[item.regex || item.message]"
-                    v-model="item.data"
-                    :label="item.title"
-                  ></v-checkbox>
-                </div>
-                <div v-else-if="item.dataType === 'Number'">
-                  <v-text-field
-                    :rules="[v => new RegExp(item.regex).test(v) || item.message]"
-                    v-model="item.data"
-                    type="number"
-                    :label="item.title"
-                  ></v-text-field>
-                </div>
-                <div v-else-if="item.dataType === 'Select'">
-                  <v-combobox
-                    :rules="[item.regex || item.message]"
-                    v-model="item.data"
-                    :items="item.values"
-                    :label="item.title"
-                  ></v-combobox>
+                >
+                <div  v-for="item in components"
+                :key="item.title">
+                  <div v-if="item.dataType === 'String'">
+                    <v-text-field
+                      :rules="[
+                        (v) => new RegExp(item.regex).test(v) || item.message,
+                      ]"
+                      v-model="item.data"
+                      :label="item.title"
+                    ></v-text-field>
+                  </div>
+                  <div v-if="item.dataType === 'Text'">
+                    <v-textarea
+                      :rules="[
+                        (v) => new RegExp(item.regex).test(v) || item.message,
+                      ]"
+                      v-model="item.data"
+                      :label="item.title"
+                    ></v-textarea>
+                  </div>
+                  <div v-else-if="item.dataType === 'Boolean'">
+                    <v-checkbox
+                      :rules="[
+                        (v) => new RegExp(item.regex).test(v) || item.message,
+                      ]"
+                      v-model="item.data"
+                      :label="item.title"
+                    ></v-checkbox>
+                  </div>
+                  <div v-else-if="item.dataType === 'Number'">
+                    <v-text-field
+                      :rules="[
+                        (v) => new RegExp(item.regex).test(v) || item.message,
+                      ]"
+                      v-model="item.data"
+                      type="number"
+                      :label="item.title"
+                    ></v-text-field>
+                  </div>
+                  <div v-else-if="item.dataType === 'Select'">
+                    <v-combobox
+                      :rules="[
+                        (v) => new RegExp(item.regex).test(v) || item.message,
+                      ]"
+                      v-model="item.data"
+                      :items="item.values"
+                      :label="item.title"
+                    ></v-combobox>
+                  </div>
                 </div>
               </v-form>
               <v-btn
@@ -191,21 +203,25 @@ export default {
           return [];
         });
     },
-    autocompletar(rutaFormulario){
-      this.$http.get(`http://127.0.0.1:27000/metauser/ultimoFormulario${rutaFormulario}`)//esto habre q cambiarlo
-      .then((response) => {
-        const componentsOld =response.data.components  //esto habra q cambiarlo
-        for(let comp in this.components){
-          const found= componentsOld.find((elemnt)=>{
-            return elemnt.title === comp.title
-          });
-          if (found){
-            comp.data = found.data;
+    autocompletar(rutaFormulario) {
+      this.$http
+        .get(
+          `http://127.0.0.1:27000/metauser/ultimoFormulario${rutaFormulario}`
+        ) //esto habre q cambiarlo
+        .then((response) => {
+          const componentsOld = response.data.components; //esto habra q cambiarlo
+          for (let comp in this.components) {
+            const found = componentsOld.find((elemnt) => {
+              return elemnt.title === comp.title;
+            });
+            if (found) {
+              comp.data = found.data;
+            }
           }
-        }
-      }).catch((error) => {
+        })
+        .catch((error) => {
           console.error(error);
-      });
+        });
     },
     comprobar() {
       if (this.components.every((component) => component.data != "")) {

@@ -8,10 +8,14 @@
                  Solicitud {{ metaUser.rol }}
               </h3></v-card-title>
         <v-card-text>
-          {{ metaUser.state }}
-            <div v-for="item in metaUser.components" :key="item.id" style="display: flex;" >
-              <h3 style="display: inline;">{{ item.title +": "}}</h3>
-              <p style="display: inline;">{{ item.data }}</p>
+          <div class="content">
+            <h3 class="statusTitle">Estado:</h3>
+            <p>{{ metaUser.status }}</p>
+
+          </div>
+            <div v-for="item in metaUser.components" :key="item.id" class="content" >
+              <h3 >{{ item.title +": "}}</h3>
+              <p >{{ item.data }}</p>
             </div>
         </v-card-text>
       </v-card>
@@ -30,6 +34,12 @@ export default {
 };
 </script>
   
-  <style scoped>
+<style>
+h3{
+  display: inline;
+}
+.content{
+  display: flex;
+}
 </style>
   
