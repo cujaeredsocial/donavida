@@ -8,6 +8,7 @@ router.post("/createuser", userController.postCreateUser);
 router.post("/login", userController.postAuthenticateUser);
 router.post("/updateuser", userController.postUpdateUser);
 router.get("/allusers", userController.getAllUsers);
+router.get("/user/:userName", userController.getUser);
 router.post("/deleteuser", userController.postDeleteUser);
 
 router.get("/token", verifyToken, (req, res) => {
