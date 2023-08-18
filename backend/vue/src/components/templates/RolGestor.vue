@@ -1,6 +1,6 @@
 <template>
   <v-container class="spacing-playground pa-12" fluid>
-    <v-card class="mx-auto my-auto" width="900" min-height="330">
+    <v-card class="mx-auto my-auto" min-width="1000" min-height="330">
       <!--logo de donavida-->
       <v-img
         :src="require('../../assets/DonaVida-removebg.png')"
@@ -17,66 +17,14 @@
             class="ms-2 mt-n9"
           >
             <v-row>
-              <v-col cols="12" md="3">
-                <v-text-field
-                  label="Titulo"
-                  v-model="camposArray[index].title"
-                  :disabled="esCampoDesabilitado(index)"
-                ></v-text-field>
-              </v-col>
-              <v-col cols="12" md="2">
-                <v-combobox
-                  :items="['String', 'Select']"
-                  label="Tipo"
-                  v-model="camposArray[index].type"
-                  :disabled="esCampoDesabilitado(index)"
-                ></v-combobox>
-              </v-col>
-              <v-col cols="12" md="2">
-                <v-text-field
-                  label="Valor"
-                  v-model="camposArray[index].value"
-                  :disabled="esCampoDesabilitado(index)"
-                ></v-text-field>
-              </v-col>
-              <v-col cols="12" md="4">
-                <v-text-field
-                  label="Regex"
-                  v-model="camposArray[index].regex"
-                  :disabled="esCampoDesabilitado(index)"
-                ></v-text-field>
-              </v-col>
-              <v-btn
-                v-if="!isTituloValido(index)"
-                @click="toggleModoEdicion(index)"
-                class="mt-8"
-                icon
-              >
-                <v-icon color="green">
-                  {{
-                    edit === index ? "mdi-check-circle" : "mdi-pencil-circle"
-                  }}
-                </v-icon>
-              </v-btn>
-              <v-btn v-if="!isTituloValido(index)" class="ms-n2 mt-8" icon>
-                <v-icon color="red" @click="eliminarCampoViejo(index)">
-                  mdi mdi-close-circle
-                </v-icon>
-              </v-btn>
-            </v-row>
-          </v-col>
-          <!--Los campos nuevos que va a introducir el usuario-->
-          <v-col
-            v-for="(campo, n) in componentsNuevos"
-            :key="n"
-            class="ms-2 mt-n9"
-          >
-            <v-row>
+              <v-icon style="cursor: move">
+                mdi mdi-drag-horizontal-variant
+              </v-icon>
               <v-col cols="12" md="3">
                 <v-text-field
                   label="Titulo"
                   v-model="campo.title"
-                  :disabled="shows[n]"
+                  :disabled="!shows[index]"
                 ></v-text-field>
               </v-col>
               <v-col cols="12" md="2">
@@ -84,30 +32,30 @@
                   :items="['String', 'Select']"
                   label="Tipo"
                   v-model="campo.type"
-                  :disabled="shows[n]"
+                  :disabled="!shows[index]"
                 ></v-combobox>
               </v-col>
               <v-col cols="12" md="2">
                 <v-text-field
                   label="Valor"
                   v-model="campo.value"
-                  :disabled="shows[n]"
+                  :disabled="!shows[index]"
                 ></v-text-field>
               </v-col>
               <v-col cols="12" md="4">
                 <v-text-field
                   label="Regex"
                   v-model="campo.regex"
-                  :disabled="shows[n]"
+                  :disabled="!shows[index]"
                 ></v-text-field>
               </v-col>
-              <v-btn class="mt-8" icon @click="toggleEditable(n)">
+              <v-btn @click="toggleEditable(index)" class="ms-n2 mt-8" icon>
                 <v-icon color="green">
-                  {{ shows[n] ? "mdi-pencil-circle" : "mdi-check-circle" }}
+                  {{ shows[index] ? "mdi-check-circle" : "mdi-pencil-circle" }}
                 </v-icon>
               </v-btn>
               <v-btn class="ms-n2 mt-8" icon>
-                <v-icon color="red" @click="eliminarCampo(n)">
+                <v-icon color="red" @click="eliminarCampo(index)">
                   mdi mdi-close-circle
                 </v-icon>
               </v-btn>
@@ -130,15 +78,14 @@
 export default {
   data() {
     return {
-      edit: -1,
       shows: [],
-      component: {
+      /*component: {
         title: "",
         type: "",
         value: "",
         regex: "",
       },
-      componentsNuevos: [],
+      componentsNuevos: [],*/
       camposArray: [
         {
           title: "Nombre de Usuario",
@@ -168,13 +115,6 @@ export default {
     };
   },
   methods: {
-    isTituloValido(index) {
-      return (
-        this.camposArray[index].title.includes("Telefono") ||
-        this.camposArray[index].title.includes("Carnet de Identidad") ||
-        this.camposArray[index].title.includes("Nombre de Usuario")
-      );
-    },
     nuevoCampo() {
       const campoNuevo = {
         title: "",
@@ -182,7 +122,9 @@ export default {
         value: "",
         regex: "",
       };
-      this.componentsNuevos.push(campoNuevo);
+      this.camposArray.push(campoNuevo);
+      const index = this.camposArray.indexOf(campoNuevo);
+      this.shows[index] = !this.shows[index];
       this.component = {
         title: "",
         type: "",
@@ -191,46 +133,12 @@ export default {
       };
     },
     eliminarCampo(index) {
-      this.componentsNuevos.splice(index, 1);
-    },
-    eliminarCampoViejo(index) {
       this.camposArray.splice(index, 1);
     },
     toggleEditable(index) {
       this.$set(this.shows, index, !this.shows[index]);
     },
-    toggleModoEdicion(index) {
-      if (this.edit === index) {
-        this.edit = -1;
-      } else {
-        this.edit = index;
-      }
-    },
-    guardarModificados(index) {
-      const campoModificado = this.camposArray[index];
-      const campoExistente = this.componentsNuevos.find(
-        (campo) => campo.title === campoModificado.title
-      );
-      const haSidoModificado = this.camposArray.some(
-        (campo, i) =>
-          i !== index &&
-          campo.title === campoModificado.title &&
-          (campo.type !== campoModificado.type ||
-            campo.value !== campoModificado.value ||
-            campo.regex !== campoModificado.regex)
-      );
-      if (!campoExistente && !haSidoModificado) {
-        this.componentsNuevos.push(campoModificado);
-      }
-    },
     guardarCambios() {},
-  },
-  computed: {
-    esCampoDesabilitado() {
-      return (index) => {
-        return this.edit !== index;
-      };
-    },
   },
 };
 </script>

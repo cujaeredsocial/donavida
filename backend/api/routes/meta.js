@@ -1,10 +1,11 @@
 const express = require('express');
 const metaController = require('../controllers/meta');
-const camino = express.Router();
+const router = express.Router();
 
-camino.post('/create',metaController.post);
-camino.put('/update/:id',metaController.update);
-camino.get('/plantilla/:rol',metaController.get);
-camino.delete('/delete/:rol',metaController.delete);
+router.post('/create',metaController.post);
+router.put('/update/:rol', metaController.update);
+// camino.put('/update/:id',metaController.update);
+router.get('/plantilla/:rol',metaController.get);
 
-module.exports = camino;
+
+module.exports = router;

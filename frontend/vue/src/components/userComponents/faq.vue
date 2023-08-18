@@ -8,7 +8,7 @@
               :key="i"
             >
               <v-expansion-panel-header>
-                <h3>{{ text.question }}</h3>
+                <h3>{{"¿"+ text.question+"?" }}</h3>
                 
               </v-expansion-panel-header>
               <v-expansion-panel-content>
