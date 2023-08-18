@@ -163,8 +163,8 @@ Lo más importante: Como acceder a la base de datos:
    errores:  
     update:
    tipo: Put
-   ruta:/meta/plantilla/<rol>.
-   (puede ser /meta/plantilla/donante ; /meta/plantilla/gestor ; /meta/plantilla/solicitante)
+   ruta:/meta/update/<rol>.
+   (puede ser /meta/update/donante ; /meta/update/gestor ; /meta/update/solicitante)
    descripción: Actualiza el arreglo de componentes de un meta, manda un mensaje con socket.io con el nombre Cambios en la plantilla del rol <rol>.Dentro del mensaje estan los usuarios que tienen ese meta en su ultima solicitud, el nuevo arreglo de componentes, los componentes arreglados, los modificados y los eliminados.
    IMPORTANTE: todos estos cambios los lee a partir del titulo del componente, por lo tanto cualquier agrego que se haga debe ser con otro titulo, y cualquier modificacion no se debe cambiar el titulo, en caso de cambiarse el titulo, no deja de funcionara, pero manda ese componente como agregado y no como modificado.
    entrada: components:Component[]
