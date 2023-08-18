@@ -32,7 +32,7 @@ exports.postCreateUser = (req, res) => {
           user = new User({
             userName: req.body.userName,
             email: req.body.email,
-            password: hash,           
+            password: hash,
           });
           //Guardar usuario
           user.save();
@@ -83,7 +83,7 @@ exports.postAuthenticateUser = (req, res, next) => {
       console.log(token);
       res
         .cookie("token", token)
-        .json({ success: true, message: "LoggedIn Successfully" });
+        .json({ success: true, message: "LoggedIn Successfully", user:userAux });
     })
     .catch(err => res.status(401).json(err));
 };
@@ -142,13 +142,10 @@ exports.postDeleteUser = (req, res) => {
 };
 
 exports.getUser = (req, res) => {
-  console.log('stayhere')
   const userName = req.params.userName;
-  User.findOne({ userName: userName})
+  User.findOne({ userName: userName })
     .then(user => {
-      res => {
-        res.json({ message: "User found", user: user });
-      };
+      res.json({ message: "User found", user: user });
     })
     .catch(err => {
       res.status(404).json(err);
