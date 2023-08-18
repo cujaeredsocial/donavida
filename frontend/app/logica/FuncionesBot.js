@@ -5,8 +5,8 @@ const acceso = new AccesoAPI();
 const gestor = (ctx, state, user) => {
   switch (state) {
     case 'empty':
-      ctx.reply('Lo lamento. mis funciones no son capaces aun de llevar una conversacion abierta');
-      return state;
+      //ctx.reply('Lo lamento. mis funciones no son capaces aun de llevar una conversacion abierta');
+      //return state;
     case 'nameReg':
       user.username = ctx.message.text;
       ctx.reply('Por favor introduzca una contraseña');
