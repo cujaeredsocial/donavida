@@ -1,26 +1,41 @@
-//Son los templates o plantillas a rellenar para los distintos roles
-const{Schema,model} = require('mongoose');
+const{Schema,model, SchemaTypes} = require('mongoose');
+const Meta = require('../models/Meta'); 
+const Component = require('../models/Component'); 
 
 
 const esquemaMetaUser = new Schema({
-    fecha:{
-        type:String,
-        default:Date.now()
-    },
     user: {
         type: Schema.Types.ObjectId,
         ref: 'User',
         require: true
     },
-   /* id_meta:{
+    rol: {
+        type: String,
+        enum:['donante','gestor','solicitante'],
+        require: true
+    },
+    date:{
+        type:Date,
+        default:Date.now()
+    },  
+    meta: Meta.schema,
+    components:[Component.schema],
+    dateUpdate:{
+        type:Date,       
+    },
+    status:{
         type:String,
-        require:true
-    }*/
-    metas: {
-        type: Schema.Types.ObjectId,
-        ref: 'Meta'
-      },
-      //aca habia un arreglo
+        enum:['en proceso','aceptado','denegado']
+    },
+    updated:{
+        type: Boolean,
+        required : true,
+    },
+    last:{
+        type: Boolean,
+        required : true,
+    }
+    
 });
 
 module.exports = model("MetaUser",esquemaMetaUser); 

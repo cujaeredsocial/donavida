@@ -5,9 +5,8 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const cors = require('cors');
 const cookie = require('cookie-parser');
-const socketIO = require('socket.io');
-
-
+const {Server} = require('socket.io');
+const { socketConnection } = require('./socket.io/socket-io');
 
 //Init5
 const app = express();
@@ -40,7 +39,7 @@ app.use(require("./routes/users"));
 app.use('/rol',require("./routes/rol"));
 app.use('/meta',require("./routes/meta"));
 app.use('/metauser',require("./routes/metauser"));
-// app.use('/component',require("./routes/components"));
+
 // raiz
 app.get('/', (req, res) => {
   res.json("Api DonaVida");
@@ -63,13 +62,5 @@ const server = app.listen(app.get('port'),config.HOST, () => {
   console.log(`Server mode ${config.NODE_ENV} in http://${config.HOST}:${config.PORT}`);
 });
 
-
-//websocket socket.io
-//1-inicializar la web socket
-const io = socketIO(server);
-
-//2-escuchar eventos
-io.on('connection',() =>{
-  console.log("hola mundo");
-  console.log('Gracias por utilizar nuestra red');
-});
+socketConnection(server);
+//websocket socket.io------------------------------------------------------------------------------------

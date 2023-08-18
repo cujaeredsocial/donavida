@@ -11,22 +11,28 @@
           height="90"
             />
           <v-card-text>
-          <v-form @submit.prevent="singIN">
+          <v-form @submit.prevent="singIN"  ref="form" v-model="valid">
+          
+          <!--Username-->
           <v-text-field
-          :rules="[campoNoVacioRule]"
+          :rules="rules"
            v-model="user.userName"
            label="Username"
            ></v-text-field>
+           
+           <!--Password-->
            <v-text-field
-           :rules="[campoNoVacioRule]"
+           :rules="rules"
            v-model="user.password"
            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
            :type="showPassword ? 'text' : 'password'"
            @click:append="showPassword = !showPassword"
            label="Password"
           ></v-text-field>
+
+           <!--Submit-->
           <v-btn 
-          :disabled="!todosCamposLlenos" 
+          :disabled="!valid" 
           type="submit" 
           block 
           class="mt-2" 
@@ -48,18 +54,19 @@
 
 <script>
 export default {
+   
   data() {
     return {
+      valid: false,
       user: {
         userName: "",
         password: ""
       },
       errorMessage: "",
-      campoNoVacioRule: v => !!v || 'Este campo es obligatorio',
-      emailRules: [
-     v => !!v || 'E-mail is required',
-     v => /^(([^<>()[\]\\.,;:\s@']+(\.[^<>()\\[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(v) || 'E-mail must be valid',
-   ],
+      rules: [
+        v => !!v || 'Este campo es obligatorio',
+        v => v.length>4 || 'Este campo requiere al menos 4 caracteres',
+    ],
       showPassword: false,
     };
   },
@@ -82,11 +89,7 @@ export default {
       );
     },
   },
-  computed : {
-    todosCamposLlenos() {
-      return this.user.userName && this.user.password;
-    },
-  }
+  
 };
 </script>
 

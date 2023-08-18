@@ -37,11 +37,6 @@ exports.postCreateUser = (req, res) => {
             password: hash,
             manager: req.body.manager,
           });
-          //Crear su metauser
-          metauser = new MetaUser({
-            user:user,
-            metas:[],
-          })
           //Guardar usuario
           user.save();      
           res.json({
@@ -106,14 +101,12 @@ exports.postUpdateUser = (req, res) => {
         updateUser = User.findByIdAndUpdate(id, {
           userName: req.body.userName,
           password: req.body.password,
-          email: req.body.email,
-          manager: req.body.manager,
+          email: req.body.email
         });
       } else {
         updateUser = User.findByIdAndUpdate(id, {
           userName: req.body.userName,
-          password: req.body.password,
-          manager: req.body.manager,
+          password: req.body.password,  
         });
       }
       return updateUser;
@@ -127,7 +120,7 @@ exports.postUpdateUser = (req, res) => {
 };
 
 //Buscar todos los usuarios
-exports.postAllUsers = (req, res) => {
+exports.getAllUsers = (req, res) => {
   User.find()
     .then(users => {
       users.length > 0 ? res.json(users) : res.json("No users yet");
@@ -137,25 +130,6 @@ exports.postAllUsers = (req, res) => {
     });
 };
 
-//Buscar todos los usuarios donantes
-exports.postAllDonorsUsers = (req, res) => {
-  User.find({ manager: false })
-    .then(users => {
-      users.length > 0 ? res.json(users) : res.json("Not doners yet");
-    })
-    .catch(err => {
-      res.status(403).json("Error Finding Doners " + err);
-    });
-};
-
-//Buscar todos los usuarios gestores
-exports.postAllManagersUsers = (req, res) => {
-  User.find({ manager: true })
-    .then(manager => {
-      manager.length > 0 ? res.json(manager) : res.json("No managers yet");
-    })
-    .catch(err => res.status(403).json("Error Finding Managers " + err));
-};
 
 //Eliminar un usuario por id
 exports.postDeleteUser = (req, res) => {
