@@ -2,20 +2,19 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import SolicitudView from "../views/SolicitudView.vue";
-import GestionPrincipal from "../views/GestionPrincipalView.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/inicio",
-    name: "inicio",
-    component: GestionPrincipal,
+    path: "/formularios",
+    name: "formularios",
+    component: () => import("../views/FormulariosView.vue"),
   },
   {
-    path: "/login",
-    name: "login",
-    component: () => import("../views/LogInView.vue"),
+    path: "/formularios/plantilla",
+    name: "plantilla",
+    component: () => import("../views/MetaView.vue"),
   },
   {
     path: "/",
@@ -31,11 +30,6 @@ const routes = [
     path: "/crearReporte",
     name: "creaReporte",
     component: () => import("../components/CrearReporte.vue"),
-  },
-  {
-    path: "/rolDonante",
-    name: "rolDonante",
-    component: () => import("../components/templates/RolDonante.vue"),
   },
 ];
 

@@ -12,6 +12,7 @@
     "vue": "^2.6.14",
     "vue-resource": "^1.5.3",
     "vue-router": "^3.5.1",
+    "vuedraggable": "^2.24.3",
     "vuetify": "^2.6.0",
     "vuex": "^3.6.2"
   },
@@ -52,7 +53,12 @@
     },
     "rules": {
       "vue/no-multiple-template-root": "off",
-      "prettier/prettier": ["error", { "endOfLine": "auto" }] 
+      "prettier/prettier": [
+        "error",
+        {
+          "endOfLine": "auto"
+        }
+      ]
     }
   },
   "browserslist": [

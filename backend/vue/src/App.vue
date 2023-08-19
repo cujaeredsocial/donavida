@@ -9,14 +9,6 @@
         <v-divider class="mx-4" vertical></v-divider>
         <v-spacer></v-spacer>
         <funcion-tab v-if="$route.name === 'inicio'" />
-        <v-btn v-if="$route.name === 'register'" text @click="toInicio">
-          <v-icon>mdi mdi-login-variant</v-icon>
-          <span class="mr-2">Inicia Sesion</span>
-        </v-btn>
-        <v-btn v-else-if="$route.name === 'login'" text @click="toRegister">
-          <v-icon>mdi mdi-account-plus-outline</v-icon>
-          <span class="mr-2">Registrar Sesion</span>
-        </v-btn>
       </v-app-bar>
       <!--Barra de navegacion !Pendiente de arreglo-->
       <v-navigation-drawer v-model="drawer" absolute temporary>

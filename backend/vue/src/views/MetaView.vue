@@ -1,17 +1,16 @@
 <template>
   <v-container class="text-center">
-    <rol-gestor />
+    <meta-template />
   </v-container>
 </template>
 
 <script>
-import RolGestor from "../components/templates/RolGestor.vue";
+import MetaTemplate from "../components/templates/MetaTemplate.vue";
 
 export default {
-  name: "LogInView",
-
+  name: "MetaView",
   components: {
-    RolGestor,
+    MetaTemplate,
   },
 };
 </script>
