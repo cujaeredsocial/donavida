@@ -11,12 +11,7 @@ const esquemaComponent = new Schema(
       //el tipo de dato, como entero o string
       type: String,
       require: true,
-    },
-    componentType: {
-      //el tipo de componente, combobox o textfield
-      type: String,
-      require: true,
-    },
+    },    
     values: [
       {
         //Valores, en caso de que sea un campo de selección, los valores de esa selección

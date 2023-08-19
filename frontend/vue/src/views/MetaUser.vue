@@ -216,7 +216,7 @@ export default {
         this.formsend = false;
         this.mostrarForm = true;
       } else if (this.mostrarForm) {
-        this.mostrarForm = false;
+        this.$router.push({ name: "main" });
       }
     },
     getFormTemplate(rutaFormulario) {
@@ -228,7 +228,7 @@ export default {
           this.metaUser.name_rol = response.data.rol;
           this.components = response.data.components;
           //Aqui se llama al metodo de autocompletar pero todavia no existe el endpoint
-          //this.autocompletar(rutaFormulario);
+          this.autocompletar(rutaFormulario);
           if (rutaFormulario == "/gestor") {
             this.titulo = "Solicitud de Gestor";
           } else if (rutaFormulario == "/donante") {
@@ -246,13 +246,13 @@ export default {
     autocompletar(rutaFormulario) {
       this.$http
         .get(
-          `http://127.0.0.1:27000/metauser/ultimoFormulario${rutaFormulario}`
+          `http://127.0.0.1:27000/metauser/request/gestor/64d632eb587b4aa984367ef4`
         ) //esto habre q cambiarlo
         .then((response) => {
-          const componentsOld = response.data.components; //esto habra q cambiarlo
-          for (let comp in this.components) {
-            const found = componentsOld.find((elemnt) => {
-              return elemnt.title === comp.title;
+          const componentsOld = response.data.components;
+          for (let comp of this.components) {
+            const found = componentsOld.find((element) => {
+              return element.title === comp.title;
             });
             if (found) {
               comp.data = found.data;

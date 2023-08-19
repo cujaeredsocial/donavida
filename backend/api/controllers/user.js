@@ -4,8 +4,6 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const config = require("../../../config");
 
-
-
 //Crear un usuario
 exports.postCreateUser = (req, res) => {
   //Verificar que ningun campo esta vacio
@@ -35,10 +33,9 @@ exports.postCreateUser = (req, res) => {
             userName: req.body.userName,
             email: req.body.email,
             password: hash,
-            manager: req.body.manager,
           });
           //Guardar usuario
-          user.save();      
+          user.save();
           res.json({
             success: true,
             message: "UserCreate Succesfully",
@@ -59,7 +56,7 @@ exports.postAuthenticateUser = (req, res, next) => {
     throw Error("Username and Password are required");
   }
   //Encontrar el usuario
-  User.findOne({ userName:userName })
+  User.findOne({ userName: userName })
     .then(user => {
       if (!user) {
         throw Error("Wrong Credentials");
@@ -70,7 +67,7 @@ exports.postAuthenticateUser = (req, res, next) => {
     })
     .then(user => {
       userAux = user;
-       return bcrypt.compare(password, user.password);
+      return bcrypt.compare(password, user.password);
     })
     .then(isPasswordMatched => {
       console.log(isPasswordMatched);
@@ -85,8 +82,8 @@ exports.postAuthenticateUser = (req, res, next) => {
     .then(token => {
       console.log(token);
       res
-        .cookie('token', token)
-        .json({ success: true, message: "LoggedIn Successfully" });
+        .cookie("token", token)
+        .json({ success: true, message: "LoggedIn Successfully", user:userAux });
     })
     .catch(err => res.status(401).json(err));
 };
@@ -101,12 +98,12 @@ exports.postUpdateUser = (req, res) => {
         updateUser = User.findByIdAndUpdate(id, {
           userName: req.body.userName,
           password: req.body.password,
-          email: req.body.email
+          email: req.body.email,
         });
       } else {
         updateUser = User.findByIdAndUpdate(id, {
           userName: req.body.userName,
-          password: req.body.password,  
+          password: req.body.password,
         });
       }
       return updateUser;
@@ -130,7 +127,6 @@ exports.getAllUsers = (req, res) => {
     });
 };
 
-
 //Eliminar un usuario por id
 exports.postDeleteUser = (req, res) => {
   const id = req.body.userId;
@@ -143,4 +139,15 @@ exports.postDeleteUser = (req, res) => {
       }
     })
     .catch(err => res.status(404).json("Can't delete the user" + err));
+};
+
+exports.getUser = (req, res) => {
+  const userName = req.params.userName;
+  User.findOne({ userName: userName })
+    .then(user => {
+      res.json({ message: "User found", user: user });
+    })
+    .catch(err => {
+      res.status(404).json(err);
+    });
 };
