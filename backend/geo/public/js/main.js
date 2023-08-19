@@ -19,10 +19,10 @@ function getPosition(position){
     const long = position.coords.longitude;
     const accuracy = position.coords.accuracy;
 
-    const marker = L.marker([lat, long]).addTo(map);
-    const circle = L.circle([lat,long],{radius: accuracy}).addTo(map);
+    const marker = L.marker([lat, long]).bindPopup('You are Here').addTo(map);
+    // const circle = L.circle([lat,long],{radius: accuracy}).addTo(map);
 
-    const featureGroup = L.featureGroup([marker, circle]).addTo(map);
+    // const featureGroup = L.featureGroup([marker, circle]).addTo(map);
 
     console.log(lat,long,accuracy)
 
@@ -33,11 +33,12 @@ map.on('click', function(e){
     console.log(e.latlng.lat)
     console.log(e.latlng.lng)
     const secondMarker = L.marker([e.latlng.lat, e.latlng.lng]);
-    secondMarker.bindPopup('Latitud:', e.latlng.lat, 'Longitud:', e.latlng.lng);
+    secondMarker.bindPopup('Latitud:'+ e.latlng.lat + '\n'+'Longitud:'+ e.latlng.lng); 
+    secondMarker.addTo(map);
 
     L.Routing.control({
        waypoint: [
-         L.latLng(57.74, 11.94),
+         L.latLng(23.073898405368993, -82.38911390304567),
          L.latLng(e.latlng.lat, e.latlng.lng)
        ]
     }).on('routesfound', function(e){
