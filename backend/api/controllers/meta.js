@@ -1,32 +1,24 @@
+const MetaUser = require("../models/MetaUser");
+const User = require("../models/user");
 const Meta = require("../models/Meta");
-const Rol = require("../models/Rol");
-
+const socketIo = require("../socket.io/socket-io");
 
 exports.post = (req, resp) => {
   //valido que el rol no este vacio
-  const { rol, components, model } = req.body;
+  const { rol, components } = req.body;
   if (!rol) {
     return resp.status(400).json("Rol no valido");
   }
-  //Valido la existencia de ese rol
-  Rol.findOne({ name: rol })
-    .then(rol => {
-      console.log(rol);
-      if (!rol) {
-        throw new Error("Rol no existe");
-      } else {
-        meta = new Meta({
-          rol: rol,
-          components: [],
-          model: model,
-        });
-        components.forEach(component => {
-          meta.components.push(component);
-        });
+  meta = new Meta({
+    rol: rol,
+    components: [],
+  });
+  components.forEach(component => {
+    meta.components.push(component);
+  });
 
-        return meta.save();
-      }
-    })
+  meta
+    .save()
     .then(meta => {
       resp.json({
         success: true,
@@ -56,20 +48,91 @@ exports.update = (req, res) => {
     });
 };
 
-exports.get = (req, res) => {
-  const namerol = req.params.rol;
-
-  if (!namerol) {
+exports.update = (req, res) => {
+  //Obtener y validar campos
+  const rol = req.params.rol;
+  const components = req.body.components;
+  if (!rol) {
     return res.status(400).json("Rol no valido");
   }
-  Rol.findOne({ name: namerol })
-    .then(roldev => {     
-      if (!roldev) {
-        throw new Error("Rol no existe");
-      } else {
-        return Meta.findOne({ rol: roldev.name });
-      }
+  if (components.lenght > 0) {
+    return res.status(400).json("Componentes vacios");
+  }
+  //Buscar plantilla original
+  Meta.findOne({ rol: rol })
+    .then(meta => {
+      //Crear mapas de ambos arreglos por el titulo para comparar los elemento que fueron agregados
+      //modificados y eliminados
+      const originalMetaComponentsMap = meta.components.reduce(
+        (map, obj) => ((map[obj.title] = obj), map),
+        {}
+      );
+      const changedMetaComponentsMap = components.reduce(
+        (map, obj) => ((map[obj.title] = obj), map),
+        {}
+      );
+      //Guardar los componentes agregados
+      const added = Object.keys(changedMetaComponentsMap)
+        .filter(id => !(id in originalMetaComponentsMap))
+        .map(id => changedMetaComponentsMap[id]);
+      //Guardar los componentes modificados
+      const modified = Object.keys(originalMetaComponentsMap)
+        .filter(
+          id =>
+            id in changedMetaComponentsMap &&
+            JSON.stringify(originalMetaComponentsMap[id]) !==
+              JSON.stringify(changedMetaComponentsMap[id])
+        )
+        .map(id => ({
+          before: originalMetaComponentsMap[id],
+          after: changedMetaComponentsMap[id],
+        }));
+      //Guardar los componentes eliminados
+      const deleted = Object.keys(originalMetaComponentsMap)
+        .filter(id => !(id in changedMetaComponentsMap))
+        .map(id => originalMetaComponentsMap[id]);
+      //Buscar todos los usuarios que deben ser avisados
+      //del cambio en la plantilla
+      MetaUser.find({ rol: rol, last: true })
+        .then(metaUsers => {
+          const users = metaUsers.map(metaU => metaU.user);
+          //Mandar el mensaje con socket.io
+
+          //Definir el mensaje
+          const name = "Cambios en la plantilla del rol " + rol;
+          const message = {
+            users: users,
+            newcomponents: components,
+            addedcomponents: added,
+            modifiedcomponents: modified,
+            deletedcomponents: deleted,
+          };
+          //Emitir el mensaje
+          socketIo.SimpleEmit(name, message);
+         
+          //Actualizar la platilla
+          meta.components = [...components];
+          return meta.save();
+        })
+        .then(meta => {
+          res.json({
+            message: "Updated Meta and Notification Sended",
+            meta: meta,
+          });
+        })
+        .catch(err => res.status(400).json(err));
     })
+    .catch(err => {
+      res.status(400).json(err);
+    });
+};
+exports.get = (req, res) => {
+  const rol = req.params.rol;
+
+  if (!rol) {
+    return res.status(400).json("Rol no valido");
+  }
+  Meta.findOne({ rol: rol })
     .then(meta => {
       res.json(meta);
     })
@@ -77,28 +140,6 @@ exports.get = (req, res) => {
       res.status(400).json(err);
     });
 };
-
-exports.delete = (req, res) => {
-  const rol = req.params.rol;
-  if (!rol) {
-    return resp.status(400).json("Rol no valido");
-  }
-  Rol.findOneAndRemove({ rol: rol })
-    .then(rol => {
-      if (!rol) {
-        throw new Error("Rol no existe");
-      } else {
-        return Meta.findOne({ rol: rol, model: true });
-      }
-    })
-    .then(meta => {
-      res.json("Borrado exitosamente", meta);
-    })
-    .catch(err => {
-      res.status(401).json(err);
-    });
-};
-
 
 /*[
 {

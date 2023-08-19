@@ -1,14 +1,13 @@
 <template>
   <div>
-  <v-card class="custom-card" @click="gotoLink">
-    <div class="custom-border" :style="{ borderTopColor: Notification.type }"></div>
-    {{Notification.fecha}}
-    <br>
+  <v-card class="custom-card" @click="gotoLink" >
+    <div class="custom-border" :style="{ borderTopColor: Notification.type }" ></div>
+    <p style="text-align: right; padding-right: 10px; "  >{{Notification.fecha}}</p>
     <v-card-title>
       <v-icon :color="Notification.type">{{ Notification.icon }}</v-icon>
       {{ Notification.title }}
     </v-card-title>
-    <v-card-text>
+    <v-card-text style="word-wrap: break-word;">
       {{ Notification.informacion }}
     </v-card-text>
   </v-card>
@@ -36,6 +35,7 @@ export default{
 <style scoped>
 .custom-card {
   border: none;
+  
 }
 
 .custom-border {

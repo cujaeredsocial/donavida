@@ -1,26 +1,37 @@
-const{Schema,model} = require('mongoose');
+const { Schema, model, SchemaTypes } = require("mongoose");
 
-const esquemaComponente = new Schema({
-    label:{//nombre de la etiqueta ex sexo
-        type:String,       
-        required:true
+const esquemaComponent = new Schema(
+  {
+    title: {
+      //la etiqueta del componente
+      type: String,
+      require: true,
     },
-    type:{//tipo de dato que va a tener el componente
-        type:String,
-        required:true
+    dataType: {
+      //el tipo de dato, como entero o string
+      type: String,
+      require: true,
+    },    
+    values: [
+      {
+        //Valores, en caso de que sea un campo de selección, los valores de esa selección
+        type: SchemaTypes.Mixed,
+      },
+    ],
+    data: {
+      //, los datos introducidos por el usuario
+      type: SchemaTypes.Mixed,
     },
-    value:{
-        type:[String],
-        default:[]
+    regex: {
+      type: String,
+      require: true,
     },
-    value_Introducido_por_el_usuario:{
-        type:String,
-        default:""
+    message: {
+      //para un mensaje predeterminado
+      type: String,
     },
-    regex:{//regex para el campo
-        type:String,    
-    },
+  },
+  { _id: false }
+);
 
-});
-const modelSchema = model('Componente',esquemaComponente);
-module.exports = {modelSchema, esquemaComponente};
+module.exports = model("Component", esquemaComponent);

@@ -26,7 +26,7 @@ const routes = [
 
   },
   {
-    path: '/forms',
+    path: '/forms/:ruta',
     name: 'forms',
     component: MetaUser
 

@@ -13,7 +13,9 @@ class AccesoAPI {
         });
 
     }
-    push(parametro) { }
+    push(parametro) { 
+         
+    }
     post(parametro) { }
     deletea(parametro) { }
     close() { }

@@ -30,7 +30,7 @@
                  <h2> <br> •	El objetivo del proyecto es ayudar a quien lo necesita para que pueda seguir viviendo. Esto implica hacer todo lo que esté en nuestras manos para ofrecer apoyo a través de la red, sin prestar atención a políticas o campañas que puedan legitimar la voluntad de ayudarnos entre humanos. Debemos asegurarnos de que la ayuda sea genuina y no esté motivada por intereses políticos o económicos, sino por el deseo de ayudar a quienes lo necesitan.
                  </h2>
                  <br>
-                 <v-btn color="bar" dark @click="goToSelect">
+                 <v-btn color="bar" dark>
                   Comienza a donar
                  </v-btn>
                  <br>
@@ -45,10 +45,10 @@
                  <h2 style="text-align: center;">Tú también puedes ayudar</h2>
                  <br>
                  <div class="button-container">
-                 <v-btn color="bar" dark @click="goToSelect">
+                 <v-btn color="bar" dark @click="gotoGestion('/donante')">
                   Aplicar para donante
                  </v-btn>
-                 <v-btn color="bar" dark @click="goToSelect">
+                 <v-btn color="bar" dark @click="gotoGestion('/gestor')">
                   Aplicar para gestor
                  </v-btn>
                 </div>
@@ -79,14 +79,14 @@
       }
     },
     methods: {
+      gotoGestion(ruta){
+        if (this.$route.name !== 'forms') {
+        this.$router.push({ name: 'forms', params: {ruta}});
+        }
+      },
       goToInfo() {
       if (this.$route.name !== 'info') {
         this.$router.push({ name: 'info' });
-      }
-    },
-    goToSelect() {
-      if (this.$route.name !== 'forms') {
-        this.$router.push({ name: 'forms' });
       }
     },
     }
