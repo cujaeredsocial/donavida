@@ -74,11 +74,12 @@ export default {
     singIN() {
       this.$http.post("http://127.0.0.1:27000/login", this.user).then(
         (response) => {
-          console.log(response);
+          console.log(response.data);
           this.$router.push({ name: "main" });
-          this.$store.dispatch('setUser',this.user);
-          localStorage.setItem('password', this.user.password)
-          localStorage.setItem('username', this.user.userName)
+          this.$store.dispatch('setUser',response.data.user);
+          localStorage.setItem('password', response.data.user.password);
+          localStorage.setItem('username', response.data.user.userName);
+          localStorage.setItem('email', response.data.user.email);
 
         },
         (error) => {
