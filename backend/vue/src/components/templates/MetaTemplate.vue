@@ -1,3 +1,4 @@
+<!-- eslint-disable no-unused-vars -->
 <template>
   <v-container class="spacing-playground pa-12" fluid>
     <v-card class="mx-auto my-auto" width="5000" min-height="330">
@@ -82,7 +83,9 @@
           <v-icon>mdi mdi-plus-circle</v-icon>
         </v-btn>
         <v-spacer></v-spacer>
-        <v-btn color="red" text> Guardar Cambios </v-btn>
+        <v-btn color="red" text @click="guardarCambios">
+          Guardar Cambios
+        </v-btn>
       </v-card-actions>
     </v-card>
   </v-container>
@@ -95,6 +98,8 @@ export default {
     draggable,
   },
   data() {
+    // eslint-disable-next-line no-unused-vars
+    let rolActual;
     return {
       shows: [],
       /*component: {
@@ -104,36 +109,7 @@ export default {
         regex: "",
       },
       componentsNuevos: [],*/
-      camposArray: [
-        {
-          title: "Nombre de Usuario",
-          type: "String",
-          value: "-",
-          regex: "-",
-          mensaje: "-",
-        },
-        {
-          title: "Carnet de Identidad",
-          type: "String",
-          value: "-",
-          regex: "-",
-          mensaje: "-",
-        },
-        {
-          title: "Telefono",
-          type: "String",
-          value: "-",
-          regex: "-",
-          mensaje: "-",
-        },
-        {
-          title: "Hola",
-          type: "String",
-          value: "Estoy",
-          regex: "Probando",
-          mensaje: "-",
-        },
-      ],
+      camposArray: [],
       dragOptions: {
         handle: ".drag-handle",
         animation: 200,
@@ -174,7 +150,32 @@ export default {
       console.log(draggedIndex);
       console.log(newIndex);
     },*/
-    guardarCambios() {},
+    guardarCambios() {
+      fetch(`http://127.0.0.1:27000/meta/update/${this.rolActual}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          components: [...this.camposArray],
+        }),
+      }).catch((error) => {
+        console.error("Ha ocurrido un error:", error);
+      });
+    },
+    // eslint-disable-next-line no-unused-vars
+    obtenerDatos(ruta) {
+      const URL = "http://127.0.0.1:27000/meta/plantilla/" + ruta;
+      fetch(`${URL}`)
+        .then((response) => response.json())
+        .then((meta) => {
+          this.camposArray = meta.components;
+          this.rolActual = meta.rol;
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    },
   },
 };
 </script>
