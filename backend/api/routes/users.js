@@ -10,6 +10,7 @@ router.post("/updateuser", userController.postUpdateUser);
 router.get("/allusers", userController.getAllUsers);
 router.get("/users/:userName", userController.getUser);
 router.post("/deleteuser", userController.postDeleteUser);
+router.post("/rol_asign", userController.AsignarRol);
 
 router.get("/token", verifyToken, (req, res) => {
   res.json("Access granted");
