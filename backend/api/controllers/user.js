@@ -151,3 +151,19 @@ exports.getUser = (req, res) => {
       res.status(404).json(err);
     });
 };
+
+
+//Fabian asignar rol y llenar datos
+exports.AsignarRol = (req,res) =>{
+  const{user,rol,components} = req.body;
+  if(!user || !rol || !components){
+    return res.status(401).json({message: 'Error en la introduccion de datos'});
+  }
+  User.findByIdAndUpdate(user,{$push:{datos_roles:{rol,components}}},{new:true})
+  .then(usuario =>{
+      res.json({message:"Se ha encontrado el usuario",usuario});
+  })
+  .catch(err => {
+    res.status(404).json({message:"Ha ocurrido un error" , err});
+  })
+}
