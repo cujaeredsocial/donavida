@@ -1,7 +1,6 @@
 # Gestion
-# Introduccion
-Este subproyecto de Donavida se encargara de la vista y las funcionalidades que tendran los que estaran gestionando la aplicacion.
-
+# Introducción
+Este grupo de trabajo del proyecto DonaVida se estará encargando de todas las funcionalidades pertenecientes al rol de gestor, para ello se encuentra trabajando con vue 2 para la realización de los componentes visuales
 # Funcionalidades y versionado
 ## Pasos para instalar y compilar
 Project setup
@@ -26,3 +25,4 @@ npm run lint
 
 Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+

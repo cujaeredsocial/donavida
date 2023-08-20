@@ -1,37 +1,12 @@
 <!-- eslint-disable vue/valid-template-root -->
 <template>
-  <v-card>
-    <v-navigation-drawer app permanent style="top: 65px; width: 350px">
-      <v-list-item>
-        <v-list-item-content>
-          <v-list-item-title class="text-h6"> Crear reporte </v-list-item-title>
-          <v-list-item-subtitle>
-            Seleccione una opción de reporte
-          </v-list-item-subtitle>
-        </v-list-item-content>
-      </v-list-item>
+  <v-container class="spacing-playground pa-12" fluid>
+    <v-card class="mx-auto my-auto" width="900" min-height="450">
+      <v-card class="mx-auto" max-width="344">
+        <v-img src="../../public/images (2).png" height="250px"></v-img>
 
-      <v-divider></v-divider>
-      <v-treeview :items="items"></v-treeview>
-      <v-list dense nav> </v-list>
-    </v-navigation-drawer>
-  </v-card>
+        <v-card-title class="justify-center"> Estilo Tabla </v-card-title>
+      </v-card>
+    </v-card>
+  </v-container>
 </template>
-<script>
-export default {
-  data: () => ({
-    items: [
-      {
-        id: 1,
-        name: "Usuario :",
-        children: [
-          { id: 2, name: "Cantidad de Usuarios" },
-          { id: 3, name: "Cantidad de registrados por hora" },
-          { id: 4, name: "Cantidad de registros en el ultimo mes " },
-          { id: 5, name: "Cantidad de registros en el ultimo año " },
-        ],
-      },
-    ],
-  }),
-};
-</script>
