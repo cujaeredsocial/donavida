@@ -29,8 +29,8 @@ const userSchema = new mongoose.Schema({
         default:true
     },
     datos_roles :[//aca va un arreglo con el rol y los componentes
-      /*  rol = String,
-        components = []*/
+        rol = String,
+        components = []
     ]
 });
 
