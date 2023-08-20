@@ -1,6 +1,6 @@
 const{Schema,model, SchemaTypes} = require('mongoose');
 const Meta = require('../models/Meta'); 
-const Component = require('../models/Component'); 
+const Component = require('./Component'); //./models
 
 
 const esquemaMetaUser = new Schema({
