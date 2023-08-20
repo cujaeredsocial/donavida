@@ -3,7 +3,7 @@ let io;
 //Inicializar io para llamarlo desde cualquier archivo
 exports.socketConnection = server => {
   io = require("socket.io")(server);
-  io.on("notificacion",socket => 
+  io.emit("notificacion",socket => 
   {
     console.log('Cristian tonto')
   })
