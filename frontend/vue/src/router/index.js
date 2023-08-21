@@ -9,6 +9,7 @@ import InfoView from  '../views/InfoView.vue'
 import MetaUser from '@/views/MetaUser.vue'
 import SolView from '../views/SolView.vue'
 import NotificationCenter from '@/views/NotificationCenter.vue'
+import MapView from '../views/MapView.vue'
 
 Vue.use(VueRouter)
 
@@ -63,6 +64,12 @@ const routes = [
     path:'/main',
     name: 'main',
     component: MainView
+
+  },
+  {
+    path:'/map',
+    name: 'map',
+    component: MapView
 
   }
 ]

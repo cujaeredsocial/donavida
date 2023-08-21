@@ -117,7 +117,6 @@
 </template>
 
 <script>
-import io from "socket.io-client";
 import Notificacion from "./components/Notificacion.vue";
 export default {
   name: "App",
@@ -126,6 +125,7 @@ export default {
   },
   data() {
     return {
+      isConnected:false,
       sideNav: false,
       drawer: false,
       panelVisible: false,
@@ -181,8 +181,19 @@ export default {
       ],
     };
   },
+  sockets:{
+    connect() {
+      this.isConnected = true;
+      console.log(this.isConnected);
+    },
+    disconnect() {
+      this.isConnected = false;
+    },
+  },
   methods: {
-    
+    sendMessage() {
+    this.$socket.emit('notificacion',{});
+  }, 
     //Estos es el metodo de lo que hace el btn de la campana cuando le das click
     botonCampana(){
       this.drawer = !this.drawer; 

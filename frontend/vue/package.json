@@ -13,6 +13,7 @@
     "docxtemplater": "^3.37.12",
     "ejs": "^3.1.9",
     "jszip": "^3.10.1",
+    "leaflet": "^1.9.4",
     "mammoth": "^1.6.0",
     "pizzip": "^3.1.4",
     "socket.io-client": "^4.7.2",
@@ -20,6 +21,8 @@
     "vue-resource": "^1.5.3",
     "vue-router": "^3.5.1",
     "vue-snotify": "^3.2.1",
+    "vue-socket.io": "^3.0.10",
+    "vue2-leaflet": "^2.7.1",
     "vuetify": "^2.6.0",
     "vuex": "^3.6.2",
     "vuex-persist": "^3.1.3"
