@@ -249,6 +249,8 @@ export default {
           `http://127.0.0.1:27000/metauser/request/gestor/64d632eb587b4aa984367ef4`
         ) //esto habre q cambiarlo
         .then((response) => {
+    //       //esto da un error leyendo una propiedad null arregla eso Cannot read properties of null (reading 'components')
+    // at VueComponent.eval (MetaUser.vue:252:1)
           const componentsOld = response.data.components;
           for (let comp of this.components) {
             const found = componentsOld.find((element) => {

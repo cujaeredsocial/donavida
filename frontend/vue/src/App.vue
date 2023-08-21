@@ -181,14 +181,8 @@ export default {
       ],
     };
   },
-  created() {
-    // this.socket = io("http://localhost:3000");
-    // // Reemplaza la URL con la URL de tu servidor WebSocket
-
-    // // Escucha el evento "notification" y actualiza las notificaciones
-    // this.socket.on("notification", this.handleNotification);
-  },
   methods: {
+    
     //Estos es el metodo de lo que hace el btn de la campana cuando le das click
     botonCampana(){
       this.drawer = !this.drawer; 
