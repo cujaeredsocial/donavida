@@ -155,7 +155,7 @@ exports.getUser = (req, res) => {
 
 //Fabian asignar rol y llenar datos
 exports.AsignarRol = (req,res) =>{
-  const{userName,rol,components} = req.body;
+  let{userName,rol,components} = req.body;
   if(!user || !rol || !components){
     return res.status(401).json({message: 'Error en la introduccion de datos'});
   }
