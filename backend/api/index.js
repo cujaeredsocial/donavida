@@ -40,6 +40,7 @@ app.use(require("./routes/users"));
 app.use("/rol", require("./routes/rol"));
 app.use("/meta", require("./routes/meta"));
 app.use("/metauser", require("./routes/metauser"));
+app.use("/center", require("./routes/center"));
 //Cargar juego de datos
 app.use(require('./dump_db/database'));
 
