@@ -1,15 +1,26 @@
 <!-- eslint-disable vue/no-multiple-template-root -->
 <template>
   <v-tabs color="white" right v-model="tab">
-    <v-tab>
-      <v-icon> mdi mdi-account-box-multiple </v-icon>
-      Usuarios
+    <v-tab to="/">
+      <v-icon>mdi mdi-home-variant</v-icon>
+      Inicio
     </v-tab>
-    <v-tab>
-      <v-icon> </v-icon>
+    <v-tab to="/formularios">
+      <v-icon> mdi mdi-list-box-outline </v-icon>
+      Formularios
+    </v-tab>
+    <v-tab to="/centros">
+      <v-icon>mdi mdi-hospital-marker</v-icon>
+      Centros
+    </v-tab>
+    <v-tab to="/solicitud">
+      <v-icon>mdi mdi-format-list-group</v-icon>
       Solicitudes
     </v-tab>
-    <v-tab>Reportes</v-tab>
+    <v-tab to="/reportes">
+      <v-icon>mdi mdi-poll</v-icon>
+      Reportes
+    </v-tab>
   </v-tabs>
 </template>
 
@@ -17,8 +28,13 @@
 export default {
   data() {
     return {
-      tab: null,
+      tab: "/",
     };
+  },
+  methods: {
+    toForms() {
+      this.$router.push("/formularios");
+    },
   },
 };
 </script>

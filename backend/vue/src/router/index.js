@@ -7,6 +7,16 @@ Vue.use(VueRouter);
 
 const routes = [
   {
+    path: "/centros",
+    name: "centros",
+    component: () => import("../views/CentroView.vue"),
+  },
+  {
+    path: "/reportes",
+    name: "reportes",
+    component: () => import("../views/ReporteView.vue"),
+  },
+  {
     path: "/formularios",
     name: "formularios",
     component: () => import("../views/FormulariosView.vue"),

@@ -8,7 +8,7 @@
         >
         <v-divider class="mx-4" vertical></v-divider>
         <v-spacer></v-spacer>
-        <funcion-tab v-if="$route.name === 'inicio'" />
+        <funcion-tab />
       </v-app-bar>
       <!--Barra de navegacion !Pendiente de arreglo-->
       <v-navigation-drawer v-model="drawer" absolute temporary>
