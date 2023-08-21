@@ -4,6 +4,11 @@ import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify'
 import VueResource from 'vue-resource';
+import socketio from 'socket.io-client';
+
+
+export const SocketInstance = socketio('http://127.0.0.1:27000');
+Vue.use( SocketInstance);
 
 
 Vue.config.productionTip = false
