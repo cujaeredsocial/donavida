@@ -1,5 +1,5 @@
 <template>
-  <v-responsive  style="height: 100vh">
+  <v-responsive  style="min-height: 100vh;">
     <div class="pa-6 text-center">
       <h1 style="text-align: center; color: red">
         Registro de solicitudes realizadas

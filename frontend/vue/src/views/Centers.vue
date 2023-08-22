@@ -22,7 +22,7 @@ export default {
     data(){
         return{
             Centers: [
-                {name:"AAA",description:"LOreeeeeeeeeeemmmmmmmm sadasdasdsadawwfjlaskjfsla", imageUrl: "https://images.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.readingpublicmuseum.org%2Fexhibit_secrets-of-mona-lisa-4.jpg&f=1",ubication:{lat:"aaa",long:"bbb"},category:"Hospital"},
+                {name:"AAA",description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod eu lorem et ultricies. In porta lorem at dui semper porttitor. Nullam quis cursus dui. Cras tincidunt vehicula tellus eu facilisis. Donec nisi turpis, iaculis et arcu a, aliquet ultrices nisl. Nam in pharetra odio, ac blandit metus. Suspendisse potenti.", imageUrl: "https://images.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.readingpublicmuseum.org%2Fexhibit_secrets-of-mona-lisa-4.jpg&f=1",ubication:{lat:"aaa",long:"bbb"},category:"Hospital"},
                 {name:"BBB",description:"LOreeeeeeeeeeemmmmmmmm sadasdasdsadawwfjlaskjfsla", imageUrl: "https://images.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.readingpublicmuseum.org%2Fexhibit_secrets-of-mona-lisa-4.jpg&f=1",ubication:{lat:"aaa",long:"bbb"},category:"Hospital"},
                 {name:"CCC",description:"LOreeeeeeeeeeemmmmmmmm sadasdasdsadawwfjlaskjfsla", imageUrl: "https://images.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.readingpublicmuseum.org%2Fexhibit_secrets-of-mona-lisa-4.jpg&f=1",ubication:{lat:"aaa",long:"bbb"},category:"Hospital"},
                 {name:"DDD",description:"LOreeeeeeeeeeemmmmmmmm sadasdasdsadawwfjlaskjfsla", imageUrl: "https://images.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.readingpublicmuseum.org%2Fexhibit_secrets-of-mona-lisa-4.jpg&f=1",ubication:{lat:"aaa",long:"bbb"},category:"Hospital"},

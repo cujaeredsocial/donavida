@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!--
     <v-card>
         <v-layout>
         <v-flex xs4>
@@ -20,7 +21,19 @@
         </v-flex>
     </v-layout>
     </v-card>
+    -->
+    <v-card>
+        <v-card-title class="justify-center">{{Center.name}}</v-card-title>
+        
+        <div class="container" style="display: grid; grid-template-columns: auto 1fr;">
+            <h2>Description</h2>
+            <p style="grid-column: 1 / 2;">{{Center.category+": "+Center.description}}</p>
+            <img :src="Center.imageUrl" alt="Imagen" style="grid-column: 2 / 3; margin-right: 10px; border-radius: 5pX;" aspect-ratios="1" width="200" height="200">
+           
+          </div>
+    </v-card>
   </div>
+  
 </template>
 
 <script>
