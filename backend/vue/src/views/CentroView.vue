@@ -1,7 +1,14 @@
 <template>
-  <v-container></v-container>
+  <v-container><centro-form /></v-container>
 </template>
 
 <script>
-export default {};
+import CentroForm from "../components/CentroForm.vue";
+export default {
+  components: {
+    CentroForm,
+  },
+};
 </script>
+
+CentroForm
