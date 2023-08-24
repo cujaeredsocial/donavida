@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Component = require('./Component');
 
 
 const userSchema = new mongoose.Schema({
@@ -28,8 +29,11 @@ const userSchema = new mongoose.Schema({
         type:Boolean,
         default:true
     },
-   
-   
+    datos_roles :{//aca va un arreglo con el rol y los componentes
+        rol :String,
+        components: [Component.schema] 
+    }
+    
 });
 
 

@@ -101,7 +101,7 @@
                       :items="item.values"
                       :label="item.title"
                     ></v-combobox>
-                    <v-btn icon small>
+                    <v-btn icon small @click="showMap">
                       <v-icon>mdi-plus</v-icon>
                     </v-btn>
                   </div>
@@ -128,26 +128,39 @@
           </v-col>
         </v-card>
 
-        <!-- Componente para nueva ubicacion -->
-        <v-card
-          v-if="formlocale"
-          class="mx-auto my-12"
-          width="600"
-          max-height="900"
-        >
-        <v-col class="mx-auto" cols="12" md="10">
-          <v-card-title>
-            <h2 style="text-align: center; color:red">Introduzca los datos de la nueva ubicacion</h2>
-          </v-card-title>
-          <v-card-text>
-            <v-form @submit.prevent="send">
-              <v-text-field></v-text-field>
-              <v-text-field></v-text-field>
-              <v-text-field></v-text-field>
-            </v-form>
-          </v-card-text>
-        </v-col>
+        
+      
+      <!-- Mapa y nuevo Formulario -->
+      <div v-if="mostrarMapa">
+        <v-card>
+        <v-layout>
+          <v-flex xs8>
+            <Mapa/>
+          </v-flex>
+          <v-flex xs4>
+            <v-card
+            class="mx-auto my-12"
+          >
+          <v-col class="mx-auto" cols="12" md="10">
+            <v-card-title>
+              <h2 style="text-align: center; color:red">Introduzca los datos de la nueva ubicacion</h2>
+            </v-card-title>
+            <v-card-text>
+              <v-form @submit.prevent="send">
+                <v-text-field></v-text-field>
+                <v-text-field></v-text-field>
+                <v-text-field></v-text-field>
+                <v-btn id="submit" @click="showForm"></v-btn>
+              </v-form>
+            </v-card-text>
+          </v-col>
+        </v-card>
+        <p wrap>Aqui puedes introducir informacion que nos ayude a identificar la ubiacion que selecciones</p>
+          </v-flex>
+
+        </v-layout>
       </v-card>
+      </div>
 
         <!--Tarjeta de confirmacion de envio de la solicitud-->
         <v-card
@@ -190,15 +203,19 @@
 </template>
   
   <script>
+  import Mapa from '@/components/LMap.vue';
 export default {
+  components:{
+    Mapa
+  },
   data() {
     return {
       fotos:[],
       valid: false,
       metaUser: { userName: "", name_rol: "", componentes: [] },
+      mostrarMapa:false,
       mostrarForm: true,
       formsend: false,
-      formlocale:false,
       titulo: "",
       components: [],
       campoNoVacioRule: (v) => !!v || ";Este campo es obligatorio",
@@ -211,6 +228,14 @@ export default {
   },
 
   methods: {
+    showForm(){
+       this.mostrarForm=true,
+       this.mostrarMapa=false
+    },
+    showMap(){
+       this.mostrarForm=false,
+       this.mostrarMapa=true
+    },
     goBack() {
       if (this.formsend) {
         this.formsend = false;
@@ -249,6 +274,8 @@ export default {
           `http://127.0.0.1:27000/metauser/request/gestor/64d632eb587b4aa984367ef4`
         ) //esto habre q cambiarlo
         .then((response) => {
+    //       //esto da un error leyendo una propiedad null arregla eso Cannot read properties of null (reading 'components')
+    // at VueComponent.eval (MetaUser.vue:252:1)
           const componentsOld = response.data.components;
           for (let comp of this.components) {
             const found = componentsOld.find((element) => {

@@ -1,7 +1,8 @@
 const MetaUser = require("../models/MetaUser");
 const User = require("../models/user");
 const Meta = require("../models/Meta");
-const socketIo = require("../socket.io/socket-io");
+const signal = require("../socket.io/socket-io");
+const { AsignarRol: asignarRol } = require("./user");
 
 //Funcion para actualizar para actualizar el ultimo metaUser
 function changeLast(user, rol) {
@@ -51,6 +52,8 @@ exports.postCrear = (req, res) => {
               } else {
                 status = "en proceso";
               }
+              //asignacion del rol al usuario
+              asignarRol(user.id,name_rol,componentes);
               //Creacion del metaUser
               const userMeta = new MetaUser({
                 user: user,
@@ -89,6 +92,37 @@ exports.postCrear = (req, res) => {
     });
 };
 
+//Fabian asignar rol y llenar datos
+// asignarRol = function(id,_rol,_components){
+//   User.findById(id)//Buscar al usuario por el id
+//   .then(usuario =>{//de ser encontrado
+//     //Validar la existencia de  la solicitud para el rol
+//    let existe_el_rol = usuario.datos_roles.find((rol) => {
+//       rol.rol === _rol;
+//     })
+//     //validar que los componentes de la solicitud sean los mismos
+//     const existen_todos_los_comonentes =usuario.datos_roles.some(((componente) =>{
+//       componente.data === _components.data;
+//     }))
+//     if(existe_el_rol ){//si existe el rol valido si existen los componentes
+//       if( existen_todos_los_comonentes ){// si existen emito una signal
+//       signal.SimpleEmit(
+//         'Existe',
+//         {
+//           message:"Usted ya ha realizado una solicitud de este tipo"
+//       })
+//     }else if(! existen_todos_los_comonentes){//de no existir a el rol , le annado los components nuevos
+//         existe_el_rol.components.push(..._components);
+//     }
+//     }else {//si no existe el rol voy a meter lo que venga
+//       usuario.datos_roles.push({
+//         rol:_rol,
+//         components:components
+//       })
+  // }
+  // })
+  
+  
 //Cambiar el estado de una solicitud
 exports.putStatus = (req, res) => {
   //Validar el id y el estado a cambiar
@@ -135,6 +169,7 @@ exports.putStatus = (req, res) => {
     .catch(err => res.status(400).json("No se pudo cambiar el estado " + err));
 };
 
+// }
 exports.getInProcessRequests = (req, res) => {
   MetaUser.find({ status: "en proceso", last: true })
     .then(metaUs => {

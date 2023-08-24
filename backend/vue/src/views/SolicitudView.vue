@@ -1,23 +1,58 @@
 <template>
-  <div>
-    <v-row no-gutters>
-      <div>
-        <v-card class="pa-2" width="300" height="600" offset-md="3" tile>
-          <v-card-title>Solicitudes</v-card-title>
-          <v-list dense>
-            <v-subheader>Solicitudes</v-subheader>
-            <v-list-item-group v-model="selectedItem" color="primary">
-              <v-list-item v-for="(item, i) in items" :key="i">
-                <v-list-item-content>
-                  <v-list-item-title>{{ item.text }}</v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </v-list-item-group>
-          </v-list>
+  <v-container class="spacing-playground pa-16" fluid>
+    <v-row class="fill-height" align="center" justify="center">
+      <v-spacer></v-spacer>
+      <v-hover v-slot="{ hover }">
+        <v-card
+          :elevation="hover ? 12 : 2"
+          :class="{ 'on-hover': hover }"
+          width="250"
+          min-height="410"
+        >
+          <v-img
+            :src="require('../assets/ingeniero-de-software.png')"
+            class="my-3"
+            contain
+            height="200"
+          />
+          <v-divider></v-divider>
+          <v-card-title>
+            <p class="text-h5 red--text">Gestor</p>
+          </v-card-title>
+          <v-card-subtitle
+            >Aqui tendra acceso a las solicitudes de los que desean optar por
+            ser gestores
+          </v-card-subtitle>
         </v-card>
-      </div>
+      </v-hover>
+      <v-spacer></v-spacer>
+      <v-hover v-slot="{ hover }">
+        <v-card
+          :elevation="hover ? 12 : 2"
+          :class="{ 'on-hover': hover }"
+          width="250"
+          height="410"
+        >
+          <v-img
+            :src="require('../assets/prueba-de-sangre.png')"
+            class="my-3"
+            contain
+            height="200"
+          />
+          <v-divider></v-divider>
+          <v-card-title>
+            <p class="text-h5 red--text">Solicitudes</p>
+            <p class="text-h5 red--text">de Donacion</p>
+          </v-card-title>
+          <v-card-subtitle
+            >Aqui podra acceder a las solicitudes de donacion que aun no han
+            sido aceptadas
+          </v-card-subtitle>
+        </v-card>
+      </v-hover>
+      <v-spacer></v-spacer>
     </v-row>
-  </div>
+  </v-container>
 </template>
 <script>
 export default {

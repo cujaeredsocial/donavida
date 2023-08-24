@@ -117,7 +117,6 @@
 </template>
 
 <script>
-import io from "socket.io-client";
 import Notificacion from "./components/Notificacion.vue";
 export default {
   name: "App",
@@ -126,6 +125,7 @@ export default {
   },
   data() {
     return {
+      isConnected:false,
       sideNav: false,
       drawer: false,
       panelVisible: false,
@@ -181,14 +181,19 @@ export default {
       ],
     };
   },
-  created() {
-    // this.socket = io("http://localhost:3000");
-    // // Reemplaza la URL con la URL de tu servidor WebSocket
-
-    // // Escucha el evento "notification" y actualiza las notificaciones
-    // this.socket.on("notification", this.handleNotification);
+  sockets:{
+    connect() {
+      this.isConnected = true;
+      console.log(this.isConnected);
+    },
+    disconnect() {
+      this.isConnected = false;
+    },
   },
   methods: {
+    sendMessage() {
+    this.$socket.emit('notificacion',{});
+  }, 
     //Estos es el metodo de lo que hace el btn de la campana cuando le das click
     botonCampana(){
       this.drawer = !this.drawer; 
@@ -337,6 +342,7 @@ export default {
           { icon: "mdi-home", title: "Home", link: "/main" },
           { icon: "mdi-account", title: "User", link: "/profile" },
           { icon: "mdi-note", title: "Solicitudes", link: "/requests" },
+          { icon: "mdi-book", title: "Centros Medicos", link: "/centers" },
           { icon: "mdi-share-variant", title: "Share", link: "" },
           { icon: "mdi-folder", title: "Info", link: "/info" },
         ];

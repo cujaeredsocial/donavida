@@ -9,6 +9,7 @@
         </div>
           <div class="button-container">
             <v-btn color="bar" dark @click="goToInfo">Información General</v-btn>
+            <v-btn color="bar" dark @click="goToCenters">Centros Medicos</v-btn>
             <v-btn color="bar" dark>Estadísticas </v-btn>
             <v-btn color="bar" dark>Chat</v-btn>
             <v-btn color="bar" dark>Redes Sociales</v-btn>
@@ -87,6 +88,11 @@
       goToInfo() {
       if (this.$route.name !== 'info') {
         this.$router.push({ name: 'info' });
+      }
+    },
+    goToCenters() {
+      if (this.$route.name !== 'centers') {
+        this.$router.push({ name: 'centers' });
       }
     },
     }

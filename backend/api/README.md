@@ -223,6 +223,57 @@ Lo más importante: Como acceder a la base de datos:
    salida: Mensaje de éxito y la ultima solicitud del rol especificado
    errores:
 
+   6. Center:
+
+    Atributos:
+   name: nombre del centro, es obligatorio y unico: String.
+   description: descripcion del centro:String.
+   imageURL: URL de la imagen que se guarde en el SDN(pendiente) del centro:String.
+   ubication: posee dos atributos long:String y lat:String de longitud y latitud respectivamente.
+   mapConection: conexion con el mapa (pendiente con marco):String
+   category: categoria del centro, es obligatorio: Hospital||Banco de donacion||Policlinico||Deambulante
+
+   Endpoints
+   postCreateCenter:
+   tipo: Post
+   ruta:/center/create
+   descripción: Crea un centro con un nombre unico.
+   entrada:  name:String description:String imageURL:String ubication:String mapConnection:String category:String
+   salida: Mensaje de éxito y el centro recien creado
+   errores:
+
+   getCenter:
+   tipo: Get
+   ruta:/center/<name>
+   descripción: devuelve el centro por el nombre que pasa en la URL
+   entrada: ninguna
+   salida: Mensaje de éxito y el centro especificado por el nombre
+   errores:
+
+   getAllCenters:
+   tipo: Get
+   ruta:/center/getall
+   descripción: devuelve todos los centros
+   entrada: ninguna
+   salida: Mensaje de éxito y todos los centros creados hasta el momento
+   errores:
+
+   updateCenter:
+   tipo: Put
+   ruta:/center/update/<id>
+   descripción:actualiza un centro por el Id pasado en la URL
+   entrada: name:String description:String imageURL:String ubication:String mapConnection:String 
+   salida: Mensaje de éxito y el centro actualizado
+   errores:
+
+   deleteCenter:
+   tipo: Delete
+   ruta:/center/delete/<id>
+   descripción: elimina el centro especificado por el ID de la URL
+   entrada: ninguna
+   salida: Mensaje de éxito y el centro recien eliminado
+   errores:
+
 # Errores Comunes
 
 1. A la hora de escribir npm start deben estar en .backend/api, o sea cual sea la direccion del package.json del archivo; esto es en la terminal integrada
