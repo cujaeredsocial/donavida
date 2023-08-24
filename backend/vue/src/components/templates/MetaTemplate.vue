@@ -92,15 +92,16 @@
 </template>
 <script>
 import draggable from "vuedraggable";
+// eslint-disable-next-line no-unused-vars
+import FormulariosView from "@/views/FormulariosView.vue";
 export default {
   name: "MetaTemplate",
   components: {
     draggable,
   },
   data() {
-    // eslint-disable-next-line no-unused-vars
-    let rolActual;
     return {
+      rolActual: "",
       shows: [],
       /*component: {
         title: "",
@@ -150,8 +151,26 @@ export default {
       console.log(draggedIndex);
       console.log(newIndex);
     },*/
+    // eslint-disable-next-line no-unused-vars
+    obtenerDatos(ruta) {
+      console.log(ruta);
+      const URL = "http://127.0.0.1:27000/meta/plantilla/" + ruta;
+      console.log(URL);
+      fetch(`${URL}`)
+        .then((response) => response.json())
+        .then((meta) => {
+          this.camposArray = meta.components;
+          this.rolActual = ruta;
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    },
     guardarCambios() {
-      fetch(`http://127.0.0.1:27000/meta/update/${this.rolActual}`, {
+      console.log(this.rolActual);
+      const URL = "http://127.0.0.1:27000/meta/update/gestor"; //+ this.rolActual;
+      console.log(URL);
+      fetch(`${URL}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -162,19 +181,6 @@ export default {
       }).catch((error) => {
         console.error("Ha ocurrido un error:", error);
       });
-    },
-    // eslint-disable-next-line no-unused-vars
-    obtenerDatos(ruta) {
-      const URL = "http://127.0.0.1:27000/meta/plantilla/" + ruta;
-      fetch(`${URL}`)
-        .then((response) => response.json())
-        .then((meta) => {
-          this.camposArray = meta.components;
-          this.rolActual = meta.rol;
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
     },
   },
 };

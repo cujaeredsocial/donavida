@@ -1,3 +1,7 @@
+<!-- eslint-disable no-unused-vars -->
+<!-- eslint-disable no-undef -->
+<!-- eslint-disable no-unused-vars -->
+<!-- eslint-disable no-unused-vars -->
 <template>
   <v-container class="spacing-playground pa-16" fluid>
     <v-row class="fill-height" align="center" justify="center">
@@ -8,6 +12,7 @@
           :class="{ 'on-hover': hover }"
           width="250"
           min-height="410"
+          @click="rolDecided('gestor')"
         >
           <v-img
             :src="require('../assets/ingeniero-de-software.png')"
@@ -32,6 +37,7 @@
           :class="{ 'on-hover': hover }"
           width="250"
           height="410"
+          @click="rolDecided('solicitante')"
         >
           <v-img
             :src="require('../assets/prueba-de-sangre.png')"
@@ -62,6 +68,7 @@
             class="my-3"
             contain
             height="200"
+            @click="rolDecided('donante')"
           />
           <v-divider></v-divider>
           <v-card-title>
@@ -81,6 +88,7 @@
             :class="{ 'on-hover': hover }"
             width="250"
             height="410"
+            @click="rolDecided('mensaje')"
           >
             <v-img
               :src="require('../assets/globos-de-texto.png')"
@@ -106,7 +114,35 @@
 </template>
 
 <script>
-export default {};
+// eslint-disable-next-line no-unused-vars
+import MetaTemplate from "@/components/templates/MetaTemplate.vue";
+
+export default {
+  data: function () {
+    return {
+      rol: "",
+    };
+  },
+  methods: {
+    // eslint-disable-next-line no-unused-vars
+    /*rolDecided(rolSelected) {
+      this.$store
+        .dispatch("obtenerDatos", rolSelected)
+        .then(() => {
+          this.$router.push("/formularios/plantilla");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },*/
+    // eslint-disable-next-line no-unused-vars
+    rolDecided(rolSelected) {
+      console.log(rolSelected);
+      MetaTemplate.methods.obtenerDatos(rolSelected);
+      this.$router.push("/formularios/plantilla");
+    },
+  },
+};
 </script>
 <style lang="sass" scoped>
 .v-card.on-hover.theme--dark
