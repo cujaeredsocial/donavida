@@ -147,8 +147,8 @@
             </v-card-title>
             <v-card-text>
               <v-form @submit.prevent="send">
-                <v-text-field></v-text-field>
-                <v-text-field></v-text-field>
+                <v-text-field label="Nombre"></v-text-field>
+                <v-text-field label=""></v-text-field>
                 <v-text-field></v-text-field>
                 <v-btn id="submit" @click="showForm"></v-btn>
               </v-form>

@@ -28,9 +28,22 @@ export default {
                 {name:"DDD",description:"LOreeeeeeeeeeemmmmmmmm sadasdasdsadawwfjlaskjfsla", imageUrl: "https://images.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.readingpublicmuseum.org%2Fexhibit_secrets-of-mona-lisa-4.jpg&f=1",ubication:{lat:"aaa",long:"bbb"},category:"Hospital"},
                 {name:"EEE",description:"LOreeeeeeeeeeemmmmmmmm sadasdasdsadawwfjlaskjfsla", imageUrl: "https://images.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.readingpublicmuseum.org%2Fexhibit_secrets-of-mona-lisa-4.jpg&f=1",ubication:{lat:"aaa",long:"bbb"},category:"Hospital"},
                 {name:"FFF",description:"LOreeeeeeeeeeemmmmmmmm sadasdasdsadawwfjlaskjfsla", imageUrl: "https://images.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.readingpublicmuseum.org%2Fexhibit_secrets-of-mona-lisa-4.jpg&f=1",ubication:{lat:"aaa",long:"bbb"},category:"Hospital"},
-
             ]
         }
+    },
+    created(){
+      this.$http
+      .get(
+        `http://127.0.0.1:27000/center/getall`
+      )
+      .then((response) => {
+        console.log(response);
+       this.Centers=response.body;
+      })
+      .catch((error) => {
+        console.error(error);
+        return [];
+      });
     },
    components:{
     MedicalCenter

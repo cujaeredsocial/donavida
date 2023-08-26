@@ -190,9 +190,12 @@ export default {
       this.isConnected = false;
     },
   },
+  created(){
+    sendMessage();
+  },
   methods: {
     sendMessage() {
-    this.$socket.emit('notificacion',{});
+    
   }, 
     //Estos es el metodo de lo que hace el btn de la campana cuando le das click
     botonCampana(){
