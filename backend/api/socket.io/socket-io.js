@@ -12,7 +12,7 @@ exports.socketConnection = server => {
   io.on("connection", socket => {
     console.info(`Client connected [id=${socket.id}]`);
     socket.join(socket.request._query.id);
-    socket.on("Donante",(metauser) =>{
+    socket.on("Solicitud",(metauser) =>{
       postCrear(metauser);
     })
     socket.on("disconnect", () => {
