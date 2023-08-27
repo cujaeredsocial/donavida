@@ -13,7 +13,7 @@ exports.socketConnection = server => {
     console.info(`Client connected [id=${socket.id}]`);
     socket.join(socket.request._query.id);
     socket.on("Solicitud",(metauser) =>{
-      postCrear(metauser);
+      postCrear(metauser,socket.handshake.res);
     })
     socket.on("disconnect", () => {
       console.info(`Client disconnected [id=${socket.id}]`);
