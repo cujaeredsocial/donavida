@@ -106,6 +106,8 @@
 
       <!-- Current View -->
       <v-main>
+        <p v-if="isConnected">We're connected to the server!</p>
+        <v-btn @click="pingServer()">Ping Server</v-btn>
         <v-container fluid class="mt-4 app-container">
           <transition name="fade">
             <router-view />
@@ -131,72 +133,28 @@ export default {
       panelVisible: false,
       socket: null,
       notifications: [],
-      Notifications: [
-        {
-          title: "Ha sido Aprobado como donante",
-          informacion:
-            "loremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremvv",
-          link: "info",
-          fecha: "  2/2/12",
-          type: "green",
-          icon: "mdi-checkbox-marked-circle",
-          leida: false,
-        },
-        {
-          title: "Ha sido Aprobado como donante",
-          informacion: "blabla",
-          link: "profile",
-          fecha: "  2/2/12",
-          type: "red",
-          icon: "mdi-cancel",
-          leida: true,
-        },
-        {
-          title: "Ha sido Aprobado como donante",
-          informacion: "blabla",
-          link: "info",
-          fecha: "  2/2/12",
-          type: "gray",
-          icon: "mdi-minus-circle",
-          leida: true,
-        },
-        {
-          title: "Ha sido Aprobado como donante",
-          informacion: "blabla",
-          route: "info",
-          fecha: "  2/2/12",
-          type: "gray",
-          icon: "mdi-minus-circle",
-          leida: true,
-        },
-        {
-          title: "Ha sido Aprobado como donante",
-          informacion: "blabla",
-          route: "info",
-          fecha: "  2/2/12",
-          type: "gray",
-          icon: "mdi-minus-circle",
-          leida: true,
-        },
-      ],
     };
   },
-  sockets:{
+  sockets: {
     connect() {
+      // Fired when the socket connects.
       this.isConnected = true;
-      console.log(this.isConnected);
     },
+
     disconnect() {
       this.isConnected = false;
     },
-  },
-  created(){
-    sendMessage();
+
+    // Fired when the server sends something on the "messageChannel" channel.
+    messageChannel(data) {
+      this.socketMessage = data
+    }
   },
   methods: {
-    sendMessage() {
-    
-  }, 
+    pingServer() {
+      // Send the "pingServer" event to the server.
+      this.$socket.emit('notificacion', 'PING!')
+    },
     //Estos es el metodo de lo que hace el btn de la campana cuando le das click
     botonCampana(){
       this.drawer = !this.drawer; 
@@ -294,6 +252,11 @@ export default {
     },
   },
   computed: {
+    newNotifications(){
+      this.$socket.on('notification',(notificacion)=>{
+        this.notifications.unshift(notificacion);
+      })
+    },
         //Metodo para saber si hay nueva notificaion
         areThereNewNotifications(){
       if(this.Notifications.find((element)=>{
