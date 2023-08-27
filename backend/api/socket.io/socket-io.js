@@ -5,10 +5,6 @@ let io;
 //Inicializar io para llamarlo desde cualquier archivo
 exports.socketConnection = server => {
   io = require("socket.io")(server);
-  io.on("notificacion",socket => 
-  {
-    console.log('Cristian tonto')
-  })
   io.on("connection", socket => {
     console.info(`Client connected [id=${socket.id}]`);
     socket.join(socket.request._query.id);
