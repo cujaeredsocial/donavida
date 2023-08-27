@@ -123,6 +123,7 @@ AsignarRol = function(id,_rol,_components){
       })
   }
   })
+}
   
   
 //Cambiar el estado de una solicitud
@@ -171,7 +172,6 @@ exports.putStatus = (req, res) => {
     .catch(err => res.status(400).json("No se pudo cambiar el estado " + err));
 };
 
-}
 exports.getInProcessRequests = (req, res) => {
   MetaUser.find({ status: "en proceso", last: true })
     .then(metaUs => {
@@ -237,3 +237,7 @@ exports.getMostrarElUltimoIntroducido = (req, res) => {
     });
 };
 //Eliminar el metauser
+//Fabian Funcion para elegir que se va a ser en dependencia de la solicitud
+ElegirSegunRol = function(rol){
+
+}
