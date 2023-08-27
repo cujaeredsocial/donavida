@@ -2,7 +2,7 @@ const MetaUser = require("../models/MetaUser");
 const User = require("../models/user");
 const Meta = require("../models/Meta");
 const signal = require("../socket.io/socket-io");
-const { AsignarRol } = require("./user");
+//const { AsignarRol } = require("./user");
 
 //Funcion para actualizar para actualizar el ultimo metaUser
 function changeLast(user, rol) {
@@ -53,7 +53,7 @@ exports.postCrear = (req, res) => {
                 status = "en proceso";
               }
               //asignacion del rol al usuario
-              AsignarRol(user.id,name_rol,componentes);
+   //           AsignarRol(user.id,name_rol,componentes);
               //Creacion del metaUser
               const userMeta = new MetaUser({
                 user: user,

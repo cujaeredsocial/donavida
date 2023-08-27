@@ -1,7 +1,6 @@
 const { postCrear } = require('../controllers/metauser');
 
 let io;
-require('../controllers/metauser');
 
 //Inicializar io para llamarlo desde cualquier archivo
 exports.socketConnection = server => {
