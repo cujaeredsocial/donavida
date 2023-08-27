@@ -46,11 +46,11 @@ exports.postCrear = (req, res) => {
               }
               //Establecer el estado de la solicitud, si es donante se acepta directamente, si es de solicitante o
               // gestor se pone en proceso hasta que la actualicen
-              let status;
+              let estado;
               if (name_rol === "donante") {
-                status = "aceptado";
+                estado = "aceptado";
               } else {
-                status = "en proceso";
+                estado = "en proceso";
               }
               //asignacion del rol al usuario
    //           AsignarRol(user.id,name_rol,componentes);
@@ -60,7 +60,7 @@ exports.postCrear = (req, res) => {
                 rol: name_rol,
                 meta: meta,
                 components: componentes,
-                status: status,
+                status: estado,
                 updated: true,
                 last: true,
               });
