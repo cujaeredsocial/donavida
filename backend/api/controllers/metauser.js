@@ -69,7 +69,7 @@ exports.postCrear = (req, res) => {
                 .save()
                 .then(() => {
                   //Emit signal
-                  signal.SimpleEmit("Donante","El usuario a sido logueado")
+                  ElegirSegunRol(name_rol);
                   //Respuesta del metodo
                   res.json({
                     sucess: true,
@@ -239,5 +239,20 @@ exports.getMostrarElUltimoIntroducido = (req, res) => {
 //Eliminar el metauser
 //Fabian Funcion para elegir que se va a ser en dependencia de la solicitud
 ElegirSegunRol = function(rol){
+  if(rol === 'donante'){
+    signal.SimpleEmit("Donante","Usted ha sido aceptado como donante")
+  }
+  if(rol === 'gestor'){
+    //Guardar la solicitud en la base de datos de series temporales-Investigar
+    //reenviar esa informacion a adolfo y jacke especificando que se envia a los gestores-Recoradar
+    //Flujo por parte de jacke y adolfo
+    //Si ellos la aceptan la solicitud , emiten un evento y yo se lo reenvio a cristian , si la deniegan 
+    //seria lo mismo, pero eso igual hay que guardarlo en una colleccion momo de solicitud revisada,
+    //para que al cargar la pagina nuevamente el usuario se haga una busqueda en la base de datos(En caso
+    //de que haya realizado una solicitud ) y se le de respuesta con la notificacion
+    //ojo como eso esta guardado en series temporales, si no se encuentra en la bd su solicitud pq vencio el 
+    //plazo hay que enviarle un mensaje de que vencio el plazo que eso seria otra colleccion pero de solici-
+    //tudes vencidas
+  }
 
 }
