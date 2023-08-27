@@ -300,16 +300,16 @@ export default {
       }
     },
     send() {
+      if(this.metaUser.name_rol=="donante"){
+                this.$socket.emit('donantte',this.metaUser);
+                //emitir un mensaje al server para q envie una notificacion
+              }else{
       this.$http
         .post("http://127.0.0.1:27000/metauser/create", this.metaUser)
         .then(
           (response) => {
             if (response.status == 200) {
               //mensaje de felicitacion general y para la pantalla de inicio o de solicitudes
-              if(this.metaUser.name_rol=="donante"){
-                this.$socket.emit('notification',"Se ha registrado un nuevo donante");
-                //emitir un mensaje al server para q envie una notificacion
-              }
               this.$router.push({ name: "main" });
             }
             console.log(response);
@@ -318,7 +318,7 @@ export default {
             console.log(this.metaUser);
             console.log(error);
           }
-        );
+          );}
     },
   },
 };
