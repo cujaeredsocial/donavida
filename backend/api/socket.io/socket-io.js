@@ -11,12 +11,12 @@ exports.socketConnection = server => {
     console.info(`Client connected [id=${socket.id}]`); 
     socket.join(socket.request._query.id);
     //-------------------------------------------------------------------------------------------------------------
-    //1-Enviar ademas de el metauser un objeto socket al metodo con el que se emitiran las notificacioines en vez
+   // 1-Enviar ademas de el metauser un objeto socket al metodo con el que se emitiran las notificacioines en vez
     //de enviar una respuesta
-   /* socket.on("Solicitud",(metauser) =>{
+    socket.on("Solicitud",(metauser) =>{
       //postCrear(metauser,socket.handshake.res);// este es un modo para trabajar con la res pero hay que actualizar socket
       postCrear(metauser,socket);
-    })*/
+    })
     //2-Tratar directamente los metodos que tengan que ver con la emicion y recibo de imagenes en el archivo
     //socket, afro tenia otra idea pero seriamente asi es como siempre lo he visto
     socket.on("Solicitud",metauser => {
