@@ -19,7 +19,7 @@ function changeLast(user, rol) {
 //1-Para el primer caso
 exports.postCrear = (metauser,socket) => {
   //Obtener y comprobar que los datos no esten vacios
-  const { userName, name_rol, componentes } = metauser/*.body*/;
+  const { userName, name_rol, componentes } = metauser;
   if (!userName || !name_rol || !componentes) {
     return res.status(404).json("Valores Incompletos");
   }
