@@ -2,7 +2,6 @@ const MetaUser = require("../models/MetaUser");
 const User = require("../models/user");
 const Meta = require("../models/Meta");
 const signal = require("../socket.io/socket-io");
-//const { AsignarRol } = require("./user");
 
 //Funcion para actualizar para actualizar el ultimo metaUser
 function changeLast(user, rol) {
