@@ -92,13 +92,13 @@ AsignarRol = function(id,_rol,_components){
   User.findById(id)//Buscar al usuario por el id
   .then(usuario =>{//de ser encontrado
     //Validar la existencia de  la solicitud para el rol
-   const existe_el_rol = usuario.datos_roles.find((rol) => {
+   const existe_el_rol = usuario.datos_roles.find(rol => {
       rol.rol === _rol;
     })
     //validar que los componentes de la solicitud sean los mismos
-    const existen_todos_los_comonentes =usuario.datos_roles.some(((componente) =>{
-      componente.data === _components.data;
-    }))
+    const existen_todos_los_comonentes =usuario.datos_roles.some(componente =>
+      componente.data === _components.data
+   );
     if(existe_el_rol ){//si existe el rol valido si existen los componentes
       if( existen_todos_los_comonentes ){// si existen emito una signal
       signal.SimpleEmit(
@@ -114,8 +114,13 @@ AsignarRol = function(id,_rol,_components){
         rol:_rol,
         components:components
       })
+      
   }
   })
+  .catch(error => {
+    // Manejar el error de manera adecuada, si es necesario
+    console.error(error);
+  });
 }
   
   
