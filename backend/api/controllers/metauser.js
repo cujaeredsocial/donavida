@@ -17,6 +17,7 @@ function changeLast(user, rol) {
 
 
 //Crear el metauser
+//3 tercer caso aca simplemente lo llamas por el endpoint como siempre y va a emitir la signal.SimpleEmit("Donante","Usted ha sido aceptado como donante")
 /*exports.postCrear = (req, res) => {
   //Obtener y comprobar que los datos no esten vacios
   const { userName, name_rol, componentes } = req.body;
@@ -93,10 +94,10 @@ function changeLast(user, rol) {
       res.status(404).json("Error en la busqueda del user" + err);
     });
 };*/
-
-exports.postCrear = (req, res) => {
+//1-Para el primer caso
+exports.postCrear = (metauser,socket) => {
   //Obtener y comprobar que los datos no esten vacios
-  const { userName, name_rol, componentes } = req.body;
+  const { userName, name_rol, componentes } = metauser/*.body*/;
   if (!userName || !name_rol || !componentes) {
     return res.status(404).json("Valores Incompletos");
   }
