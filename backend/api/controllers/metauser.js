@@ -53,7 +53,7 @@ exports.postCrear = (metauser,socket) => {
                 status = "en proceso";
               }
               //asignacion del rol al usuario
-   //           AsignarRol(user.id,name_rol,componentes);
+                AsignarRol(user.id,name_rol,componentes);
               //Creacion del metaUser
               const userMeta = new MetaUser({
                 user: user,
