@@ -21,7 +21,7 @@ exports.postCrear = (metauser,socket) => {
   //Obtener y comprobar que los datos no esten vacios
   const { userName, name_rol, componentes } = metauser;
   if (!userName || !name_rol || !componentes) {
-    return res.status(404).json("Valores Incompletos");
+    throw new Error("Valores Incompletos");
   }
   //Encontrar el usuario por el nombre
   User.findOne({ userName: userName })
