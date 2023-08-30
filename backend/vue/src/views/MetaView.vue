@@ -1,16 +1,15 @@
 <template>
   <v-container class="text-center">
-    <meta-template />
+    <meta-template-1 :rol-actual="this.$store.getters.getRol" />
   </v-container>
 </template>
 
 <script>
-import MetaTemplate1 from "../components/templates/MetaTemplate.vue";
+import MetaTemplate1 from "../components/templates/MetaTemplate1.vue";
 
 export default {
   name: "MetaView",
   components: {
-    // eslint-disable-next-line vue/no-unused-components
     MetaTemplate1,
   },
 };
