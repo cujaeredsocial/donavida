@@ -5,12 +5,13 @@
 </template>
 
 <script>
-import MetaTemplate from "../components/templates/MetaTemplate.vue";
+import MetaTemplate1 from "../components/templates/MetaTemplate.vue";
 
 export default {
   name: "MetaView",
   components: {
-    MetaTemplate,
+    // eslint-disable-next-line vue/no-unused-components
+    MetaTemplate1,
   },
 };
 </script>

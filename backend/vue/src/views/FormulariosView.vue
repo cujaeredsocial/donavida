@@ -124,21 +124,9 @@ export default {
     };
   },
   methods: {
-    // eslint-disable-next-line no-unused-vars
-    /*rolDecided(rolSelected) {
-      this.$store
-        .dispatch("obtenerDatos", rolSelected)
-        .then(() => {
-          this.$router.push("/formularios/plantilla");
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },*/
-    // eslint-disable-next-line no-unused-vars
     rolDecided(rolSelected) {
       console.log(rolSelected);
-      MetaTemplate.methods.obtenerDatos(rolSelected);
+      MetaTemplate.methods.recibirMeta(rolSelected);
       this.$router.push("/formularios/plantilla");
     },
   },

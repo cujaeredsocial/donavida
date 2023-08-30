@@ -1,3 +1,4 @@
+<!-- eslint-disable no-undef -->
 <!-- eslint-disable no-unused-vars -->
 <template>
   <v-container class="spacing-playground pa-12" fluid>
@@ -91,6 +92,7 @@
   </v-container>
 </template>
 <script>
+import Vue from "vue";
 import draggable from "vuedraggable";
 // eslint-disable-next-line no-unused-vars
 import FormulariosView from "@/views/FormulariosView.vue";
@@ -151,25 +153,13 @@ export default {
       console.log(draggedIndex);
       console.log(newIndex);
     },*/
-    // eslint-disable-next-line no-unused-vars
-    obtenerDatos(ruta) {
-      console.log(ruta);
-      const URL = "http://127.0.0.1:27000/meta/plantilla/" + ruta;
-      console.log(URL);
-      fetch(`${URL}`)
-        .then((response) => response.json())
-        .then((meta) => {
-          this.camposArray = meta.components;
-          this.rolActual = ruta;
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
+
+    recibirMeta(ruta) {
+      this.rolActual = ruta;
     },
     guardarCambios() {
       console.log(this.rolActual);
-      const URL = "http://127.0.0.1:27000/meta/update/gestor"; //+ this.rolActual;
-      console.log(URL);
+      const URL = "http://127.0.0.1:27000/meta/update/" + this.rolActual;
       fetch(`${URL}`, {
         method: "PUT",
         headers: {
@@ -184,4 +174,27 @@ export default {
     },
   },
 };
+
+// eslint-disable-next-line no-undef
+new Vue({
+  el: "#app",
+  created() {
+    console.log(this.rolActual);
+    this.$http
+      .get(`http://127.0.0.1:27000/meta/plantilla/${this.rolActual}`)
+      .then((response) => {
+        if (response.data) {
+          console.log(response);
+          this.camposArray = response.data.components;
+          this.rolActual = response.data.rol;
+          return response.data;
+        } else {
+          console.error("Error: response.data is null");
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  },
+});
 </script>
