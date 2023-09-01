@@ -1,5 +1,3 @@
-<!-- eslint-disable no-undef -->
-<!-- eslint-disable no-unused-vars -->
 <template>
   <v-container class="spacing-playground pa-12" fluid>
     <v-card class="mx-auto my-auto" width="5000" min-height="330">
@@ -84,34 +82,23 @@
           <v-icon>mdi mdi-plus-circle</v-icon>
         </v-btn>
         <v-spacer></v-spacer>
-        <v-btn color="red" text @click="guardarCambios">
-          Guardar Cambios
-        </v-btn>
+        <v-btn color="red" text> Guardar Cambios </v-btn>
       </v-card-actions>
     </v-card>
   </v-container>
 </template>
+
 <script>
-import Vue from "vue";
 import draggable from "vuedraggable";
-// eslint-disable-next-line no-unused-vars
-import FormulariosView from "@/views/FormulariosView.vue";
+// eslint-disable-next-line no-undef
 export default {
-  name: "MetaTemplate",
+  name: "MetaTemplate1",
   components: {
     draggable,
   },
   data() {
     return {
-      rolActual: "",
       shows: [],
-      /*component: {
-        title: "",
-        type: "",
-        value: "",
-        regex: "",
-      },
-      componentsNuevos: [],*/
       camposArray: [],
       dragOptions: {
         handle: ".drag-handle",
@@ -120,6 +107,9 @@ export default {
         disabled: false,
       },
     };
+  },
+  props: {
+    rolActual: String,
   },
   methods: {
     nuevoCampo() {
@@ -140,61 +130,19 @@ export default {
     toggleEditable(index) {
       this.$set(this.shows, index, !this.shows[index]);
     },
-    /*onDragEnd(event) {
-      const draggedIndex = event.oldIndex;
-      const newIndex = event.newIndex;
-      if (this.shows[draggedIndex] === true) {
-        this.shows[newIndex] = true;
-        this.shows[draggedIndex] = false;
-      }
-      console.log(this.shows[draggedIndex]);
-      console.log(this.shows[newIndex + 1]);
-      //console.log();
-      console.log(draggedIndex);
-      console.log(newIndex);
-    },*/
-
-    recibirMeta(ruta) {
-      this.rolActual = ruta;
-    },
-    guardarCambios() {
-      console.log(this.rolActual);
-      const URL = "http://127.0.0.1:27000/meta/update/" + this.rolActual;
-      fetch(`${URL}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          components: [...this.camposArray],
-        }),
-      }).catch((error) => {
-        console.error("Ha ocurrido un error:", error);
-      });
-    },
   },
-};
-
-// eslint-disable-next-line no-undef
-new Vue({
-  el: "#app",
   created() {
     console.log(this.rolActual);
     this.$http
       .get(`http://127.0.0.1:27000/meta/plantilla/${this.rolActual}`)
       .then((response) => {
-        if (response.data) {
-          console.log(response);
-          this.camposArray = response.data.components;
-          this.rolActual = response.data.rol;
-          return response.data;
-        } else {
-          console.error("Error: response.data is null");
-        }
+        console.log(response);
+        this.camposArray = response.data.components;
+        console.log(response.data.components);
       })
       .catch((error) => {
         console.error("Error:", error);
       });
   },
-});
+};
 </script>

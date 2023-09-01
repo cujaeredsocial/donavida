@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "mongodb": "^5.7.0",
-    "mongosh": "^1.10.4"
+    "mongosh": "^1.10.4",
+    "vue-socket.io": "^3.0.10"
   }
 }
