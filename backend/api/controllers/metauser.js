@@ -321,3 +321,17 @@ ElegirSegunRol = function(rol){
   }
 
 }
+
+//Pseudocodigo del metodo Asignar rol
+/*
+1-Validar tipo de solicitud
+  1.1-Si es donante asignar al usuario 
+    1.1.1-Validar que el usuario ya no tenga ese rol
+  1.2-Se le manda notificacion
+    1.2.1-Usted ha sido logueado como donante o ya usted fue logueado
+  1.3-Si es gestor o solicitud
+    -Guardar el metauser y enviar un mensage de : su solicitud esta siendo procesada
+
+//Cuando se acepte o se deniegue que sea gestor o no, hay que enviar un mensaje al usuario,
+//creo que esos metodos ya afro los creo
+*/
