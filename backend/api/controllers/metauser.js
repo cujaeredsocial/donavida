@@ -13,8 +13,77 @@ function changeLast(user, rol) {
     .then(metaU => console.log(metaU))
     .catch(err => console.log(err));
 };
-
-
+//Para probar con el postman
+exports.postCrear = (req,res) => {
+  //Obtener y comprobar que los datos no esten vacios
+  const { userName, name_rol, componentes } = req.body;
+  if (!userName || !name_rol || !componentes) {
+    throw new Error("Valores Incompletos");
+  }
+  //Encontrar el usuario por el nombre
+  User.findOne({ userName: userName })
+    .then(user => {
+      if (!user) {
+        throw new Error("El user no existe");
+      } else {
+        //Encontrar la plantilla por el rol
+        Meta.findOne({ rol: name_rol })
+          .then(meta => {
+            if (!meta) {
+              throw new Error("No existe meta con ese rol");
+            } else {
+              //Revisar que cada valor sea valido por su regex
+              const incorrectValues = componentes.filter(component => {
+                //comprobacion de regex
+              });
+              if (incorrectValues.length > 0) {
+                throw new Error(
+                  "Los valores" + incorrectValues + "son incorrectos"
+                );
+              }
+              //Establecer el estado de la solicitud, si es donante se acepta directamente, si es de solicitante o
+              // gestor se pone en proceso hasta que la actualicen
+              let status;
+              if (name_rol === "donante") {
+                status = "aceptado";
+              } else {
+                status = "en proceso";
+              }
+              //asignacion del rol al usuario
+                AsignarRol(user.id,name_rol,componentes);
+              //Creacion del metaUser
+              const userMeta = new MetaUser({
+                user: user,
+                rol: name_rol,
+                meta: meta,
+                components: componentes,
+                status: status,
+                updated: true,
+                last: true,
+              });
+              //Guardar el metaUser en la base de datos
+              userMeta
+                .save()
+                .then(() => {
+                  //Emit signal
+                  ElegirSegunRol(name_rol);
+                  //Respuesta del metodo
+                  res.json("Solicitud Enviada",userMeta);
+                })
+                .catch(err => {
+                  throw new Error({ message: "no se ha podido crear" + err });
+                });
+            }
+          })
+          .catch(err => {
+            throw new Error("Error en la busqueda del meta" + err);
+          });
+      }
+    })
+    .catch(err => {
+      throw new Error("Error en la busqueda del user" + err);
+    });
+};
 
 //1-Para el primer caso
 exports.postCrear = (metauser,socket) => {
@@ -113,9 +182,7 @@ AsignarRol = function(id,_rol,_components){
       usuario.datos_roles.push({
         rol:_rol,
         components:components
-      })
-      
-  }
+      })}
   })
   .catch(error => {
     // Manejar el error de manera adecuada, si es necesario
