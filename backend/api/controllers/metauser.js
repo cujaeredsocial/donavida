@@ -157,39 +157,6 @@ exports.postCrear = (metauser,socket) => {
     });
 };
 //Fabian asignar rol y llenar datos
-AsignarRol = function(id,_rol,_components){
-  User.findById(id)//Buscar al usuario por el id
-  .then(usuario =>{//de ser encontrado
-    //Validar la existencia de  la solicitud para el rol
-   const existe_el_rol = usuario.datos_roles.find(rol => {
-      rol.rol === _rol;
-    })
-    //validar que los componentes de la solicitud sean los mismos
-    const existen_todos_los_comonentes =usuario.datos_roles.some(componente =>
-      componente.data === _components.data
-   );
-    if(existe_el_rol ){//si existe el rol valido si existen los componentes
-      if( existen_todos_los_comonentes ){// si existen emito una signal
-      signal.SimpleEmit(
-        'Existe',
-        {
-          message:"Usted ya ha realizado una solicitud de este tipo"
-      })
-    }else if(! existen_todos_los_comonentes){//de no existir a el rol , le annado los components nuevos
-        existe_el_rol.components.push(..._components);
-    }
-    }else {//si no existe el rol voy a meter lo que venga
-      usuario.datos_roles.push({
-        rol:_rol,
-        components:components
-      })}
-  })
-  .catch(error => {
-    // Manejar el error de manera adecuada, si es necesario
-    console.error(error);
-  });
-}
-  
   
 //Cambiar el estado de una solicitud
 exports.putStatus = (req, res) => {
@@ -323,15 +290,82 @@ ElegirSegunRol = function(rol){
 }
 
 //Pseudocodigo del metodo Asignar rol
-/*
-1-Validar tipo de solicitud
-  1.1-Si es donante asignar al usuario 
-    1.1.1-Validar que el usuario ya no tenga ese rol
-  1.2-Se le manda notificacion
-    1.2.1-Usted ha sido logueado como donante o ya usted fue logueado
-  1.3-Si es gestor o solicitud
-    -Guardar el metauser y enviar un mensage de : su solicitud esta siendo procesada
+
+//1-Validar tipo de solicitud
+AsignarRol = function(id,name_rol,componentes){
+
+  User.findById(id)
+  .then(usuario => {
+    console.log(usuario.datos_roles);
+    let i = 0
+    let encontrado = false
+    //Recorro los datos del usuario para verificar que ya haya sido logueado con ese rol
+    while(i < usuario.datos_roles.length || !encontrado){
+      if(usuario.datos_roles[i].rol == name_rol){//Si lo encuentro sustituyo los componentes
+        componentes.forEach(componente => {
+          encontrado = true
+          usuario.datos_roles[i].components.push(componente)
+        })
+      }
+      i++
+    }
+    if(encontrado){//Si lo encuentra actualizo 
+      signal.SimpleEmit('Existe',"Su solicitud ha sido actualizada")
+      usuario.save()
+    }else{//Si no lo encuentra en dependencia del rol elijo el flujo
+      //  1.1-Si es donante asignar al usuario 
+      if(name_rol === 'donante'){//si es donante lo asigno y aviso
+        let dato = {name_rol,componentes}
+        usuario.datos_roles.push(dato);
+        usuario.save()
+        signal.SimpleEmit('Donante', 'Usted ha sido logueado como donante')
+      }else{
+        signal.SimpleEmit('NoDonante','Su solicitud esta siendo procesada')
+        }
+  }
+})
+  .catch(err => {
+    console.log("Ha ocurrido un error ", err);
+  })
+}
+
+//  1.2-Se le manda notificacion
+//    1.2.1-Usted ha sido logueado como donante o ya usted fue logueado
+//1.3-Si es gestor o solicitud
+//    -Guardar el metauser y enviar un mensage de : su solicitud esta siendo procesada
 
 //Cuando se acepte o se deniegue que sea gestor o no, hay que enviar un mensaje al usuario,
 //creo que esos metodos ya afro los creo
-*/
+AsignarRol = function(id,_rol,_components){
+  User.findById(id)//Buscar al usuario por el id
+  .then(usuario =>{//de ser encontrado
+    //Validar la existencia de  la solicitud para el rol
+   const existe_el_rol = usuario.datos_roles.find(rol => {
+      rol.rol === _rol;
+    })
+    //validar que los componentes de la solicitud sean los mismos
+    const existen_todos_los_comonentes =usuario.datos_roles.some(componente =>
+      componente.data === _components.data
+   );
+    if(existe_el_rol ){//si existe el rol valido si existen los componentes
+      if( existen_todos_los_comonentes ){// si existen emito una signal
+      signal.SimpleEmit(
+        'Existe',
+        {
+          message:"Usted ya ha realizado una solicitud de este tipo"
+      })
+    }else if(! existen_todos_los_comonentes){//de no existir a el rol , le annado los components nuevos
+        existe_el_rol.components.push(..._components);
+    }
+    }else {//si no existe el rol voy a meter lo que venga
+      usuario.datos_roles.push({
+        rol:_rol,
+        components:components
+      })}
+  })
+  .catch(error => {
+    // Manejar el error de manera adecuada, si es necesario
+    console.error(error);
+  });
+}
+  
