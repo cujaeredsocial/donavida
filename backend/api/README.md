@@ -195,25 +195,34 @@ Lo más importante: Como acceder a la base de datos:
    postCrear:
    tipo: Post
    ruta:/metauser/create.  
-    descripción: Crea un nuevo metauser y lo guarda en la base de datos
+    descripción: Crea un nuevo metauser y lo guarda en la base de datos, ademas de asignar el rol si es donante
    entrada: userName: String, name_rol: donante||gestor||solicitante,componentes: Component[]
-   salida: Mensaje de éxito y el metauser recien creado
-   errores:  
+   salida: Emite una signal con  el metauser recien creado
+   errores:   
     putState:
    tipo: Put
-   ruta:/metauser/changestate/<id>.(id del metaUser que se va actualizar el estado
+   ruta:/metauser/changestate/<id>.(id del metaUser que se va actualizar el estado//esto es con Rest Api
+   ruta:io.emit('Estado Aceptada',metauser)
    ejemplo: /metauser/changestate/64dd8b83db99d14bcd444378 )  
-    descripción: cambia el estado de una solicitud a aceptado, denegado o en proceso.
+   ejemplo: io.emit('Estado Aceptada',metauser)(ahi tienes que mandar el id del metauser y el estado)
+    descripción: cambia el estado de una solicitud a aceptado, denegado o en proceso, y asigna el rol al usuario dependiendo de si es gestor o solicitud y emite una siganl luego de llamar a los metosdos AsignarGestor o AsignarDonante
    entrada: status:aceptado||denegado||en proceso
-   salida: Mensaje de éxito y el metauser con el estado actualizado
+   salida: Emite signal con metauser con el estado actualizado
    errores:  
     getInProcessRequests:
    tipo: Get
    ruta:/metauser/inprocessrequests
-   descripción: devuelve todos las solicitudes que estan en proceso, sin importar el rol
+   descripción: devuelve todos las solicitudes que estan en proceso, de gestor
    entrada: ninguna
-   salida: Mensaje de éxito y un arreglo con todas las solicitudes en procesp
+   salida: Mensaje de éxito y un arreglo con todas las solicitudes en proceso
    errores:  
+     getInProcessRequests2:
+ tipo: Get
+ ruta:/metauser/inprocessrequests
+ descripción: devuelve todos las solicitudes que estan en proceso, de solicitante
+ entrada: ninguna
+ salida: Mensaje de éxito y un arreglo con todas las solicitudes en proceso
+ errores:  
     getLastREq:
    tipo: Get
    ruta:/metauser/request/<rol>/<id>(el nombre del rol y el id del usuario,
@@ -223,6 +232,23 @@ Lo más importante: Como acceder a la base de datos:
    salida: Mensaje de éxito y la ultima solicitud del rol especificado
    errores:
 
+    Funciones auxiliares:
+      AsignarRolDonante:
+    parametros:id,name_rol,componentes
+    descripcion:Se encuentra dentro de postCrear, recibe el id de un usuario y se encarga de gestionar el 
+    flujo de la solicitud para un donante.
+    salida:Notificacion con el estado del proceso a realizar, es emitido hacia el usuario.
+        AsignarRolSolicitud:
+  parametros:id,name_rol,componentes
+  descripcion:Se encuentra dentro de putStatus, recibe el id de un usuario y se encarga de gestionar el 
+  flujo de la solicitud para un el rod Solicitud.
+  salida:Notificacion con el estado del proceso a realizar, es emitido hacia el usuario.
+      AsignarRolGestor:
+  parametros:id,name_rol,componentes
+  descripcion:Se encuentra dentro de putStatus, recibe el id de un usuario y se encarga de gestionar el 
+  flujo de la solicitud para un gestor.
+  salida:Notificacion con el estado del proceso a realizar, es emitido hacia el usuario.
+    
    6. Center:
 
     Atributos:
