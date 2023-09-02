@@ -12,9 +12,9 @@ function changeLast(user, rol) {
   )
     .then(metaU => console.log(metaU))
     .catch(err => console.log(err));
-};
+}
 //Para probar con el postman
-exports.postCrear = (req,res) => {
+exports.postCrear = (req, res) => {
   //Obtener y comprobar que los datos no esten vacios
   const { userName, name_rol, componentes } = req.body;
   if (!userName || !name_rol || !componentes) {
@@ -50,7 +50,7 @@ exports.postCrear = (req,res) => {
                 status = "en proceso";
               }
               //asignacion del rol al usuario
-                AsignarRol(user.id,name_rol,componentes);
+              AsignarRol(user.id, name_rol, componentes);
               //Creacion del metaUser
               const userMeta = new MetaUser({
                 user: user,
@@ -68,7 +68,7 @@ exports.postCrear = (req,res) => {
                   //Emit signal
                   ElegirSegunRol(name_rol);
                   //Respuesta del metodo
-                  res.json("Solicitud Enviada",userMeta);
+                  res.json("Solicitud Enviada", userMeta);
                 })
                 .catch(err => {
                   throw new Error({ message: "no se ha podido crear" + err });
@@ -85,8 +85,11 @@ exports.postCrear = (req,res) => {
     });
 };
 
+
+
 //1-Para el primer caso
-exports.postCrear = (metauser,socket) => {
+//Documenta Fabian
+exports.postCrear = (metauser, socket) => {
   //Obtener y comprobar que los datos no esten vacios
   const { userName, name_rol, componentes } = metauser;
   if (!userName || !name_rol || !componentes) {
@@ -122,7 +125,7 @@ exports.postCrear = (metauser,socket) => {
                 status = "en proceso";
               }
               //asignacion del rol al usuario
-                AsignarRol(user.id,name_rol,componentes);
+              AsignarRol(user.id, name_rol, componentes);
               //Creacion del metaUser
               const userMeta = new MetaUser({
                 user: user,
@@ -140,10 +143,10 @@ exports.postCrear = (metauser,socket) => {
                   //Emit signal
                   ElegirSegunRol(name_rol);
                   //Respuesta del metodo
-                  socket.emit("Solicitud Enviada",userMeta);
+                  socket.emit("Solicitud Enviada", userMeta);
                 })
                 .catch(err => {
-                  throw new Error({ message: "no se ha podido crear" + err });
+                  throw new Error({ message: "no se ha podido crear" } + err);
                 });
             }
           })
@@ -157,8 +160,9 @@ exports.postCrear = (metauser,socket) => {
     });
 };
 //Fabian asignar rol y llenar datos
-  
+
 //Cambiar el estado de una solicitud
+//Documenta Fabian
 exports.putStatus = (req, res) => {
   //Validar el id y el estado a cambiar
   const metaUId = req.params.id;
@@ -191,7 +195,15 @@ exports.putStatus = (req, res) => {
           last: true,
         });
         //Cambiar el estado de la ultima solicitud
-        changeLast(metaU.user, metaU.rol);
+        changeLast(
+          metaU.user,
+          metaU.rol
+        );
+        if (metaU.rol === "gestor") {
+          AsignarRolGestor(metaU.user._id, metaU.rol, metaU.componentes);
+        } else {
+          AsignarRolSolicitante(metaU.user._id, metaU.rol, metaU.componentes);
+        }
         //Guardar el metaUser en la base de datos
         return newuserMeta.save();
       } else {
@@ -203,9 +215,17 @@ exports.putStatus = (req, res) => {
     })
     .catch(err => res.status(400).json("No se pudo cambiar el estado " + err));
 };
-
+//Documenta Fabian
 exports.getInProcessRequests = (req, res) => {
-  MetaUser.find({ status: "en proceso", last: true })
+  MetaUser.find({ rol: "gestor", status: "en proceso", last: true })
+    .then(metaUs => {
+      res.json({ message: "success", metas: metaUs });
+    })
+    .catch(err => res.status(404).json(err));
+};
+//Documenta Fabian
+exports.getInProcessRequests2 = (req, res) => {
+  MetaUser.find({ rol: "solicitante", status: "en proceso", last: true })
     .then(metaUs => {
       res.json({ message: "success", metas: metaUs });
     })
@@ -270,64 +290,139 @@ exports.getMostrarElUltimoIntroducido = (req, res) => {
 };
 //Eliminar el metauser
 //Fabian Funcion para elegir que se va a ser en dependencia de la solicitud
-ElegirSegunRol = function(rol){
-  if(rol === 'donante'){
-    signal.SimpleEmit("Donante","Usted ha sido aceptado como donante")
+//Documenta Fabian
+ElegirSegunRol = function (rol) {
+  if (rol === "donante") {
+    signal.SimpleEmit("Donante", "Usted ha sido aceptado como donante");
   }
-  if(rol === 'gestor'){
+  if (rol === "gestor") {
     //Guardar la solicitud en la base de datos de series temporales-Investigar
     //reenviar esa informacion a adolfo y jacke especificando que se envia a los gestores-Recoradar
     //Flujo por parte de jacke y adolfo
-    //Si ellos la aceptan la solicitud , emiten un evento y yo se lo reenvio a cristian , si la deniegan 
+    //Si ellos la aceptan la solicitud , emiten un evento y yo se lo reenvio a cristian , si la deniegan
     //seria lo mismo, pero eso igual hay que guardarlo en una colleccion momo de solicitud revisada,
     //para que al cargar la pagina nuevamente el usuario se haga una busqueda en la base de datos(En caso
     //de que haya realizado una solicitud ) y se le de respuesta con la notificacion
-    //ojo como eso esta guardado en series temporales, si no se encuentra en la bd su solicitud pq vencio el 
+    //ojo como eso esta guardado en series temporales, si no se encuentra en la bd su solicitud pq vencio el
     //plazo hay que enviarle un mensaje de que vencio el plazo que eso seria otra colleccion pero de solici-
     //tudes vencidas
   }
-
-}
+};
 
 //Pseudocodigo del metodo Asignar rol
 
 //1-Validar tipo de solicitud
-AsignarRol = function(id,name_rol,componentes){
-
+//Documenta Fabian
+AsignarRol = function (id, name_rol, componentes) {
   User.findById(id)
-  .then(usuario => {
-    console.log(usuario.datos_roles);
-    let i = 0
-    let encontrado = false
-    //Recorro los datos del usuario para verificar que ya haya sido logueado con ese rol
-    while(i < usuario.datos_roles.length || !encontrado){
-      if(usuario.datos_roles[i].rol == name_rol){//Si lo encuentro sustituyo los componentes
-        componentes.forEach(componente => {
-          encontrado = true
-          usuario.datos_roles[i].components.push(componente)
-        })
-      }
-      i++
-    }
-    if(encontrado){//Si lo encuentra actualizo 
-      signal.SimpleEmit('Existe',"Su solicitud ha sido actualizada")
-      usuario.save()
-    }else{//Si no lo encuentra en dependencia del rol elijo el flujo
-      //  1.1-Si es donante asignar al usuario 
-      if(name_rol === 'donante'){//si es donante lo asigno y aviso
-        let dato = {name_rol,componentes}
-        usuario.datos_roles.push(dato);
-        usuario.save()
-        signal.SimpleEmit('Donante', 'Usted ha sido logueado como donante')
-      }else{
-        signal.SimpleEmit('NoDonante','Su solicitud esta siendo procesada')
+    .then(usuario => {
+      let i = 0;
+      let encontrado = false;
+      //Recorro los datos del usuario para verificar que ya haya sido logueado con ese rol
+      while (i < usuario.datos_roles.length && !encontrado) {
+        if (usuario.datos_roles[i].rol == name_rol) {
+          //Si lo encuentro sustituyo los componentes
+          componentes.forEach(componente => {
+            encontrado = true;
+            usuario.datos_roles[i].components.push(componente);
+          });
         }
-  }
-})
-  .catch(err => {
-    console.log("Ha ocurrido un error ", err);
-  })
-}
+        i++;
+      }
+      console.log(encontrado);
+      if (encontrado) {
+        //Si lo encuentra actualizo
+        signal.SimpleEmit("Existe", "Su solicitud ha sido actualizada");
+        usuario.save();
+      } else {
+        //Si no lo encuentra en dependencia del rol elijo el flujo
+        //  1.1-Si es donante asignar al usuario
+        if (name_rol === "donante") {
+          //si es donante lo asigno y aviso
+          let dato = { rol: name_rol, components: componentes };
+          usuario.datos_roles.push(dato);
+          usuario.save();
+          console.log("0");
+          signal.SimpleEmit("Donante", "Usted ha sido logueado como donante");
+        } else {
+          signal.SimpleEmit("NoDonante", "Su solicitud esta siendo procesada");
+        }
+      }
+    })
+    .catch(err => {
+      console.log("Ha ocurrido un error ", err);
+    });
+};
+//Documenta Fabian
+AsignarRolGestor = function (id, name_rol, componentes) {
+  User.findById(id)
+    .then(usuario => {
+      let i = 0;
+      let encontrado = false;
+      //Recorro los datos del usuario para verificar que ya haya sido logueado con ese rol
+      while (i < usuario.datos_roles.length && !encontrado) {
+        if (usuario.datos_roles[i].rol == name_rol) {
+          //Si lo encuentro sustituyo los componentes
+          componentes.forEach(componente => {
+            encontrado = true;
+            usuario.datos_roles[i].components.push(componente);
+          });
+        }
+        i++;
+      }
+      if (encontrado) {
+        //Si lo encuentra actualizo
+        signal.SimpleEmit("Existe", "Su solicitud ha sido actualizada");
+        usuario.save();
+      } else {
+        //Si no lo encuentra en dependencia del rol elijo el flujo
+        //  1.1-Si es donante asignar al usuario
+        let dato = { rol: name_rol, components: componentes };
+        usuario.datos_roles.push(dato);
+        usuario.save();
+        console.log("0");
+        signal.SimpleEmit("Gestor", "Usted ha sido logueado como donante");
+      }
+    })
+    .catch(err => {
+      console.log("Ha ocurrido un error ", err);
+    });
+};
+//Documenta Fabian
+AsignarRolSolicitante = function (id, name_rol, componentes) {
+  User.findById(id)
+    .then(usuario => {
+      let i = 0;
+      let encontrado = false;
+      //Recorro los datos del usuario para verificar que ya haya sido logueado con ese rol
+      while (i < usuario.datos_roles.length && !encontrado) {
+        if (usuario.datos_roles[i].rol == name_rol) {
+          //Si lo encuentro sustituyo los componentes
+          componentes.forEach(componente => {
+            encontrado = true;
+            usuario.datos_roles[i].components.push(componente);
+          });
+        }
+        i++;
+      }
+      if (encontrado) {
+        //Si lo encuentra actualizo
+        signal.SimpleEmit("Existe", "Su solicitud ha sido actualizada");
+        usuario.save();
+      } else {
+        //Si no lo encuentra en dependencia del rol elijo el flujo
+        //  1.1-Si es donante asignar al usuario
+        let dato = { rol: name_rol, components: componentes };
+        usuario.datos_roles.push(dato);
+        usuario.save();
+        console.log("0");
+        signal.SimpleEmit("Solicitante", "Usted ha sido logueado como donante");
+      }
+    })
+    .catch(err => {
+      console.log("Ha ocurrido un error ", err);
+    });
+};
 
 //  1.2-Se le manda notificacion
 //    1.2.1-Usted ha sido logueado como donante o ya usted fue logueado
@@ -336,36 +431,35 @@ AsignarRol = function(id,name_rol,componentes){
 
 //Cuando se acepte o se deniegue que sea gestor o no, hay que enviar un mensaje al usuario,
 //creo que esos metodos ya afro los creo
-AsignarRol = function(id,_rol,_components){
-  User.findById(id)//Buscar al usuario por el id
-  .then(usuario =>{//de ser encontrado
-    //Validar la existencia de  la solicitud para el rol
-   const existe_el_rol = usuario.datos_roles.find(rol => {
-      rol.rol === _rol;
-    })
-    //validar que los componentes de la solicitud sean los mismos
-    const existen_todos_los_comonentes =usuario.datos_roles.some(componente =>
-      componente.data === _components.data
-   );
-    if(existe_el_rol ){//si existe el rol valido si existen los componentes
-      if( existen_todos_los_comonentes ){// si existen emito una signal
-      signal.SimpleEmit(
-        'Existe',
-        {
-          message:"Usted ya ha realizado una solicitud de este tipo"
-      })
-    }else if(! existen_todos_los_comonentes){//de no existir a el rol , le annado los components nuevos
-        existe_el_rol.components.push(..._components);
-    }
-    }else {//si no existe el rol voy a meter lo que venga
-      usuario.datos_roles.push({
-        rol:_rol,
-        components:components
-      })}
-  })
-  .catch(error => {
-    // Manejar el error de manera adecuada, si es necesario
-    console.error(error);
-  });
-}
-  
+// AsignarRol = function(id,_rol,_components){
+//   User.findById(id)//Buscar al usuario por el id
+//   .then(usuario =>{//de ser encontrado
+//     //Validar la existencia de  la solicitud para el rol
+//    const existe_el_rol = usuario.datos_roles.find(rol => {
+//       rol.rol === _rol;
+//     })
+//     //validar que los componentes de la solicitud sean los mismos
+//     const existen_todos_los_comonentes =usuario.datos_roles.some(componente =>
+//       componente.data === _components.data
+//    );
+//     if(existe_el_rol ){//si existe el rol valido si existen los componentes
+//       if( existen_todos_los_comonentes ){// si existen emito una signal
+//       signal.SimpleEmit(
+//         'Existe',
+//         {
+//           message:"Usted ya ha realizado una solicitud de este tipo"
+//       })
+//     }else if(! existen_todos_los_comonentes){//de no existir a el rol , le annado los components nuevos
+//         existe_el_rol.components.push(..._components);
+//     }
+//     }else {//si no existe el rol voy a meter lo que venga
+//       usuario.datos_roles.push({
+//         rol:_rol,
+//         components:components
+//       })}
+//   })
+//   .catch(error => {
+//     // Manejar el error de manera adecuada, si es necesario
+//     console.error(error);
+//   });
+// }
